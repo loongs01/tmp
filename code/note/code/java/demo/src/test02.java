@@ -1,0 +1,34 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class test02 {
+    public static void main(String[] args) {
+        // 定义包含所有sub_event_name的列表
+        List<String> subEventNames = Arrays.asList(
+                "page_show(福利页弹出)", "rule_click(签到规则点击)", "login_reward_click(登录奖励栏点击)",
+                "allow_tracking(允许追踪按钮点击)", "tracking_claim(允许追踪成功点击获得奖励)", "check_ad_extra_click(点击签到额外广告按钮)",
+                "open_kiss(点击kiss引流任务按钮)", "open_kiss_claim(完成kiss引流任务领取bonus，领取成功上报)", "bind_email",
+                "follow_whatsapp_go(点击whatsapp任务的Go)", "follow_whatsapp_claim(完成whatsapp任务领取bonus，领取成功上报)",
+                "tapjoy_task_go(点击tapjoy积分墙任务的Go)", "balance_click（点击钱包余额）", "h5ad_task_go (点击h5广告任务的Go)",
+                "watch_dramas_go（点击看剧任务go）", "watch_dramas_claim(领取看剧任务节点奖励)", "follow_task_go(点击关注任务go)",
+                "follow_task_claim（领取关注任务奖励）", "topup_task_go（点击充值任务go）", "topup_task_claim（充领取值任务奖励）",
+                "collect_task_go（点击收藏任务go）", "collect_task_claim（领取收藏任务奖励）", "push_task_go(点击push任务)",
+                "push_task_claim(领取push任务奖励)"
+        );
+        System.out.println(subEventNames);
+        // 将列表中的元素连接成一个字符串，用于SQL查询中的IN子句 ','
+        String inClause = String.join("', '", subEventNames);
+        System.out.println(inClause);
+        inClause = inClause.replaceAll("[\\u4e00-\\u9fa5()]", "");
+        inClause = '\'' + inClause + "'"; // 在字符串的两端添加单引号:'\'',字符串自动装箱，并使用字符包装类的toString()把字符转换为字符串类型
+
+        // 构建SQL查询
+        String sqlQuery = "SELECT COUNT(DISTINCT x.uuid) " +
+                "FROM your_table_name x " + // 请将your_table_name替换为实际的表名
+                "WHERE x.sub_event_name IN (" + inClause + ")";
+
+        // 输出SQL查询
+        System.out.println(sqlQuery);
+    }
+}

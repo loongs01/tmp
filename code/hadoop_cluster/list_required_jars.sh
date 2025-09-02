@@ -1,0 +1,100 @@
+#!/bin/bash
+
+# 列出所有需要复制的JAR包
+echo "=== 需要复制的JAR包列表 ==="
+
+SPARK_HOME="/opt/datasophon/spark-3.1.3"
+
+echo "1. Spark核心JAR包:"
+echo "   - spark-core_*.jar"
+echo "   - spark-sql_*.jar"
+echo "   - spark-hive_*.jar"
+echo "   - spark-network-common_*.jar"
+echo "   - spark-unsafe_*.jar"
+echo "   - spark-launcher_*.jar"
+echo "   - spark-catalyst_*.jar"
+
+echo ""
+echo "2. Hadoop相关JAR包:"
+echo "   - hadoop-client_*.jar"
+echo "   - hadoop-yarn-api_*.jar"
+echo "   - hadoop-yarn-client_*.jar"
+echo "   - hadoop-yarn-common_*.jar"
+
+echo ""
+echo "3. 序列化相关JAR包:"
+echo "   - kryo_*.jar"
+echo "   - minlog_*.jar"
+echo "   - reflectasm_*.jar"
+echo "   - objenesis_*.jar"
+
+echo ""
+echo "4. 需要移除的冲突JAR包:"
+echo "   - slf4j-log4j12-*.jar"
+echo "   - log4j-slf4j-impl-*.jar"
+
+echo ""
+echo "5. 需要添加的统一SLF4J绑定:"
+echo "   - slf4j-reload4j-1.7.36.jar"
+
+echo ""
+echo "=== 实际文件列表 ==="
+echo "在 $SPARK_HOME/jars/ 目录中查找:"
+
+# 查找实际的JAR包文件
+echo "Spark核心JAR包:"
+ls $SPARK_HOME/jars/spark-core_*.jar 2>/dev/null || echo "  未找到 spark-core_*.jar"
+ls $SPARK_HOME/jars/spark-sql_*.jar 2>/dev/null || echo "  未找到 spark-sql_*.jar"
+ls $SPARK_HOME/jars/spark-hive_*.jar 2>/dev/null || echo "  未找到 spark-hive_*.jar"
+ls $SPARK_HOME/jars/spark-network-common_*.jar 2>/dev/null || echo "  未找到 spark-network-common_*.jar"
+ls $SPARK_HOME/jars/spark-unsafe_*.jar 2>/dev/null || echo "  未找到 spark-unsafe_*.jar"
+ls $SPARK_HOME/jars/spark-launcher_*.jar 2>/dev/null || echo "  未找到 spark-launcher_*.jar"
+ls $SPARK_HOME/jars/spark-catalyst_*.jar 2>/dev/null || echo "  未找到 spark-catalyst_*.jar"
+
+echo ""
+echo "Hadoop相关JAR包:"
+ls $SPARK_HOME/jars/hadoop-client_*.jar 2>/dev/null || echo "  未找到 hadoop-client_*.jar"
+ls $SPARK_HOME/jars/hadoop-yarn-api_*.jar 2>/dev/null || echo "  未找到 hadoop-yarn-api_*.jar"
+ls $SPARK_HOME/jars/hadoop-yarn-client_*.jar 2>/dev/null || echo "  未找到 hadoop-yarn-client_*.jar"
+ls $SPARK_HOME/jars/hadoop-yarn-common_*.jar 2>/dev/null || echo "  未找到 hadoop-yarn-common_*.jar"
+
+echo ""
+echo "序列化相关JAR包:"
+ls $SPARK_HOME/jars/kryo_*.jar 2>/dev/null || echo "  未找到 kryo_*.jar"
+ls $SPARK_HOME/jars/minlog_*.jar 2>/dev/null || echo "  未找到 minlog_*.jar"
+ls $SPARK_HOME/jars/reflectasm_*.jar 2>/dev/null || echo "  未找到 reflectasm_*.jar"
+ls $SPARK_HOME/jars/objenesis_*.jar 2>/dev/null || echo "  未找到 objenesis_*.jar"
+
+echo ""
+echo "=== 复制命令示例 ==="
+echo "# 复制Spark核心JAR包"
+echo "cp \$SPARK_HOME/jars/spark-core_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/spark-sql_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/spark-hive_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/spark-network-common_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/spark-unsafe_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/spark-launcher_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/spark-catalyst_*.jar \$HIVE_HOME/lib/"
+
+echo ""
+echo "# 复制Hadoop相关JAR包"
+echo "cp \$SPARK_HOME/jars/hadoop-client_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/hadoop-yarn-api_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/hadoop-yarn-client_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/hadoop-yarn-common_*.jar \$HIVE_HOME/lib/"
+
+echo ""
+echo "# 复制序列化相关JAR包"
+echo "cp \$SPARK_HOME/jars/kryo_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/minlog_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/reflectasm_*.jar \$HIVE_HOME/lib/"
+echo "cp \$SPARK_HOME/jars/objenesis_*.jar \$HIVE_HOME/lib/"
+
+echo ""
+echo "# 移除冲突的SLF4J绑定"
+echo "rm -f \$HIVE_HOME/lib/slf4j-log4j12-*.jar"
+echo "rm -f \$HIVE_HOME/lib/log4j-slf4j-impl-*.jar"
+
+echo ""
+echo "# 复制统一的SLF4J绑定"
+echo "cp /opt/datasophon/hadoop-3.3.3/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar \$HIVE_HOME/lib/" 

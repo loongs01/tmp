@@ -1,0 +1,90 @@
+ select 
+ case
+                                when sub_event_name='play_end' and t1._id is not null and event_duration<10000 then event_duration
+                                when sub_event_name='play_end' and t1._id is not null and event_duration>10000 then chap_total_duration
+                                when sub_event_name='play_end' and t1._id is null and event_duration>chap_total_duration then chap_total_duration
+                                else event_duration end
+ ,t2.*,t.*,t1.*
+   
+   from (select 
+       app_user_id as uuid
+       ,cast(nvl(json_extract(properties,'$._story_id'),'') as varchar) as story_id -- 书籍id
+      ,cast(nvl(json_extract(properties,'$._scene_name'),'') as varchar) as scene_name -- 当前场景名称(业务自定义）
+        ,cast(nvl(json_extract(properties,'$._page_name'),'') as varchar) as page_name -- 当前页面名称(业务自定义）
+        ,cast(nvl(json_extract(properties,'$._pre_page_name'),'') as varchar) as pre_page_name -- pre_page_name
+        ,cast(nvl(json_extract(properties,'$.shelf_id'),'') as varchar) as shelf_id -- 书架id
+        ,app_lang as language_id -- 游戏语言id  语言表暂时无法处理,数据格式混乱,eg：fr-US 无法确定是英语还是法语
+        ,cast(nvl(json_extract(properties,'$.t_book_id'),'') as varchar) as t_book_id -- 书籍id（快捷支付上报，不同语言也一致）
+        ,cast(nvl(json_extract(properties,'$._chap_id'),'') as varchar) as chap_id -- 章节id
+        ,cast(nvl(json_extract(properties,'$._chap_order_id'),0) as int) as chap_order_id -- 章节序列id
+        ,cast(nvl(json_extract(properties,'$._event_duration'),0) as int) as event_duration -- play_end时统计视频实际播放时间(单位：秒)
+             ,nvl(cast(json_extract(properties,'$.chap_total_duration') as bigint),0) as chap_total_duration -- 当前章节总时长(单位：秒)
+             ,sub_event_name
+    from chapters_log.public_event_data
+    where analysis_date='${TX_DATE}' and app_id='cm1009' 
+        -- and app_channel_id in('AVG20001','AVG10003','1','2','6','11','12','13','14','15','16') 
+        and os_type in ('1','2','3','4')
+        and event_name='m_play_event'
+--        and country_id<>'50'
+--         and id not in (select id from  dwd_data.dwd_t02_reelshort_play_event_di where etl_date='${TX_DATE}' )
+        and cast(nvl(json_extract(properties,'$._story_id'),'') as varchar)= '6655497199c31f120e085262'
+     ) as t
+      left join (select 
+                       t1._id
+                       ,t1.t_book_id
+                       ,t1.book_id
+                       ,t1.display_tag
+                       ,t1.lang
+                       ,t1.status
+                       ,updated_at
+                       ,FROM_UNIXTIME(cast(t1.publish_at as int))  as publish_at -- 书籍上架时间
+                       ,row_number() over(partition by t1._id,t1.t_book_id,t1.book_id,t1.display_tag,t1.lang order by updated_at desc ) as rn
+--                        ,t1.*
+                 from chapters_log.dts_project_v_new_book as t1
+--                 where t1._id='66a73e9e0a60c420fb0bc30a'
+                 ) as t1
+      on t1._id=t.story_id  and rn=1      
+      left join (select
+                     distinct uuid
+                       ,search_story_ids -- 搜索结果的书籍列表
+                       ,language_id
+                       ,t2.clicked_story_id
+                 from dwd_data.dwd_t02_reelshort_search_stat_di as t2
+                 where t2.etl_date ='${TX_DATE}' 
+                 and t2.action='story_click' 
+                  and t2.search_story_ids not in ('','[]')
+                  and t2.search_story_ids like  CONCAT('%',t2.clicked_story_id,'%') 
+                  
+--                 and  t2.uuid='998916669'
+--                 and t2.language_id='6'
+                 
+                )as t2
+      on t2.uuid=t.uuid 
+       and t2.language_id= case
+         when t.language_id like 'zh%' or t.language_id in ('cn')  then 99
+         when t.language_id like 'hi%'  then 20
+         when t.language_id like 'fil%'  then 19             
+         when t.language_id like 'da%'  then 16
+         when t.language_id like 'fi%'  then 15
+         when t.language_id like 'nb%' or t.language_id like 'no%'  or t.language_id like 'nn%' then 14
+         when t.language_id like 'sv%'  then 13
+         when t.language_id like 'nl%'  then 12
+         when t.language_id like 'tr%'  then 11
+         when t.language_id like 'pl%'  then 10
+         when t.language_id like 'ja%'  then 9
+         when t.language_id like 'it%'  then 8
+         when t.language_id like 'ko%'  then 7
+         when t.language_id like 'pt%' or t.language_id='brazil' then 6
+         when t.language_id like 'ru%'  then 5
+         when t.language_id like 'fr%'  then 4
+         when t.language_id like 'de%'  then 3
+         when t.language_id like 'es%'  then 2
+         when t.language_id like 'en%' and t.language_id<>'en-ID' then 1
+         when t.language_id like 'ar%'  then 17
+         when t.language_id in ('en-ID','in') or t.language_id like 'id%'  then 18
+         when t.language_id like 'th%' then 98 
+         else t.language_id
+    end 
+        and t2.clicked_story_id=t.story_id
+--       where  t.uuid='998916575'
+--        t2.uuid is not null

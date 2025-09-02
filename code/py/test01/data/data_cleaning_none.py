@@ -1,0 +1,458 @@
+import os
+import json
+import re
+import configparser
+import pymysql
+import requests
+from datetime import datetime, timedelta
+from collections import defaultdict
+from typing import Dict, Any, Optional, List, Set
+
+from transformers import pipeline
+
+# 初始化配置
+try:
+    sentiment_pipeline = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
+except:
+    sentiment_pipeline = None
+
+# 配置管理
+config = configparser.ConfigParser()
+config_file_path = os.path.join(os.path.dirname(os.getcwd()), 'init', 'config.ini')
+config.read(config_file_path)
+
+DEEPSEEK_API_KEY = config.get('deepseek', 'deepseek.api_key', fallback="")
+DEEPSEEK_ENDPOINT = config.get('deepseek', 'deepseek.endpoint', fallback="https://api.deepseek.com/v1/chat/completions")
+DEEPSEEK_MODEL = config.get('deepseek', 'deepseek.model', fallback="deepseek-chat")
+
+# MySQL数据库配置
+db_config = {
+    'host': '192.168.10.105',
+    'user': 'licz.1',
+    'password': 'GjFmT5NEiE',
+    'database': 'sq_liufengdb',
+    'charset': 'utf8mb4'
+}
+
+
+class UserProfileExtractor:
+    def __init__(self, api_key: str = None, endpoint: str = None, model: str = None):
+        """初始化用户画像提取器"""
+        self.api_key = api_key or DEEPSEEK_API_KEY
+        self.endpoint = endpoint or DEEPSEEK_ENDPOINT
+        self.model = model or DEEPSEEK_MODEL
+
+        self.headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        self.api_url = self.endpoint
+
+    def _construct_prompt(self, query: str, response: str) -> str:
+        """构建全面的提示词"""
+        return f"""
+        你是一个专业的用户画像分析师，擅长从对话中提取详细的个人信息。
+        请从以下聊天记录中提取以下信息，如果某个信息不存在，请返回None。
+        格式为JSON对象：
+        {{
+            "饮食偏好": {{
+                "favorite_foods": "逗号分隔的食物列表",
+                "dietary_restrictions": "逗号分隔的饮食限制"
+            }},
+            "颜色偏好": {{
+                "favorite_colors": "逗号分隔的颜色列表"
+            }},
+            "兴趣爱好": {{
+                "hobbies": "逗号分隔的爱好列表",
+                "favorite_games": "逗号分隔的游戏列表",
+                "favorite_books": "逗号分隔的书籍列表",
+                "favorite_movies": "逗号分隔的电影列表"
+            }},
+            "个人发展": {{
+                "achievements": "用户成就描述",
+                "dreams": "用户梦想描述",
+                "ideals": "用户理想描述",
+                "plans": "用户计划描述",
+                "goals": "用户目标描述"
+            }},
+            "想法与灵感": {{
+                "thoughts": "用户想法描述",
+                "inspirations": "用户灵感描述"
+            }},
+            "记忆": {{
+                "family_memories": "家人记忆描述",
+                "friend_memories": "朋友记忆描述",
+                "colleague_memories": "同事记忆描述"
+            }},
+            "旅行信息": {{
+                "visited_places": "逗号分隔的已访问地点列表",
+                "desired_travel_places": "逗号分隔的想去地点列表"
+            }}
+        }}
+
+        聊天记录：
+        用户询问: {query}
+        回复内容: {response}
+        """
+
+    def _call_deepseek_api(self, prompt: str) -> Dict[str, Any]:
+        """调用DeepSeek API"""
+        payload = {
+            "model": self.model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.3,
+            "max_tokens": 1000
+        }
+
+        try:
+            response = requests.post(self.api_url, headers=self.headers, data=json.dumps(payload))
+            response.raise_for_status()
+            print("API Response Status Code:", response.status_code)
+            print("API Response Text:", response.text)
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"API调用失败: {e}")
+            return {"error": str(e)}
+
+    def _parse_api_response(self, api_response: Dict[str, Any]) -> Dict[str, Any]:
+        """解析API响应"""
+        default_response = {
+            "饮食偏好": {"favorite_foods": None, "dietary_restrictions": None},
+            "颜色偏好": {"favorite_colors": None},
+            "兴趣爱好": {
+                "hobbies": None,
+                "favorite_games": None,
+                "favorite_books": None,
+                "favorite_movies": None
+            },
+            "个人发展": {
+                "achievements": None,
+                "dreams": None,
+                "ideals": None,
+                "plans": None,
+                "goals": None
+            },
+            "想法与灵感": {"thoughts": None, "inspirations": None},
+            "记忆": {
+                "family_memories": None,
+                "friend_memories": None,
+                "colleague_memories": None
+            },
+            "旅行信息": {"visited_places": None, "desired_travel_places": None}
+        }
+
+        try:
+            if "error" in api_response:
+                print(f"API返回错误: {api_response['error']}")
+                return default_response
+
+            print("API Response Content:", api_response)
+            content = api_response["choices"][0]["message"]["content"]
+
+            # 提取JSON内容（去除```json和```标记）
+            json_match = re.search(r'```json\s*(.*?)\s*```', content, re.DOTALL)
+            if json_match:
+                json_str = json_match.group(1)
+                parsed_data = json.loads(json_str)
+            else:
+                print("无法从响应中提取JSON内容")
+                return default_response
+
+            result = default_response.copy()
+            for category in parsed_data:
+                if category in result:
+                    if isinstance(result[category], dict) and isinstance(parsed_data.get(category), dict):
+                        for key in parsed_data[category]:
+                            if key in result[category]:
+                                result[category][key] = parsed_data[category].get(key)
+                    else:
+                        result[category] = parsed_data.get(category)
+
+            return result
+        except (KeyError, json.JSONDecodeError, IndexError, AttributeError, re.error) as e:
+            print(f"解析响应失败: {e}")
+            return default_response
+
+    def analyze_interaction(self, query: str, response: str) -> Dict[str, Any]:
+        """分析单条交互记录"""
+        prompt = self._construct_prompt(query, response)
+        api_response = self._call_deepseek_api(prompt)
+        return self._parse_api_response(api_response)
+
+
+def get_db_connection():
+    """获取MySQL数据库连接"""
+    return pymysql.connect(**db_config)
+
+
+def extract_places(text: str) -> Set[str]:
+    """从文本中提取地点信息"""
+    places = set()
+    place_keywords = ['日本', '泰国', '意大利', '法国', '美国', '中国', '北京', '上海']
+    for kw in place_keywords:
+        if kw in text:
+            places.add(kw)
+    return places
+
+
+def extract_colors(text: str) -> Set[str]:
+    """从文本中提取颜色信息"""
+    colors = set()
+    color_keywords = ['红色', '蓝色', '绿色', '黄色', '黑色', '白色', '紫色']
+    for kw in color_keywords:
+        if kw in text:
+            colors.add(kw)
+    return colors
+
+
+def analyze_interactions(user_id: str, extractor: UserProfileExtractor) -> Optional[Dict[str, Any]]:
+    """分析用户交互数据并生成画像"""
+    conn = get_db_connection()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    # 1. 获取用户基本信息
+    cursor.execute("""
+                   SELECT DISTINCT user_id, user_name
+                   FROM ods_user_interaction_di
+                   WHERE user_id = %s
+                   """, (user_id,))
+    user_info = cursor.fetchone()
+
+    if not user_info:
+        return None
+
+    # 初始化用户画像
+    profile = {
+        'user_id': user_id,
+        'stat_date': (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d'),
+        'user_name': user_info['user_name'],
+        'favorite_foods': None,
+        'dietary_restrictions': None,
+        'favorite_colors': None,
+        'hobbies': None,
+        'favorite_games': None,
+        'favorite_books': None,
+        'favorite_movies': None,
+        'achievements': None,
+        'dreams': None,
+        'ideals': None,
+        'plans': None,
+        'goals': None,
+        'thoughts': None,
+        'inspirations': None,
+        'family_memories': None,
+        'friend_memories': None,
+        'colleague_memories': None,
+        'visited_places': None,
+        'desired_travel_places': None
+    }
+
+    # 查询用户所有交互记录
+    cursor.execute("""
+                   SELECT query_text, response_text, interaction_time
+                   FROM ods_user_interaction_di
+                   WHERE user_id = %s
+                   ORDER BY interaction_time
+                   """, (user_id,))
+
+    interactions = cursor.fetchall()
+
+    for interaction in interactions:
+        query = interaction['query_text']
+        response = interaction['response_text']
+
+        # 使用DeepSeek分析交互记录
+        analysis = extractor.analyze_interaction(query, response)
+
+        # 合并分析结果到用户画像
+        profile['favorite_foods'] = merge_values(profile['favorite_foods'], analysis['饮食偏好']['favorite_foods'])
+        profile['dietary_restrictions'] = merge_values(profile['dietary_restrictions'],
+                                                       analysis['饮食偏好']['dietary_restrictions'])
+        profile['favorite_colors'] = merge_values(profile['favorite_colors'], analysis['颜色偏好']['favorite_colors'])
+        profile['hobbies'] = merge_values(profile['hobbies'], analysis['兴趣爱好']['hobbies'])
+        profile['favorite_games'] = merge_values(profile['favorite_games'], analysis['兴趣爱好']['favorite_games'])
+        profile['favorite_books'] = merge_values(profile['favorite_books'], analysis['兴趣爱好']['favorite_books'])
+        profile['favorite_movies'] = merge_values(profile['favorite_movies'], analysis['兴趣爱好']['favorite_movies'])
+        profile['achievements'] = merge_values(profile['achievements'], analysis['个人发展']['achievements'])
+        profile['dreams'] = merge_values(profile['dreams'], analysis['个人发展']['dreams'])
+        profile['ideals'] = merge_values(profile['ideals'], analysis['个人发展']['ideals'])
+        profile['plans'] = merge_values(profile['plans'], analysis['个人发展']['plans'])
+        profile['goals'] = merge_values(profile['goals'], analysis['个人发展']['goals'])
+        profile['thoughts'] = merge_values(profile['thoughts'], analysis['想法与灵感']['thoughts'])
+        profile['inspirations'] = merge_values(profile['inspirations'], analysis['想法与灵感']['inspirations'])
+        profile['family_memories'] = merge_values(profile['family_memories'], analysis['记忆']['family_memories'])
+        profile['friend_memories'] = merge_values(profile['friend_memories'], analysis['记忆']['friend_memories'])
+        profile['colleague_memories'] = merge_values(profile['colleague_memories'],
+                                                     analysis['记忆']['colleague_memories'])
+
+        # 特殊处理地点信息
+        if analysis['旅行信息']['visited_places']:
+            profile['visited_places'] = merge_values(profile['visited_places'], analysis['旅行信息']['visited_places'])
+        if analysis['旅行信息']['desired_travel_places']:
+            profile['desired_travel_places'] = merge_values(profile['desired_travel_places'],
+                                                            analysis['旅行信息']['desired_travel_places'])
+
+    # 关闭游标和连接
+    cursor.close()
+    conn.close()
+
+    return profile
+
+
+def merge_values(current: Optional[str], new: Optional[str], separator: str = ', ') -> Optional[str]:
+    """合并两个值，处理None情况"""
+    if not current and not new:
+        return None
+    if not current:
+        return new
+    if not new:
+        return current
+    return f"{current}{separator}{new}"
+
+
+def save_profile_to_dwd(profile: Dict[str, Any]) -> None:
+    """将用户画像保存到DWD表"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # 检查是否已存在该用户当天的记录
+    cursor.execute("""
+                   SELECT 1
+                   FROM dwd_user_comprehensive_profile_di_0625
+                   WHERE user_id = %s
+                     AND stat_date = %s
+                   """, (profile['user_id'], profile['stat_date']))
+
+    if cursor.fetchone():
+        # 更新现有记录
+        sql = """
+              UPDATE dwd_user_comprehensive_profile_di_0625
+              SET user_name             = %s,
+                  favorite_foods        = %s,
+                  dietary_restrictions  = %s,
+                  favorite_colors       = %s,
+                  hobbies               = %s,
+                  favorite_games        = %s,
+                  favorite_books        = %s,
+                  favorite_movies       = %s,
+                  achievements          = %s,
+                  dreams                = %s,
+                  ideals                = %s,
+                  plans                 = %s,
+                  goals                 = %s,
+                  thoughts              = %s,
+                  inspirations          = %s,
+                  family_memories       = %s,
+                  friend_memories       = %s,
+                  colleague_memories    = %s,
+                  visited_places        = %s,
+                  desired_travel_places = %s,
+                  updated_time          = NOW()
+              WHERE user_id = %s
+                AND stat_date = %s \
+              """
+        params = (
+            profile['user_name'],
+            profile['favorite_foods'],
+            profile['dietary_restrictions'],
+            profile['favorite_colors'],
+            profile['hobbies'],
+            profile['favorite_games'],
+            profile['favorite_books'],
+            profile['favorite_movies'],
+            profile['achievements'],
+            profile['dreams'],
+            profile['ideals'],
+            profile['plans'],
+            profile['goals'],
+            profile['thoughts'],
+            profile['inspirations'],
+            profile['family_memories'],
+            profile['friend_memories'],
+            profile['colleague_memories'],
+            profile['visited_places'],
+            profile['desired_travel_places'],
+            profile['user_id'],
+            profile['stat_date']
+        )
+    else:
+        # 插入新记录
+        sql = """
+              INSERT INTO dwd_user_comprehensive_profile_di_0625 (user_id, stat_date, user_name,
+                                                                  favorite_foods, dietary_restrictions, favorite_colors,
+                                                                  hobbies, favorite_games, favorite_books,
+                                                                  favorite_movies,
+                                                                  achievements, dreams, ideals, plans, goals,
+                                                                  thoughts, inspirations,
+                                                                  family_memories, friend_memories, colleague_memories,
+                                                                  visited_places, desired_travel_places,
+                                                                  created_time, updated_time)
+              VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                      %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                      %s, %s, NOW(), NOW()) \
+              """
+        params = (
+            profile['user_id'],
+            profile['stat_date'],
+            profile['user_name'],
+            profile['favorite_foods'],
+            profile['dietary_restrictions'],
+            profile['favorite_colors'],
+            profile['hobbies'],
+            profile['favorite_games'],
+            profile['favorite_books'],
+            profile['favorite_movies'],
+            profile['achievements'],
+            profile['dreams'],
+            profile['ideals'],
+            profile['plans'],
+            profile['goals'],
+            profile['thoughts'],
+            profile['inspirations'],
+            profile['family_memories'],
+            profile['friend_memories'],
+            profile['colleague_memories'],
+            profile['visited_places'],
+            profile['desired_travel_places']
+        )
+
+    try:
+        cursor.execute(sql, params)
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        print(f"处理用户 {profile['user_id']} 时出错: {str(e)}")
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def process_all_users() -> None:
+    """处理所有有交互记录的用户"""
+    # 初始化DeepSeek提取器
+    extractor = UserProfileExtractor()
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # 获取所有有交互记录的用户ID
+    cursor.execute("""
+                   SELECT DISTINCT user_id
+                   FROM ods_user_interaction_di
+                   """)
+
+    user_ids = [row[0] for row in cursor.fetchall()]
+    cursor.close()
+    conn.close()
+
+    print(f"找到 {len(user_ids)} 个需要处理的用户")
+
+    for user_id in user_ids:
+        profile = analyze_interactions(user_id, extractor)
+        if profile:
+            save_profile_to_dwd(profile)
+
+
+if __name__ == "__main__":
+    process_all_users()
+    print("用户画像数据生成完成")

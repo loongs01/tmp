@@ -1,0 +1,147 @@
+-- 总收入增加shelf_id
+select 
+-- REGEXP_SUBSTR(cast(nvl(json_extract(properties, '$.play_trace_id'),'') as varchar),'#(.*?)#',1,1,NULL,1)
+split_part(json_extract(properties, '$.play_trace_id'),'#',2)
+,SUBSTRING_INDEX(SUBSTRING_INDEX(cast(nvl(json_extract(properties, '$.play_trace_id'),'') as varchar),'#',2 ),'#',-1)as play_trace_id
+,SUBSTRING_INDEX(cast(nvl(json_extract(properties, '$.play_trace_id'),'') as varchar),'#',2 )
+,cast(nvl(json_extract(properties, '$.play_trace_id'),'') as varchar) as play_trace_id
+,properties
+,t.*
+-- cast(nvl(json_extract(properties,'$._shelf_id'),'') as varchar) as shelf_id -- 书架id
+from chapters_log.public_event_data as t
+where analysis_date='${TX_DATE}'
+      and event_name='m_pay_event'
+      and cast(nvl(json_extract(properties, '$.play_trace_id'),'') as varchar)!=''
+--       and (cast(nvl(json_extract(properties,'$.shelf_id'),'') as varchar)!=''
+--       or properties like '%shelf%')  play_trace_id
+limit 10
+;
+
+
+select *
+-- cast(nvl(json_extract(properties,'$._shelf_id'),'') as varchar) as shelf_id -- 书架id
+from chapters_log.public_event_data
+where analysis_date='${TX_DATE}'
+--         and event_name='m_pay_event'
+--         and cast(nvl(json_extract(properties,'$.shelf_id'),'') as varchar)!=''
+      and properties like '%shelf%'
+
+
+ui_style=1  '基础布局'
+ui_style=2  '基础布局排行'
+ui_style=3  '继续观看'
+ui_style=4  '继续观看'
+ui_style=5  '推荐布局'
+ui_style=6  '预告书架'
+ui_style=7  '即将上架'
+ui_style=8  '限时免费布局'
+ui_style=9  'APP引流'
+ui_style=10 '排行榜'
+ui_style=11 '自动播放'
+ui_style=12 '活动横幅布局'
+ui_style=13 '滚动布局'
+ui_style=15 '三列布局'
+ui_style=16 '两列布局'
+ui_style=17 '中横幅'
+ui_style=18 '九宫格瀑布流'
+ui_style=19 '双列瀑布流'
+ui_style=20 'Hot'
+
+
+
+shelf_id        varchar COMMENT   页面key
+shelf_name_cn   varchar COMMENT   页面中文
+created_at      timestamp COMMENT 创建时间
+updated_at      timestamp COMMENT 更新时间
+
+
+
+
+
+
+-- 202501
+31
++31.68
++13.78
++13.99
++30.88
++30.69
++100
++1235
++169
++12
++19
++23.61
++45
++10
++199
++34.67
++31.29
++50
++43.84
++27
++39.85
++54.14
++24
++36.66
++30
++34.87
++266
++18
++29.69
++19
++10
++37.94
++19
++1267.5
++16
++32.28
++100
++20
++28.3
++300
++104.73
++19
++13.99
++31.49
++20
++23.92
++10
++19
++10
++19
++13.99
++21.12
++26
++26.5
++20
++27.1
++28.1
++482.15
++100
++31.48
++28.89
++252
++10
++19
++50
++773
++35.47
++55.65
++30.09
++18
++28.29
++27.5
++22
++25.51
++191
+
++123.22
++426.18
++348.76
++268.91
++275.26
++279.47
++1655.57
++290.49
++1100.8

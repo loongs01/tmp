@@ -1,0 +1,18 @@
+全局参数
+局部参数
+ 
+Task(0): dwd_t05_reelshort_order_detail_di
+Task(1): dwd_t04_reelshort_app_download_event_di
+Task(2): dwd_t02_reelshort_push_stat_di
+Task(3): dwd_t01_reelshort_bindaccount_di
+Task(4): dwd_t04_reelshort_err_log_di
+Task(5): dwd_t01_reelshort_dlink_event_di
+Task(6): dwd_t04_reelshort_event_filter_di
+Task(7): dwd_t04_reelshort_option_clip_page_click_di
+Task(8): dwd_t02_reelshort_search_stat_di
+Task(9): dwd_t06_reelshort_user_currency_get_or_expend_di
+Task(10): dwd_t05_reelshort_transaction_detail_di
+Task(11): dwd_t01_reelshort_api_res_time_stat_di
+Task(12): dwd_t01_reelshort_device_start_di
+Task(13): dwd_t01_reelshort_w2a_dlink_di
+Task(14): dwd_t01_reelshort_device_info
