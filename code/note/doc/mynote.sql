@@ -303,7 +303,14 @@ git merge --abort   # 取消当前合并
     git config --global http.proxy "http://127.0.0.1:7890"
     git config --global https.proxy "http://127.0.0.1:7890"
 
-
+-- 1. 暂存所有更改（包括新增、修改、删除的文件）
+git add -A
+或更明确的写法：
+git add --all
+-A 或 --all 会暂存：
+新增的文件（untracked）
+修改的文件（modified）
+删除的文件（deleted）
 
 
 -- linux 202507

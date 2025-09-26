@@ -122,3 +122,4 @@ mvn exec:java -Dexec.mainClass="org.example.HdfsFlinkExample"
 2. 确保网络连通性和防火墙设置
 3. 建议先使用 `HdfsTest` 类测试基本连接
 4. 成功连接后再在 Flink 程序中使用 HDFS
+

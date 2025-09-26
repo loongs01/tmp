@@ -1,4 +1,6 @@
-package org.example;
+package org.example.mapreduce;
+
+import util.HdfsUtils;
 
 public class HdfsTest {
 
@@ -8,7 +10,6 @@ public class HdfsTest {
 
             // 测试连接
             HdfsUtils.testConnection();
-
             // 如果你有特定的文件路径，可以测试读取
             // 例如: HdfsUtils.readFile("/user/test/sample.txt");
 
@@ -18,6 +19,7 @@ public class HdfsTest {
 //            HdfsUtils.readFileLimit("/user/hive/warehouse/ads.db/dim_user_info_di/dt=20250726/part-m-00000");
 //            HdfsUtils.readFileLimit("/user/hive/warehouse/ods.db/ods_disease_info_di/output.txt", 3);
             HdfsUtils.readFileLimit("/user/hive/warehouse/ads.db/dim_user_info_di/dt=20250726/part-m-00000", 3);
+            HdfsUtils.readFileToList("/user/hive/warehouse/ods.db/c_food_code_export/20250913/c_food_code.txt");
 
 
             System.out.println("HDFS 连接测试完成。");

@@ -19,12 +19,14 @@ public class HdfsFlinkExample {
         setupHadoopConfiguration();
 
         // 从 HDFS 读取文件
-        String hdfsPath = "hdfs://nameservice1/user/test/input.txt";
+        String hdfsPath = "hdfs://nameservice1/user/hive/warehouse/ads.db/ads_user_profile_json_da/dt=20250726/part-m-00000";
 
         // 创建文件源
         FileSource<String> source = FileSource
                 .forRecordStreamFormat(new TextLineInputFormat(), new Path(hdfsPath))
                 .build();
+
+        System.out.println("Flink Path 的文件系统: " + new Path(hdfsPath).toUri());
 
         // 创建数据流
         DataStream<String> stream = env.fromSource(source,
@@ -65,6 +67,7 @@ public class HdfsFlinkExample {
 
         // 设置全局 Hadoop 配置
         org.apache.hadoop.fs.FileSystem.setDefaultUri(hadoopConf, "hdfs://nameservice1");
+        System.out.println("默认文件系统: " + hadoopConf.get("fs.defaultFS"));
 
         try {
             // 测试连接
@@ -76,3 +79,4 @@ public class HdfsFlinkExample {
         }
     }
 }
+

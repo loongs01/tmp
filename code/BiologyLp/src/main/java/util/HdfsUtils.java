@@ -1,15 +1,17 @@
-package org.example;
+package util;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.io.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HdfsUtils {
 
@@ -116,6 +118,34 @@ public class HdfsUtils {
             }
 
             IOUtils.closeStream(reader);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ArrayList<String> readFileToList(String filePath) throws IOException {
+        Path path = new Path(filePath);
+
+        try {
+            if (!fs.exists(path)) {
+                System.out.println("文件不存在: " + filePath);
+                return null;
+            }
+
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(fs.open(path), "UTF-8"));
+
+            String line;
+            ArrayList<String> lines = new ArrayList<>();
+            System.out.println("读取文件 " + filePath + " 的内容:");
+            reader.readLine(); // 跳过第一行
+            while ((line = reader.readLine()) != null) {
+                lines.add(line.split("\t").length > 1 ? line.split("\t")[2] : "");
+            }
+//            System.out.println(lines.get(0));
+
+            IOUtils.closeStream(reader);
+            return lines;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
