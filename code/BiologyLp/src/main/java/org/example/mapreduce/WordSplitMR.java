@@ -341,6 +341,7 @@ public class WordSplitMR {
 
                     // 将数据添加到 dt 分区的值集合中
                     java.util.LinkedHashSet<String> set = dtToValues.computeIfAbsent(dt, k -> new java.util.LinkedHashSet<>());
+//                    dtToValues.get(dt);  // 直接获取 test
                     set.add(values);
 
                     // 达到批量大小时执行插入
@@ -394,7 +395,7 @@ public class WordSplitMR {
             if (tableName == null || tableName.isEmpty()) return 0;
 
             // 仅第一次写入该分区时删除分区
-           /* if (overwritePartition && !clearedPartitions.contains(dt)) {
+            if (overwritePartition && !clearedPartitions.contains(dt)) {
                 try {
                     // 删除分区前检查是否存在
                     String checkPartitionSql = String.format(
@@ -416,7 +417,7 @@ public class WordSplitMR {
                 } catch (SQLException dropEx) {
                     System.err.println("Failed to drop partition dt=" + dt + ": " + dropEx.getMessage());
                 }
-            }*/
+            }
 
             // 批量插入数据
             int count = 0;

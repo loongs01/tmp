@@ -254,7 +254,19 @@ git remote update origin --prune
 -- add
 git add -A ./  → 添加当前目录及其子目录的 所有变更（包括删除的文件）。
 git add ./     → 仅添加当前目录的新增和修改的文件（不包含删除的文件）。
+
 git add -A    → 添加整个仓库的所有变更（包括删除的文件）。
+
+-- 在 Git 中，如果你执行了 git add -A（或 git add --all）但想要撤销这些暂存的更改，可以使用以下命令：
+1. 撤销所有暂存的更改
+git reset
+或等价于：
+git reset HEAD
+2. 撤销特定文件的暂存
+如果只想取消暂存某些文件：
+git reset HEAD <file1> <file2> ...
+
+
 
 -- 查看当前分支的远程仓库 URL
 git remote -v
