@@ -395,7 +395,7 @@ public class WordSplitMR {
             if (tableName == null || tableName.isEmpty()) return 0;
 
             // 仅第一次写入该分区时删除分区
-            if (overwritePartition && !clearedPartitions.contains(dt)) {
+  /*          if (overwritePartition && !clearedPartitions.contains(dt)) {
                 try {
                     // 删除分区前检查是否存在
                     String checkPartitionSql = String.format(
@@ -417,7 +417,7 @@ public class WordSplitMR {
                 } catch (SQLException dropEx) {
                     System.err.println("Failed to drop partition dt=" + dt + ": " + dropEx.getMessage());
                 }
-            }
+            }*/
 
             // 批量插入数据
             int count = 0;
@@ -568,6 +568,7 @@ public class WordSplitMR {
 
         // 提交作业并等待完成
         boolean success = job.waitForCompletion(true);
+        System.out.println("success: " + success);
 
         if (success) {
             System.out.println("WordSplitMR job completed successfully!");

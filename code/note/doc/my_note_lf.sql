@@ -207,3 +207,19 @@ journalctl --list-boots
 查看硬件时钟	sudo hwclock --show
 查看时区	timedatectl
 修改时区 timedatectl set-timezone Asia/Shanghai
+
+
+
+-- 查看HDFS HA（High Availability）集群中NameNode的ID，可以通过以下几种方法
+方法1：通过hdfs haadmin命令列出所有NameNode
+运行以下命令查看HA配置中的NameNode ID列表：
+hdfs haadmin -getAllServiceState
+输出示例：
+
+nn1: active
+nn2: standby
+这里的 nn1 和 nn2 就是NameNode的ID。
+
+
+-- 检查DataNode状态：
+hdfs dfsadmin -report
