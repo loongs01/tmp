@@ -1,0 +1,473 @@
+一，来源表表结构
+
+CREATE TABLE `ods_pbi_view_unilumin_pci_df` (
+  `id` bigint(20) NULL COMMENT "id",
+  `pci_name` varchar(765) NULL COMMENT "pci名称",
+  `pci_code` varchar(384) NULL COMMENT "pci编码",
+  `category` varchar(765) NULL COMMENT "pci类型",
+  `del_flag` tinyint(4) NULL COMMENT "删除标识",
+  `offering_model` varchar(192) NULL COMMENT "所属Offering型号",
+  `offering_code` varchar(192) NULL COMMENT "offering编码",
+  `cip_code` varchar(192) NULL COMMENT "物料编码",
+  `unit` varchar(96) NULL COMMENT "物料单位",
+  `product_template` varchar(192) NULL COMMENT "产品模版",
+  `product_catalog_code` varchar(384) NULL COMMENT "关联产业目录编码",
+  `sale_catalog_code` varchar(384) NULL COMMENT "关联销售目录编码",
+  `relation_heavy_team` varchar(765) NULL COMMENT "重量团队",
+  `pci_short_desc` varchar(65533) NULL COMMENT "PCI短描述",
+  `business_status` varchar(48) NULL COMMENT "业务状态",
+  `system_status` varchar(48) NULL COMMENT "系统状态",
+  `official_effective_time` datetime NULL COMMENT "正式生效时间",
+  `is_customized` varchar(765) NULL COMMENT "是否定制",
+  `is_stick_logo` varchar(765) NULL COMMENT "是否贴logo",
+  `is_with_battery` varchar(765) NULL COMMENT "是否带电池",
+  `sales_status` varchar(96) NULL COMMENT "销售状态",
+  `process_selection` varchar(96) NULL COMMENT "工艺选配",
+  `led_process` varchar(48) NULL COMMENT "LED工艺",
+  `tech_related` varchar(384) NULL COMMENT "技术相关",
+  `electric_control_platform` varchar(96) NULL COMMENT "电控平台",
+  `os_platform` varchar(48) NULL COMMENT "操作系统平台",
+  `all_in_one_platform_size` varchar(48) NULL COMMENT "一体机平台尺寸",
+  `core_func_new` varchar(96) NULL COMMENT "核心功能重大新增",
+  `framework_rebuild` varchar(96) NULL COMMENT "底层架构重构",
+  `tech_stack_upgrade` varchar(96) NULL COMMENT "技术栈升级",
+  `compliance_adapt` varchar(96) NULL COMMENT "重大合规/行业标准适配",
+  `performance_breakthrough` varchar(96) NULL COMMENT "性能瓶颈突破",
+  `ui_rebuild` varchar(96) NULL COMMENT "重构操作界面",
+  `platform_related` varchar(96) NULL COMMENT "平台相关",
+  `service_level` varchar(96) NULL COMMENT "服务等级",
+  `service_scope` varchar(96) NULL COMMENT "服务范围",
+  `sla` varchar(96) NULL COMMENT "SLA",
+  `service_platform` varchar(96) NULL COMMENT "服务平台/技术/工具",
+  `engineering_design_type` varchar(192) NULL COMMENT "工程设计类型",
+  `installation_screen_type` varchar(96) NULL COMMENT "安装屏体类型",
+  `country_version` varchar(96) NULL COMMENT "国别",
+  `control_system_brand` varchar(96) NULL COMMENT "控制系统品牌",
+  `receive_card_model` varchar(192) NULL COMMENT "接收卡型号",
+  `product_maintenance` varchar(96) NULL COMMENT "产品维护",
+  `polarity_type` varchar(24) NULL COMMENT "极性类型",
+  `module_refresh_rate` varchar(48) NULL COMMENT "模组刷新率",
+  `scan_number` decimal(10, 2) NULL COMMENT "扫描数",
+  `product_length` decimal(10, 2) NULL COMMENT "产品尺寸：长（mm）",
+  `product_width` decimal(10, 2) NULL COMMENT "产品尺寸：宽（mm）",
+  `product_thickness` decimal(10, 2) NULL COMMENT "产品尺寸：厚（mm）",
+  `frame_rate` decimal(10, 2) NULL COMMENT "帧率（Hz）",
+  `pcb_layers` int(11) NULL COMMENT "PCB层数",
+  `cabinet_material` varchar(96) NULL COMMENT "箱体材质",
+  `corner_cut_design` varchar(65533) NULL COMMENT "切角设计",
+  `arc_design` varchar(765) NULL COMMENT "弧形设计",
+  `receive_card_backup` varchar(765) NULL COMMENT "接收卡备份",
+  `power_backup` varchar(765) NULL COMMENT "电源备份",
+  `power_supply_backup` varchar(765) NULL COMMENT "电力备份",
+  `china_warranty_years` varchar(24) NULL COMMENT "中国标准质保年限（年）",
+  `international_warranty_years` varchar(24) NULL COMMENT "国际标准质保年限（年）",
+  `narrow_chin` varchar(765) NULL COMMENT "窄下巴",
+  `resolution` varchar(192) NULL COMMENT "分辨率",
+  `touch_support` varchar(24) NULL COMMENT "触控",
+  `os_version` varchar(96) NULL COMMENT "操作系统",
+  `adapt_terminal` varchar(96) NULL COMMENT "适配端",
+  `standard_load` decimal(10, 2) NULL COMMENT "标准带载（万）",
+  `load_spec` varchar(48) NULL COMMENT "规格（带载）",
+  `usage_scenario` varchar(48) NULL COMMENT "使用场景",
+  `service_year` varchar(48) NULL COMMENT "服务年份",
+  `process_related` varchar(48) NULL COMMENT "工艺相关",
+  `target_area` varchar(96) NULL COMMENT "目标区域",
+  `sales_area` varchar(384) NULL COMMENT "销售区域",
+  `brightness` decimal(10, 2) NULL COMMENT "亮度（nits）",
+  `led_config` varchar(48) NULL COMMENT "LED配置",
+  `input_voltage_range` varchar(48) NULL COMMENT "输入电压范围",
+  `gray_level` int(11) NULL COMMENT "灰阶（bits）",
+  `cabinet_module_weight` decimal(10, 2) NULL COMMENT "箱体/模组重量（kg）",
+  `max_power_consumption` decimal(10, 2) NULL COMMENT "最大功耗（W/箱），数值类型",
+  `avg_power_consumption` decimal(10, 2) NULL COMMENT "平均功耗（W/箱）",
+  `screen_wiring_mode` varchar(96) NULL COMMENT "屏体进线方式",
+  `protection_rating` varchar(48) NULL COMMENT "防护等级",
+  `corner_protector` varchar(96) NULL COMMENT "护角",
+  `auto_calibration` varchar(765) NULL COMMENT "自动校正",
+  `single_point_calibration` varchar(765) NULL COMMENT "单点校正",
+  `intelligent_module` varchar(765) NULL COMMENT "智能模组",
+  `module_connection_mode` varchar(48) NULL COMMENT "模组连接方式",
+  `module_safety_rope` varchar(765) NULL COMMENT "模组安全绳",
+  `spot_check` varchar(765) NULL COMMENT "点检",
+  `cabinet_monitor_func` varchar(384) NULL COMMENT "箱体监控功能",
+  `signal_connector_brand` varchar(96) NULL COMMENT "信号航插品牌",
+  `power_connector_brand` varchar(96) NULL COMMENT "电源航插品牌",
+  `contrast_ratio` varchar(48) NULL COMMENT "对比度",
+  `special_version` varchar(96) NULL COMMENT "特殊版本",
+  `bottom_shell_type` varchar(96) NULL COMMENT "底壳类型",
+  `product_certification` varchar(384) NULL COMMENT "产品安规认证",
+  `special_usage_scenario` varchar(192) NULL COMMENT "特殊使用场景",
+  `memory_rom` varchar(48) NULL COMMENT "内存ROM",
+  `storage_space` varchar(48) NULL COMMENT "存储空间",
+  `camera` varchar(24) NULL COMMENT "摄像头",
+  `speaker` varchar(24) NULL COMMENT "音响",
+  `microphone` varchar(24) NULL COMMENT "麦克风",
+  `installation_mode` varchar(48) NULL COMMENT "安装方式",
+  `installation_bracket_wall` varchar(24) NULL COMMENT "安装支架-壁挂",
+  `installation_bracket_mobile` varchar(24) NULL COMMENT "安装支架-移动",
+  `screen_caster` varchar(24) NULL COMMENT "投屏器",
+  `remote_control` varchar(24) NULL COMMENT "遥控器",
+  `ops` varchar(24) NULL COMMENT "OPS",
+  `standby_power` decimal(10, 2) NULL COMMENT "机功耗（W）",
+  `appearance` varchar(48) NULL COMMENT "外观",
+  `weight` decimal(10, 2) NULL COMMENT "重量（kg）",
+  `cpu` varchar(192) NULL COMMENT "CPU",
+  `interface_type` varchar(384) NULL COMMENT "接口类型",
+  `wifi` varchar(192) NULL COMMENT "WIFI",
+  `bluetooth` varchar(192) NULL COMMENT "蓝牙",
+  `customer_custom` varchar(765) NULL COMMENT "客户定制",
+  `revision` varchar(65533) NULL COMMENT "修正",
+  `patch` varchar(65533) NULL COMMENT "补丁",
+  `memory` varchar(48) NULL COMMENT "内存",
+  `protection` varchar(48) NULL COMMENT "防护",
+  `channel_count` varchar(48) NULL COMMENT "路数",
+  `common_res_width` decimal(10, 0) NULL COMMENT "常用分辨率(pixel)：宽",
+  `common_res_height` decimal(10, 0) NULL COMMENT "常用分辨率(pixel)：高",
+  `max_res_width` decimal(10, 0) NULL COMMENT "极限分辨率(pixel)：宽",
+  `max_res_height` decimal(10, 0) NULL COMMENT "极限分辨率(pixel)",
+  `window_count_2k` decimal(10, 0) NULL COMMENT "开窗数（2K)",
+  `window_count_4k` decimal(10, 0) NULL COMMENT "开窗数（4K)",
+  `output_current` decimal(10, 2) NULL COMMENT "输出电流",
+  `platform_brand` varchar(192) NULL COMMENT "平台（品牌）",
+  `input_interface_type` varchar(384) NULL COMMENT "输入接口类型",
+  `input_interface_count` varchar(24) NULL COMMENT "输入数量",
+  `output_interface_type` varchar(384) NULL COMMENT "输出接口类型",
+  `output_interface_count` varchar(24) NULL COMMENT "输出数量",
+  `service_period` decimal(10, 2) NULL COMMENT "服务期限（年）",
+  `repair_time_limit` decimal(10, 2) NULL COMMENT "返修时效",
+  `service_times` decimal(10, 2) NULL COMMENT "服务次数",
+  `scene_type` varchar(96) NULL COMMENT "场景类型",
+  `spacing` decimal(10, 2) NULL COMMENT "间距（mm）",
+  `control_system_type` varchar(96) NULL COMMENT "控制系统类型",
+  `product_business_type` varchar(24) NULL COMMENT "产品业务类型",
+  `cabinet_res_ratio` varchar(96) NULL COMMENT "箱体分辨率比例",
+  `product_pixel_length` varchar(192) NULL COMMENT "产品像素点数：长",
+  `product_pixel_width` varchar(192) NULL COMMENT "产品像素点数：宽",
+  `single_cabinet_module_count` varchar(192) NULL COMMENT "单箱体模组数量",
+  `screen_internal_wiring` varchar(192) NULL COMMENT "屏体内部走线方式",
+  `is_contain_magnet` varchar(765) NULL COMMENT "是否含磁铁",
+  `warranty_upper_limit` varchar(24) NULL COMMENT "质保上限（年）",
+  `usage_humidity_range` varchar(48) NULL COMMENT "使用湿度范围",
+  `usage_temperature_range` varchar(96) NULL COMMENT "使用温度范围",
+  `is_on_b2b_mall` varchar(765) NULL COMMENT "上B2B商城",
+  `selling_point` varchar(65533) NULL COMMENT "卖点",
+  `application_scenario` varchar(65533) NULL COMMENT "应用场景",
+  `material_code` varchar(765) NULL COMMENT "物料编码",
+  `brand` varchar(765) NULL COMMENT "品牌",
+  `model` varchar(765) NULL COMMENT "型号",
+  `selection_status` varchar(765) NULL COMMENT "选型状态",
+  `quantity` varchar(384) NULL COMMENT "数量",
+  `related_pci_code` varchar(192) NULL COMMENT "关联PCI编码",
+  `related_pci_short_desc` varchar(65533) NULL COMMENT "关联PCI短描述",
+  `spart_code` varchar(192) NULL COMMENT "Spart编码",
+  `spart_category` varchar(192) NULL COMMENT "Spart类别",
+  `spart_short_desc` varchar(65533) NULL COMMENT "Spart短描述",
+  `l3_5_series` varchar(192) NULL COMMENT "L3.5系列",
+  `is_pre_sale` varchar(6) NULL COMMENT "是否预售",
+  `business_state` varchar(900) NULL COMMENT "业务状态",
+  `big_series_name` varchar(384) NULL COMMENT "大系列名",
+  `box_platform` varchar(384) NULL COMMENT "箱体平台",
+  `module_platform` varchar(384) NULL COMMENT "模组平台",
+  `single_dual_power_backup` varchar(384) NULL COMMENT "单电力双电源备份",
+  `dual_dual_power_backup` varchar(384) NULL COMMENT "双电力双电源备份",
+  `box_structure_design_changes` varchar(384) NULL COMMENT "箱体结构设计变化（含外观）",
+  `height_brim_mask_hat` varchar(384) NULL COMMENT "面罩帽檐高低",
+  `lamp_bead_brand` varchar(384) NULL COMMENT "灯珠品牌",
+  `driver_ic_brand` varchar(384) NULL COMMENT "驱动IC品牌",
+  `power_supply_brand` varchar(384) NULL COMMENT "电源品牌",
+  `interop_state` varchar(765) NULL COMMENT "共享状态",
+  `coa` varchar(1500) NULL COMMENT "COA",
+  `pcb_thickness` decimal(10, 2) NULL COMMENT "PCB板厚",
+  `cabinet_weight` decimal(10, 2) NULL COMMENT "箱体重量",
+  `insert_dt` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT "数仓数据更新时间"
+) ENGINE=OLAP 
+DUPLICATE KEY(`id`, `pci_name`)
+COMMENT "ods_pci信息表"
+DISTRIBUTED BY RANDOM
+PROPERTIES (
+"bucket_size" = "4294967296",
+"compression" = "LZ4",
+"fast_schema_evolution" = "true",
+"replicated_storage" = "true",
+"replication_num" = "1"
+);
+
+-- ods.ods_pbi_view_unilumin_product_catalog_df
+CREATE TABLE `ods_pbi_view_unilumin_product_catalog_df` (
+  `name` varchar(765) NULL COMMENT "名称",
+  `identifier_no` varchar(384) NULL COMMENT "编码",
+  `classify_level_type` varchar(900) NULL COMMENT "分类层级",
+  `subsidiary_name` varchar(65533) NULL COMMENT "子公司名称",
+  `subsidiary_english_name` varchar(65533) NULL COMMENT "子公司英文名称",
+  `subsidiary_code` varchar(65533) NULL COMMENT "子公司编码",
+  `industry_name` varchar(65533) NULL COMMENT "行业名称（产业中文描述）",
+  `industry_english_name` varchar(65533) NULL COMMENT "行业英文名称（产业英文描述）",
+  `industry_code` varchar(65533) NULL COMMENT "行业编码（产业编码）",
+  `technology_domain_name` varchar(65533) NULL COMMENT "技术领域名称（产品线中文描述）",
+  `technology_domain_english_name` varchar(65533) NULL COMMENT "技术领域英文名称（产品线英文描述）",
+  `technology_domain_code` varchar(65533) NULL COMMENT "技术领域编码（产品线编码）",
+  `technology_family_name` varchar(65533) NULL COMMENT "技术族名称（产品族中文描述）",
+  `technology_family_english_name` varchar(65533) NULL COMMENT "技术族英文名称（产品族英文描述）",
+  `technology_family_code` varchar(65533) NULL COMMENT "技术族编码（产品族编码）",
+  `series_name` varchar(65533) NULL COMMENT "系列名称（产品系列中文描述）",
+  `series_english_name` varchar(65533) NULL COMMENT "系列英文名称（产品系列英文描述）",
+  `series_code` varchar(65533) NULL COMMENT "系列编码（产品系列编码）",
+  `insert_dt` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT "数仓数据更新时间"
+) ENGINE=OLAP 
+DUPLICATE KEY(`name`)
+COMMENT "ods_pbi_产业目录"
+DISTRIBUTED BY HASH(`name`)
+PROPERTIES (
+"compression" = "LZ4",
+"fast_schema_evolution" = "true",
+"replicated_storage" = "true",
+"replication_num" = "1"
+);
+
+
+
+
+
+
+
+
+
+
+
+二：
+1、数据来源表							
+来源系统	英文表名	中文含义	表别名	备注	
+数仓	dwd_sd_shipment_detail_df	dwd_出货明细模型	a	主表	
+SAP	dwd_sd_performance_allocation_ratio_df	"业绩分配比例表
+dwd_业绩分配比例"	b	通过销售订单号+合同号关联		
+
+# dws_出货明细模型_业绩分配 开发说明
+
+## 目标表
+
+- 英文表名: `dws_sd_shipment_performance_alloc_df`
+- 中文含义: dws_出货模型（含业绩拆分）
+- 用途: table
+- 建议业务主键: `Unnamed: 3`
+
+## 模型逻辑概述（原文）
+
+```
+序号 英文表名 中文含义 应用场景 备注
+1 dws_sd_shipment_performance_alloc_df dws_出货模型（含业绩拆分） 用于出货数据业绩拆分后的分析 1. 因为涉及到业绩拆分，此时与业绩拆分表关联时会发散，这是正常的
+2. 出货模型与业绩分配表用销售订单号关联
+筛选条件
+1删除 场景标签以“D”开头的数据
+表关联条件
+关联条件和过滤条件：
+dws_接单业绩模型.order_no=dwd_业绩分配比例.order_no and dws_接单业绩模型.contract_no=dwd_业绩分配比例.contract_no
+```
+
+## 目标表字段结构（解析记忆）
+
+| 字段编码 | 字段类型 | 主键 | 非空 | 字段说明 | 来源表 | 来源字段 | 计算逻辑 |
+|----------|----------|------|------|----------|--------|----------|----------|
+| `delivery_order_num` | VARCHAR(100) |  |  | 交货单号 |  |  |  |
+| `delivery_order_item_num` | VARCHAR(100) |  |  | 交货单行号 |  |  |  |
+| `order_num` | VARCHAR(100) |  |  | 销售订单号 |  |  |  |
+| `order_item_num` | VARCHAR(100) |  |  | 销售订单行号 |  |  |  |
+| `contract_num` | VARCHAR(100) |  |  | 合同号（客户采购订单编号） |  |  |  |
+| `contract_m_num` | VARCHAR(100) |  |  | 母合同号 |  |  |  |
+| `order_type_code` | VARCHAR(100) |  |  | 订单类型编码 |  |  |  |
+| `order_type_name` | VARCHAR(255) |  |  | 订单类型名称 |  |  |  |
+| `shipment_date` | DATETIME |  |  | 出货日期 |  |  |  |
+| `request_del_date` | DATETIME |  |  | 请求交货日期 |  |  |  |
+| `approval_date` | DATETIME |  |  | 订单首次审批日期 |  |  |  |
+| `create_date` | DATETIME |  |  | 订单创建日期 |  |  |  |
+| `latest_warehousing_date` | DATETIME |  |  | 最新入库日期 |  |  |  |
+| `mat_code` | VARCHAR(100) |  |  | 物料编码 |  |  |  |
+| `mat_desc` | VARCHAR(255) |  |  | 物料描述 |  |  |  |
+| `product_type` | VARCHAR(100) |  |  | 产品类型 |  |  |  |
+| `industry_type` | VARCHAR(100) |  |  | 行业类型 |  |  |  |
+| `industry_code` | VARCHAR(100) |  |  | 产业编码 |  |  |  |
+| `industry_name` | VARCHAR(255) |  |  | 产业描述 |  |  |  |
+| `product_line_code` | VARCHAR(100) |  |  | 产品线编码 |  |  |  |
+| `product_line_name` | VARCHAR(255) |  |  | 产品线描述 |  |  |  |
+| `product_group_code` | VARCHAR(100) |  |  | 产品族编码 |  |  |  |
+| `product_group_name` | VARCHAR(255) |  |  | 产品族描述 |  |  |  |
+| `product_series_code` | VARCHAR(100) |  |  | 产品系列编码 |  |  |  |
+| `product_series_name` | VARCHAR(255) |  |  | 产品系列描述 |  |  |  |
+| `product_area` | DECIMAL(27,8) |  |  | 产品单位面积 |  |  |  |
+| `special_stock_flag` | VARCHAR(100) |  |  | 特殊库存标识 |  |  |  |
+| `special_stock_name` | VARCHAR(100) |  |  | 特殊库存标识名称 |  |  |  |
+| `delivery_address` | VARCHAR(255) |  |  | 交货地址 |  |  |  |
+| `factory_code` | VARCHAR(100) |  |  | 工厂编码 |  |  |  |
+| `factory_name` | VARCHAR(255) |  |  | 工厂名称 |  |  |  |
+| `company_code` | VARCHAR(100) |  |  | 公司代码 |  |  |  |
+| `company_name` | VARCHAR(255) |  |  | 公司名称 |  |  |  |
+| `customer_code` | VARCHAR(100) |  |  | 客户编码 |  |  |  |
+| `customer_name` | VARCHAR(255) |  |  | 客户名称 |  |  |  |
+| `sales_person_num` | VARCHAR(100) |  |  | 业务员编码 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_person_name` | VARCHAR(255) |  |  | 业务员姓名 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_dept_code` | VARCHAR(100) |  |  | 销售部门编码 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_dept_name` | VARCHAR(255) |  |  | 销售部门名称 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `employee_dept_code` | VARCHAR(100) |  |  | 雇员部门编码 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `employee_dept_name` | VARCHAR(255) |  |  | 雇员部门描述 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_org_code` | VARCHAR(100) |  |  | 销售组织编码 |  |  |  |
+| `sales_org_name` | VARCHAR(255) |  |  | 销售组织名称 |  |  |  |
+| `sales_group_code` | VARCHAR(100) |  |  | 销售组编码 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_group_name` | VARCHAR(255) |  |  | 销售组名称 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_channel_code` | VARCHAR(100) |  |  | 分销渠道编码 |  |  |  |
+| `sales_channel_name` | VARCHAR(255) |  |  | 分销渠道名称 |  |  |  |
+| `sales_unit_name` | VARCHAR(255) |  |  | 销售战区名称 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_area_name` | VARCHAR(255) |  |  | 销售大区名称 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `sales_region_name` | VARCHAR(255) |  |  | 销售区域名称 |  |  |  |
+| `b` | VARCHAR(256) |  |  |  |  |  |  |
+| `customer_country_code` | VARCHAR(100) |  |  | 客户所属国家编码 |  |  |  |
+| `customer_country_name` | VARCHAR(255) |  |  | 客户所属国家名称 |  |  |  |
+| `freight_forwarder` | VARCHAR(100) |  |  | 货代 |  |  |  |
+| `transport_method` | VARCHAR(100) |  |  | 运输方式 |  |  |  |
+| `payment_method` | VARCHAR(100) |  |  | 付款方式 |  |  |  |
+| `is_need_inspection` | VARCHAR(100) |  |  | 是否需要验收 |  |  |  |
+| `is_inspected` | VARCHAR(100) |  |  | 是否已验收 |  |  |  |
+| `inspection_order_num` | VARCHAR(100) |  |  | 验收单号 |  |  |  |
+| `inspection_invoice_date` | DATETIME |  |  | 验收开票日期 |  |  |  |
+| `trade_terms` | VARCHAR(500) |  |  | 贸易条款 |  |  |  |
+| `manu_sales_order_num` | VARCHAR(100) |  |  | 制造公司销售订单号 |  |  |  |
+| `warranty_period` | VARCHAR(100) |  |  | 质保期 |  |  |  |
+| `project_text` | VARCHAR(500) |  |  | 项目文本 |  |  |  |
+| `currency` | VARCHAR(100) |  |  | 销售订单行币种 |  |  |  |
+| `cny_exchange_rate` | DECIMAL(27,8) |  |  | 汇率（to_CNY） |  |  |  |
+| `usd_exchange_rate` | DECIMAL(27,8) |  |  | 汇率（to_USD） |  |  |  |
+| `sales_percent` | DECIMAL(3,8) |  |  | new 业绩分配比例 |  |  |  |
+| `shipment_qty` | DECIMAL(27,8) |  |  | new 出货数量 |  |  | a 出货数量 / 【交货数量】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_area` | DECIMAL(27,8) |  |  | new 出货面积 |  |  | a 出货面积 / 【出货面积】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_tax_amt` | DECIMAL(27,8) |  |  | new 出货金额（含运费）_含税-原币 |  |  | a 出货金额（含运费）_含税-原币 / 【出货金额（含运费）_含税-原币】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_tax_cny_amt` | DECIMAL(27,8) |  |  | new 出货金额（含运费）_含税-CNY |  |  | a 出货金额（含运费）_含税-CNY / 【出货金额（含运费）_含税-CNY】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_tax_usd_amt` | DECIMAL(27,8) |  |  | new 出货金额（含运费）_含税-USD |  |  | a 出货金额（含运费）_含税-USD / 【出货金额（含运费）_含税-USD】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_notax_amt` | DECIMAL(27,8) |  |  | new 出货金额（含运费）_不含税-原币 |  |  | a 出货金额（含运费）_不含税-原币 / 【出货金额（含运费）_不含税-原币】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_notax_cny_amt` | DECIMAL(27,8) |  |  | new 出货金额（含运费）_不含税-CNY |  |  | a 出货金额（含运费）_不含税-CNY / 【出货金额（含运费）_不含税-CNY】*【业绩分配比例】/100 含业绩分配 |
+| `shipment_notax_usd_amt` | DECIMAL(27,8) |  |  | new 出货金额（含运费）_不含税-USD |  |  | a 出货金额（含运费）_不含税-USD / 【出货金额（含运费）_不含税-USD】*【业绩分配比例】/100 含业绩分配 |
+| `scenario_tag` | VARCHAR(100) |  |  | 场景标签 |  |  |  |
+| `insert_dt` | DATETIME |  |  | 数仓数据更新时间 |  |  |  |
+| `source_system` | VARCHAR(100) |  |  | 来源系统 |  |  |  |
+
+## 模型逻辑详情（原文备忘）
+
+```
+模型标准 系统（独立逻辑，可来源于多系统）
+序号 字段备注 字段名称 字段编码 字段类型 维度/度量 主键 值域 非空 获取方式 来源表 来源字段 来源字段说明 数据类型 值列表 关联条件 计算逻辑 备注1 备注2
+交货单号 delivery_order_num varchar(100) 维度 直接获取 a 交货单号
+交货单行号 delivery_order_item_num varchar(100) 维度 直接获取 a 交货单行号
+销售订单号 order_num varchar(100) 维度 直接获取 a 销售订单号
+销售订单行号 order_item_num varchar(100) 维度 直接获取 a 销售订单行号
+合同号（客户采购订单编号） contract_num varchar(100) 维度 直接获取 a 合同号/订单号
+母合同号 contract_m_num varchar(100) 维度 直接获取 a 母合同号
+订单类型编码 order_type_code varchar(100) 维度 直接获取 a 订单类型
+订单类型名称 order_type_name varchar(255) 维度 直接获取 a 订单类型描述
+出货日期 shipment_date date 维度 直接获取 a 出货日期
+请求交货日期 request_del_date date 维度 直接获取 a 请求交货日期
+订单首次审批日期 approval_date date 维度 直接获取 a 订单审批日期
+订单创建日期 create_date date 维度 直接获取 a 订单创建日期
+最新入库日期 latest_warehousing_date date 维度 直接获取 a 最新入库日期
+物料编码 mat_code varchar(100) 维度 直接获取 a 物料编码
+物料描述 mat_desc varchar(255) 维度 直接获取 a 物料描述
+产品类型 product_type varchar(100) 维度 直接获取 a 产品类型
+行业类型 industry_type varchar(100) 维度 直接获取 a 行业类型
+产业编码 industry_code varchar(100) 维度 直接获取 a 产业编码
+产业描述 industry_name varchar(255) 维度 直接获取 a 产业描述
+产品线编码 product_line_code varchar(100) 维度 直接获取 a 产品线编码
+产品线描述 product_line_name varchar(255) 维度 直接获取 a 产品线描述
+产品族编码 product_group_code varchar(100) 维度 直接获取 a 产品族编码
+产品族描述 product_group_name varchar(255) 维度 直接获取 a 产品族描述
+产品系列编码 product_series_code varchar(100) 维度 直接获取 a 产品系列编码
+产品系列描述 product_series_name varchar(255) 维度 直接获取 a 产品系列描述
+产品单位面积 product_area decimal(27,8) 维度 直接获取 a 产品单位面积
+特殊库存标识 special_stock_flag varchar(100) 维度 直接获取 a 特殊库存标识
+特殊库存标识名称 special_stock_name varchar(100) 维度 直接获取 a 特殊库存标识描述 /
+交货地址 delivery_address varchar(255) 维度 直接获取 a 交货地址
+工厂编码 factory_code varchar(100) 维度 直接获取 a 工厂编码
+工厂名称 factory_name varchar(255) 维度 直接获取 a 工厂名称
+公司代码 company_code varchar(100) 维度 直接获取 a 公司代码
+公司名称 company_name varchar(255) 维度 直接获取 a 公司名称
+客户编码 customer_code varchar(100) 维度 直接获取 a 客户编码
+客户名称 customer_name varchar(255) 维度 直接获取 a 客户名称
+业务员编码 sales_person_num varchar(100) 维度 直接获取 a
+b 人员编码 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dwd_订单明细模型数据不变 含业绩分配
+业务员姓名 sales_person_name varchar(255) 维度 直接获取 a
+b 姓+名 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员描述；若关联不上则保持dwd_订单明细模型数据不变 含业绩分配
+销售部门编码 sales_dept_code varchar(100) 维度 直接获取 a
+b 销售部门编码 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dwd_订单明细模型数据不变 含业绩分配
+销售部门名称 sales_dept_name varchar(255) 维度 直接获取 a
+b 销售部门描述 关联条件：订单号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门描述；若关联不上则保持dwd_订单明细模型数据不变 含业绩分配
+雇员部门编码 employee_dept_code varchar(100) 维度 直接获取 a
+b 雇员部门编号 关联条件：订单号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dwd_订单明细模型数据不变 含业绩分配
+雇员部门描述 employee_dept_name varchar(255) 直接获取 a
+b 雇员部门 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dwd_订单明细模型数据不变 含业绩分配
+销售组织编码 sales_org_code varchar(100) 维度 直接获取 a 销售组织编码
+销售组织名称 sales_org_name varchar(255) 维度 直接获取 a 销售组织
+销售组编码 sales_group_code varchar(100) 维度 直接获取 a
+b 销售组编码 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dwd_订单明细模型数据不变
+销售组名称 sales_group_name varchar(255) 维度 直接获取 a
+b 销售组 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组描述；若关联不上则保持dwd_订单明细模型数据不变
+分销渠道编码 sales_channel_code varchar(100) 维度 直接获取 a 分销渠道编码
+分销渠道名称 sales_channel_name varchar(255) 维度 直接获取 a 分销渠道
+销售战区名称 sales_unit_name varchar(255) 维度 直接获取 a
+b 销售战区 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的省份/国家；若关联不上则保持dwd_订单明细模型数据不变
+销售大区名称 sales_area_name varchar(255) 维度 直接获取 a
+b 销售大区 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dwd_订单明细模型数据不变
+销售区域名称 sales_region_name varchar(255) 维度 直接获取 a
+b 销售区域 关联条件：订单号+合同号
+关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的目标范围；若关联不上则保持dwd_订单明细模型数据不变
+客户所属国家编码 customer_country_code varchar(100) 维度 直接获取 a 客户所属国家
+客户所属国家名称 customer_country_name varchar(255) 维度 直接获取 a 客户所属国家名称 /
+货代 freight_forwarder varchar(100) 维度 直接获取 a 货代
+运输方式 transport_method varchar(100) 维度 直接获取 a 运输方式
+付款方式 payment_method varchar(100) 维度 自定义 a 付款方式
+是否需要验收 is_need_inspection varchar(100) 维度 直接获取 a 是否需要验收
+是否已验收 is_inspected varchar(100) 维度 直接获取 a 是否已验收
+验收单号 inspection_order_num varchar(100) 维度 直接获取 a 验收单号
+验收开票日期 inspection_invoice_date date 维度 直接获取 a 验收开票日期
+贸易条款 trade_terms varchar(500) 维度 直接获取 a 贸易条款
+制造公司销售订单号 manu_sales_order_num varchar(100) 维度 直接获取 a 制造公司销售订单号
+质保期 warranty_period varchar(100) 维度 直接获取 a 质保期
+项目文本 project_text varchar(500) 维度 直接获取 a 项目文本
+销售订单行币种 currency varchar(100) 维度 直接获取 a 销售订单行币种
+汇率（to_CNY） cny_exchange_rate decimal(27,8) 维度 直接获取 a 汇率（to_CNY）
+汇率（to_USD） usd_exchange_rate decimal(27,8) 维度 直接获取 a 汇率（to_USD）
+new 业绩分配比例 sales_percent decimal(3,8) 维度 直接获取 b 配额 关联条件：订单号+合同号 含业绩分配
+new 出货数量 shipment_qty decimal(27,8) 度量 计算 a 出货数量 / 【交货数量】*【业绩分配比例】/100 含业绩分配
+new 出货面积 shipment_area decimal(27,8) 度量 计算 a 出货面积 / 【出货面积】*【业绩分配比例】/100 含业绩分配
+new 出货金额（含运费）_含税-原币 shipment_tax_amt decimal(27,8) 度量 计算 a 出货金额（含运费）_含税-原币 / 【出货金额（含运费）_含税-原币】*【业绩分配比例】/100 含业绩分配
+new 出货金额（含运费）_含税-CNY shipment_tax_cny_amt decimal(27,8) 度量 计算 a 出货金额（含运费）_含税-CNY / 【出货金额（含运费）_含税-CNY】*【业绩分配比例】/100 含业绩分配
+new 出货金额（含运费）_含税-USD shipment_tax_usd_amt decimal(27,8) 度量 计算 a 出货金额（含运费）_含税-USD / 【出货金额（含运费）_含税-USD】*【业绩分配比例】/100 含业绩分配
+new 出货金额（含运费）_不含税-原币 shipment_notax_amt decimal(27,8) 度量 计算 a 出货金额（含运费）_不含税-原币 / 【出货金额（含运费）_不含税-原币】*【业绩分配比例】/100 含业绩分配
+new 出货金额（含运费）_不含税-CNY shipment_notax_cny_amt decimal(27,8) 度量 计算 a 出货金额（含运费）_不含税-CNY / 【出货金额（含运费）_不含税-CNY】*【业绩分配比例】/100 含业绩分配
+new 出货金额（含运费）_不含税-USD shipment_notax_usd_amt decimal(27,8) 度量 计算 a 出货金额（含运费）_不含税-USD / 【出货金额（含运费）_不含税-USD】*【业绩分配比例】/100 含业绩分配
+场景标签 scenario_tag varchar(100) 维度 直接获取 a 场景标签 删除 场景标签以“D”开头的数据
+数仓数据更新时间 insert_dt datetime 审计 直接获取 / / now()
+来源系统 source_system varchar(100) 审计 直接获取 a 来源系统 值=SAP
+```
+
+## 建议开发步骤
+
+- 解析数据来源表/模型逻辑概述/模型逻辑详情三段内容，锁定目标表与字段。
+- 校验字段类型、主键、分区列，生成 StarRocks DDL（可选执行）。
+- 生成 INSERT SELECT 逻辑，按业务逻辑完成关联、去重、计算。
+- 落地中间结果或目标表，补充数据质量校验与唯一性检查。
+- 补充自动化脚本与回填验证（行数、键唯一性、NULL 分布）。

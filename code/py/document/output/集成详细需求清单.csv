@@ -1,0 +1,946 @@
+﻿源系统,源系统负责人,数据需求,对象类型,"数据库对象编码
+（数据库.表、数据库.视图...）",数据库对象名称,字段需求（包含）,计划完成时间,实际完成时间,授权状态,"需求
+提出人","入湖
+负责人",开发复核负责人,备注,用户数据需求问题,用户数据需求问题反馈,中台ods表名,全量/增量,源系统抽取条件,增量方式,更新频率,任务,同步父任务流,"测试环境数据量
+（同时标注时长超过5分钟的）"
+"OA
+仅对接生产",陈海棠,用户表,表,dbo.View_Hrmresource（说的oaid就是表中的id）,"人员信息
+HrmResource-人员信息的表.doc",,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,"饶嘉璇
+李朝中",谭程俊,,缺少字段注释、缺少状态字段（即账号是否禁用、是否启用，status是否为状态字段，status字段0、1、4、5、7分别代表什么含义）,"status-状态
+0：试用
+1：正式
+2：临时
+3：试用延期
+4：解聘
+5：离职
+6：退休
+7：无效
+accounttype-帐号类型
+Null:主账号,1:次账号
+hrmresource(人力资源基本信息表).html",ods_oa_view_hrmresource_df,全量,,,t+1,ods_view_hrmresource_df,ods_oa,1.8万
+"OA
+仅对接生产",陈海棠,角色表,表,dbo.View_HrmRoles,"角色信息
+l HrmRoles.doc",,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,"蔡岸榕
+李朝中",谭程俊,之前给的是表，现在变成视图,,,ods_oa_view_hrmroles_df,全量,,,t+1,ods_oa_view_hrmroles_df,ods_oa,1.4万
+"OA
+仅对接生产",陈海棠,用户角色关联表,表,dbo.View_HrmRoleMembers,"用户角色关联表
+HrmRoleMembers.doc",,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,"蔡岸榕
+李朝中",谭程俊,之前给的是表，现在变成视图,,,ods_oa_view_hrmrolemembers_df,全量,,,t+1,ods_oa_view_hrmrolemembers_df,ods_oa,0.24万
+"OA
+仅对接生产",陈海棠,门头/展厅建设申请流程报表,视图,,流程 门头/展厅建设申请单,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,合同评审流程,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,生产任务单,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,显示生产任务变更流程,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,提前备库流程,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,物流类-物流业务流程报表,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,分销/经销、代理、合作协议评审,视图,dbo.View_formtable_main_1590,流程 代理协议/合作协议流转评审单,,,,已授权（生产环境）,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,渠道商退出申请流程,视图,dbo.View_fformtable_main_1087,流程  渠道商退出申请流程,,,,已授权（生产环境）,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,营销事件申请报表,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,非协议印章使用审核审批流程,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,国际渠道商费用补贴申请,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"OA
+仅对接生产",陈海棠,国内渠道商费用补贴申请,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+PLM,刘培,用户表,表,pdm11.WTUser,"用户表
+PDM基础表注释.xlsx",,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（开发复核通过）,许凯文,蔡岸榕,赵彦,name字段中有json，json内容为表的id，读取时去掉大括号内容@蔡工说的,缺少字段注释、缺少状态字段（是否禁用、是否启用）,"idA2A2-主键
+disabled-状态（0-正常，1-删除）
+idA3domainRef-组织
+name-账号
+fullName-全名
+last-姓氏",ods_plm_wtuser_df,全量,,,T+1,ods_plm_wtuser_df,,0.2万
+PLM,刘培,角色表,表,pdm11.WTGroup,组表,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（开发复核通过）,许凯文,蔡岸榕,赵彦,,,,,,,,,,,5万
+PLM,刘培,用户角色关联表,表,pdm11.MembershipLink,组用户关联表,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（开发复核通过）,许凯文,蔡岸榕,赵彦,,,,,,,,,,,20万
+PLM,刘培,标准BOM部件表,表,pdm11.WTPart,标准BOM部件表,,2025-11-04 00:00:00,2025-11-06 00:00:00,已入湖（开发复核通过）,邵炜杰,蔡岸榕,赵彦,,,,,,,,,,,134万
+PLM,刘培,部件主数据表,表,pdm11.WTPartMaster,部件主数据表,,2025-11-04 00:00:00,2025-11-06 00:00:00,已入湖（开发复核通过）,邵炜杰,蔡岸榕,赵彦,,,,,,,,,,,32万
+PLM,刘培,部件使用关系表(BOM),表,pdm11.WTPartUsageLink,部件使用关系表(BOM),,2025-11-04 00:00:00,2025-11-06 00:00:00,已入湖（开发复核通过）,邵炜杰,蔡岸榕,赵彦,,,,,,,,,,,731万
+PLM,刘培,物料主数据信息,视图,pdm11.View_Unilumin_Hone_Parts_Classification,物料主数据信息,,2025-11-24 00:00:00,2025-11-24 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_plm_view_unilumin_hone_parts_classification_df,全量,,,t+1,ods_plm_view_unilumin_hone_parts_classification_df,,69149
+PLM,刘培,标准BOM,表,"plm.plm_bom_item
+（plm更改bom后，主动推送至数据中台hone_mysql库plm_bom_item表。数据中台需完成从hone_mysql抽取至hone_starrocks）",标品标准BOM信息,,2025-11-24 00:00:00,,已入湖（测试）,"邵炜杰
+刘洋",谭程俊,刘洋,,,,ods_plm_bom_item_df,全量,,,t+1,ods_plm_bom_item_df,,70万
+PLM,,,,,,,,,,,,,,,,,,,,,,,
+"EHR
+仅对接生产",张丽婷,组织,API,"组织：https://open.italent.cn/?_qrt=html&_qsrcapp=LandingSiteMenu&quark_s=d592236e3c6cfd694e54a023088d1f03a9d0ba0a3432dac166346d99ad7500d4#/open-document?menu=document-center&current=3&pageSize=100&quark_s=e678e3fac5421480f8043ee24c6fe047e6c44cd5aca19737019e4ebe2eb9c05e&id=dc1e628c-21a6-49cc-ae0c-7fc4a037d1bd
+请求地址：openapi.italent.cn/TenantBaseExternal/api/v5/Organization/GetByTimeWindow",组织单元,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,赵彦,刘洋,记录数据型（从2022年1月起）,,,ods.ods_ehr_organization_di,增量,,近10天,,,,2602
+"EHR
+仅对接生产",张丽婷,人员,API,"人员：https://open.italent.cn/?_qsrcapp=LandingSiteMenu&_qrt=html&quark_s=dbb3c549a93d6a2ed8824d9d3f29fd32ed0874e3128e4a331d423264b3503ef1#/open-document?menu=document-center&current=3&pageSize=100&id=c2914b12-20f3-459e-99f9-fcd0c539d6d8&quark_s=31a706433119dd968196f2d92c8021a4d324003a3a09e5ed8d1855834eb989c8
+请求地址：openapi.italent.cn/TenantBaseExternal/api/v5/Employee/GetListByTimeWindow",员工与任职,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,赵彦,刘洋,记录数据型（从2022年1月起）,,,"ods.ods_ehr_emp_employeeinfo_di
+ods.ods_ehr_emp_recordinfo_di",增量,,近10天,,,,40230（去重后）
+"EHR
+仅对接生产",张丽婷,岗位,API,"职务：https://open.italent.cn/?_qrt=html&_qsrcapp=LandingSiteMenu&quark_s=d592236e3c6cfd694e54a023088d1f03a9d0ba0a3432dac166346d99ad7500d4#/open-document?menu=document-center&current=3&pageSize=100&quark_s=e678e3fac5421480f8043ee24c6fe047e6c44cd5aca19737019e4ebe2eb9c05e&id=7c19ab15-5aa0-4268-9f72-3984566aa911
+请求地址：openapi.italent.cn/TenantBaseExternal/api/v5/JobPost/GetByTimeWindow",职务,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,赵彦,刘洋,记录数据型（从2022年1月起）,,,ods.ods_ehr_jobpost_di,增量,,近10天,,,,3401
+"EHR
+仅对接生产",张丽婷,人员来源,API,"API说明：https://open.italent.cn/?_qsrcapp=LandingSiteMenu&_qrt=html&quark_s=dbb3c549a93d6a2ed8824d9d3f29fd32ed0874e3128e4a331d423264b3503ef1#/open-document?menu=document-center&current=3&pageSize=100&id=ced39adc-5aec-4fdd-ba5e-cbd0abf7654c&quark_s=31a706433119dd968196f2d92c8021a4d324003a3a09e5ed8d1855834eb989c8
+请求地址：
+openapi.italent.cn/TenantBaseExternal/api/v5/EmploymentSource/GetByTimeWindow",人员来源,,,,,,,,,,,,,,,,,,
+"EHR
+仅对接生产",张丽婷,人员异动/调动记录,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"MES
+【大亚湾显示屏】
+mes_xsp_sqlserver",尚恒志,用户表,视图,dbo.View_SysUser,,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,李朝中,,,缺少字段注释、缺少状态字段（是否禁用、是否启用，userstatus是否为状态字段，userstatus为空是否代表账号禁用）,"MES人员字段注释
+
+userstatus仅代表在职、离职状态，不限制账号是否禁用",ods_mes_xsp_view_sysuser_df,,,,,ods_mes_xsp_view_sysuser_df,,11045
+"MES
+【大亚湾显示屏】
+mes_xsp_sqlserver",尚恒志,角色表,视图,dbo.View_SysUserGroup,,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,李朝中,,,,,ods_mes_xsp_view_sysusergroup_df,全量,,,,ods_mes_xsp_view_sysusergroup_df,,142
+"MES
+【大亚湾显示屏】
+mes_xsp_sqlserver",尚恒志,用户角色关联表,视图,dbo.View_SysUser_UserGroup,,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,李朝中,,,,,ods_mes_xsp_view_sysuser_usergroup_df,全量,,,,ods_mes_xsp_view_sysuser_usergroup_df,,15672
+"MES
+【南昌显示屏】
+mes_xspnc_sqlserver",尚恒志,用户表,视图,dbo.View_SysUser,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_xspnc_view_sysuser_df,全量,,,,ods_mes_xspnc_view_sysuser_df,,11045
+"MES
+【南昌显示屏】
+mes_xspnc_sqlserver",尚恒志,角色表,视图,dbo.View_SysUserGroup,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_xspnc_view_sysusergroup_df,全量,,,,ods_mes_xspnc_view_sysusergroup_df,,142
+"MES
+【南昌显示屏】
+mes_xspnc_sqlserver",尚恒志,用户角色关联表,视图,dbo.View_SysUser_UserGroup,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_xspnc_view_sysuser_usergroup_df,全量,,,,ods_mes_xspnc_view_sysuser_usergroup_df,,15672
+"MES
+【中山照明】
+mes_zm_sqlserver",尚恒志,用户表,视图,dbo.View_SysUser,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_zm_view_sysuser_df,全量,,,,ods_mes_zm_view_sysuser_df,,11045
+"MES
+【中山照明】
+mes_zm_sqlserver",尚恒志,角色表,视图,dbo.View_SysUserGroup,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_zm_view_sysusergroup_df,全量,,,,ods_mes_zm_view_sysusergroup_df,,142
+"MES
+【中山照明】
+mes_zm_sqlserver",尚恒志,用户角色关联表,视图,dbo.View_SysUser_UserGroup,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_zm_view_sysuser_usergroup_df,全量,,,,ods_mes_zm_view_sysuser_usergroup_df,,15672
+"MES
+【Mini制造部】
+mes_mini_sqlserver",郭平,用户表,视图,dbo.View_SysUser,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_mini_view_sysuser_df,全量,,,,ods_mes_mini_view_sysuser_df,,11045
+"MES
+【Mini制造部】
+mes_mini_sqlserver",郭平,角色表,视图,dbo.View_SysUserGroup,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_mini_view_sysusergroup_df,全量,,,,ods_mes_mini_view_sysusergroup_df,,142
+"MES
+【Mini制造部】
+mes_mini_sqlserver",郭平,用户角色关联表,视图,dbo.View_SysUser_UserGroup,,,2025-12-12 00:00:00,,已入湖（测试）,郑日天,李朝中,,,,,ods_mes_mini_view_sysuser_usergroup_df,全量,,,,ods_mes_mini_view_sysuser_usergroup_df,,15672
+WMS,谢思思,用户表,视图,public.vw_zmzt_user,,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,缺少字段注释、缺少状态字段（是否禁用、是否启用，status是否为状态字段）,"提供字段定义视图
+vw_zmzt_view_definition",,,,,,,,470
+WMS,谢思思,角色表,视图,public.vw_zmzt_role,,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,15
+WMS,谢思思,用户角色关联表,视图,public.vw_zmzt_user_role,,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,510
+WMS,谢思思,视图字段定义,视图,vw_zmzt_view_definition,,,2025-11-19 00:00:00,,暂时用不到,许凯文,谭程俊,,"只用于补充注释
+test_wms_vw_zmzt_view_definition临时导测试表拿注释",,,,,,,,,,
+"EAM
+仅对接生产",严智轩,用户表,视图,dbo.View_Employee,人员信息表,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,"缺少字段注释、缺少状态字段（是否禁用、是否启用，status是否为状态字段，status字段1和2分别代表什么含义）
+IsDelete字段0和1分别代表什么","Status 1 在职      2 离职
+
+ EAM人员字段注释",,,,,,,,6138
+"EAM
+仅对接生产",严智轩,角色表（若无则可不提供）,视图,dbo.View_FormDefinitionAuthGroup,自定义表单角色（系统标准表单无角色可配置）,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,163
+"EAM
+仅对接生产",严智轩,角色表（若无则可不提供）,视图,dbo.View_FormDefinitionAuthGroupPermission,自定义表单角色用户绑定,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,2913
+"EAM
+仅对接生产",严智轩,用户角色关联表,视图,dbo.View_vMenu,菜单表,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,253
+"EAM
+仅对接生产",严智轩,用户角色关联表,视图,dbo.View_xEmployeeMenu,人员菜单关联表,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,20920
+"QMS
+仅对接生产",陈雁灿,用户表、用户角色关联表,视图,qms.View_User,,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,acu_roles字段有json，需要解析匹配角色表,"缺少状态字段（是否禁用、是否启用）
+ACU_Valid
+0：未启用
+1：启用
+表里没有ACU_Valid这个字段","ACU_Valid
+0：未启用
+1：启用",,,,,,,,12070
+"QMS
+仅对接生产",陈雁灿,角色表,视图,qms.View_Roles,,,2025-10-31 00:00:00,2025-11-04 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,17
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,用户表,视图,USER_ADDR,,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,谭程俊,,"缺少状态字段（是否禁用、是否启用）
+表里没有USR02-UFLAG这个字段","USR02-UFLAG
+新增USR02表授权
+禁用标识释义：
+0：未锁定
+32：被管理员全局锁定
+64：被管理员本地锁定
+128：因不正确登录（限制条款）而被锁定",,,,,,,,429
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,角色表,表,AGR_DEFINE,角色定义,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,谭程俊,,,,,,,,,,,11718
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,用户角色关联表,表,AGR_USERS,分配角色到用户,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,谭程俊,,,,,,,,,,,7472
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,个人（办公地址管理）,表,ADRP,个人（办公地址管理）,,2025-10-31 00:00:00,2025-11-11 00:00:00,暂时用不到,许凯文,蔡岸榕,,,,,,,,,,,,13773
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,个人/地址分配 (业务地址服务),表,ADCP,个人/地址分配 (业务地址服务),,2025-10-31 00:00:00,2025-11-11 00:00:00,暂时用不到,许凯文,蔡岸榕,,,,,,,,,,,,13775
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,分配用户名称地址码,表,USR21,分配用户名称地址码,,2025-10-31 00:00:00,2025-11-11 00:00:00,暂时用不到,许凯文,蔡岸榕,,,,,,,,,,,,443
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,暂时用不到,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,暂时用不到,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,ZSD158B【销售跟踪报表】,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,ZSD004【销售订单明细】,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,ZSD139【B2B出货业绩报表】,,,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,暂时用不到,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,暂时用不到,陈迎颖,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,未开始,,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,未开始,,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,未开始,,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,ZMM028G【库存账龄表】,,,,,,,暂时用不到,许凯文,赵彦,,"ZMM028G:
+（1）MD81现货单取自定义表ZTMDTAB-zname_res责任人文本展示到ZMM028G的VORNA业务员字段；（2）其余订单取VBPA表PARVW=VE的PERNR数据，PERNR反查pa0002-nachn+pa0002-vorna拼接展示到ZMM028G的VORNA业务员字段",,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,ZFI074【应收账龄报表】,,,,,,,暂时用不到,许凯文,赵彦,,"ZFI074
+（1）业务员：订单取VBPA表PARVW=VE的PERNR数据，反查pa0001-sname业务员姓名
+（2）跟进人编码/跟进人名称：先按订单取VBPA表PARVW=VE的PERNR数据，反查pa0001-sname业务员姓名，再按订单取ztsd007-pernr+ztsd007-sname取到值做覆盖。
+ZTSD007 销售订单与业务员实际关联关系对照表--用ZDI075批导维护",,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,MD81下单责任人,表,ZTMDTAB,,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,许凯文,饶嘉璇,谭程俊,,,,,,,,,,,281
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售凭证 ： 合作伙伴,表,VBPA,,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,许凯文,饶嘉璇,谭程俊,考虑加筛选条件，或考虑增量,,,,,,,,,,4811803
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,人力资源主记录:信息类型0001 (原始分配),表,PA0001,,,2025-11-19 00:00:00,2025-11-19 00:00:00,已入湖（测试）,许凯文,谭程俊,蔡岸榕,,,,ods_sap_erp_pa0001_df,全量,MANDT='800',,t+1,ods_sap_erp_pa0001_df,,3929
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售订单与业务员实际关联关系对照表,表,ZTSD007,,,2025-11-19 00:00:00,2025-11-19 00:00:00,已入湖（测试）,许凯文,谭程俊,蔡岸榕,,,,ods_sap_erp_ztsd007_df,全量,MANDT='800',,t+1,ods_sap_erp_ztsd007_df,,2858
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售订单抬头表,表,VBAK,,,2025-11-14 00:00:00,,已入湖（测试）,吴美琪,李朝中,谭程俊,,,,,,,,,,,342275
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售订单行表,表,VBAP,,,2025-11-14 00:00:00,,已入湖（测试）,吴美琪,李朝中,谭程俊,,,,,,,,,,,1098158
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,交货单抬头表,表,LIKP,,,2025-11-14 00:00:00,,已入湖（测试）,吴美琪,李朝中,谭程俊,,,,,,,,,,,478944
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,交货单行表,表,LIPS,,,2025-11-14 00:00:00,,已入湖（测试）,吴美琪,李朝中,谭程俊,,,,,,,,,,,990119
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,客户主数据,表,KNA1,,,2025-11-14 00:00:00,,已入湖（测试）,吴美琪,李朝中,谭程俊,,,,,,,,,,,28006
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料主数据,表,ZZMARA,,,2025-11-14 00:00:00,2025-11-12 00:00:00,已入湖（测试）,吴美琪,谭程俊,蔡岸榕,,,,ods_sap_erp_zzmara_df,全量,MANDT='800',,t+1,ods_sap_erp_zzmara_df,,467766
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,业绩分配比例表,表,ZSD_ALLOT,,,2025-11-14 00:00:00,2025-11-12 00:00:00,已入湖（测试）,吴美琪,谭程俊,蔡岸榕,,,,ods_sap_erp_zsd_allot_df,全量,MANDT='800',,t+1,ods_sap_erp_zsd_allot_df,,11619
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,订单审批记录表,表,ZZVBAKAPPR,,,2025-11-14 00:00:00,2025-11-12 00:00:00,已入湖（测试）,吴美琪,谭程俊,蔡岸榕,,,,ods_sap_erp_zzvbakappr_df,全量,MANDT='800',,t+1,ods_sap_erp_zzvbakappr_df,,657304
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,子客合同表,表,ZSD_SUB,,,2025-11-14 00:00:00,2025-11-12 00:00:00,已入湖（测试）,吴美琪,谭程俊,蔡岸榕,,,,ods_sap_erp_zsd_sub_df,全量,MANDT='800',,t+1,ods_sap_erp_zsd_sub_df,,10149
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,手工业绩表,表,ZLAMP_SALES,,,2025-11-14 00:00:00,2025-11-12 00:00:00,已入湖（测试）,吴美琪,谭程俊,蔡岸榕,,,,ods_sap_erp_zlamp_sales_df,全量,MANDT='800',,t+1,ods_sap_erp_zlamp_sales_df,,487
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,科目主数据,表,SKA1,,,2025-11-26 00:00:00,2025-11-26 00:00:00,已入湖（测试）,佘伟萍,谭程俊,蔡岸榕,,,,ods_sap_erp_ska1_df,全量,MANDT='800',,t+1,ods_sap_erp_ska1_df,,18535
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,科目主数据,表,SKAT,科目描述,,2025-11-26 00:00:00,2025-11-26 00:00:00,已入湖（测试）,佘伟萍,谭程俊,蔡岸榕,,,,ods_sap_erp_skat_df,全量,MANDT='800',,t+1,ods_sap_erp_skat_df,,48296
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,常规物料数据,表,MARA,常规物料数据,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,536750
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料的工厂数据,表,MARC,物料的工厂数据,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,845309
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料描述,表,MAKT,物料描述,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,609629
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料评估,表,MBEW,物料评估,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,843121
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,采购信息记录 - 一般数据,表,EINA,采购信息记录 - 一般数据,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,405057
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,采购信息记录 - 采购组织数据,表,EINE,采购信息记录 - 采购组织数据,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,463814
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,采购凭证抬头,表,EKKO,采购凭证抬头,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,1109555
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,采购凭证项目,表,EKPO,采购凭证项目,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,谭程俊,,,,,,,,,,,2379837
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,有效期（采购信息记录）,RFC,"（池表）
+RFC：ZFM_QUERY_TABLE
+QUERY_TABLE：A018",有效期（采购信息记录）,,2025-11-14 00:00:00,,暂时用不到,邵炜杰,谭程俊,,"（全量ods_sap_erp_zfm_query_table_a018_df，来源是rfc接口json没有表，字段无法映射）
+
+ekko、ekpo中存在即生效，不需要再判断有效期",,,ods_sap_erp_zfm_query_table_a018_df,全量,MANDT='800',,t+1,ods_sap_erp_zfm_query_table_a018_df,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,"条件（事务数据）
+RFC逻辑：
+条件类型KSCHL in ('XR01','ZR01','ZD00')--整单价，含税价，运费
+ - 入参：起始日期~终止日期（取更改日期VBAK.AEDAT，VBAK-AEDAT为空时，以创建日期ERDAT为增量日期。）、条件类型（取条件类型KONV.KSCHL）
+  - 当VBAK.AEDAT满足入参范围，将相应的VBAK.KNUMV关联KONV.KNUMV，返回KNOV数据。VBAK-AEDAT为空时，以创建日期ERDAT为增量日期。",RFC,"KONV（簇表）
+ZHONE_GET_KONV_SO
+【IV_FLAG】增量查询、条件查询，输入默认值'X'。
+若IV_FLAG=空，则查VBAK.ERDAT、VBAK.AEDAT满足以下日期区间数据
+IV_ERDAT_F：起始日期
+IV_ERDAT_T：截止日期
+
+若IV_FLAG=X，则按以下表输入单号查询
+IT_VBELN","条件（事务数据）
+销售订单价格条件","初始化任务：
+ods_sap_erp_zhone_get_konv_so_di_full
+IV_ERDAT_F：20130101
+IV_ERDAT_T：至今
+（试下能不能一次性，不能就按年循环）
+
+增量任务：
+ods_sap_erp_zhone_get_konv_so_di
+IV_ERDAT_F：day-10
+IV_ERDAT_T：至今",2025-12-03 00:00:00,2025-12-11 00:00:00,已入湖（测试）,"邵炜杰
+陈迎颖",蔡岸榕,,"采购价格可以通过ekko、ekpo综合判断，不需要关联konv表
+销售订单价格类型需要",,,,,,,,,,4852106
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料采购价,RFC,"ZHONE_MAT_PURCHASE_PRICE_GET
+IT_WERKS.ZSWERKS.：1010,2020,1050,B010",物料采购价格,,2025-11-21 00:00:00,2025-11-27 00:00:00,已入湖（测试）,邵炜杰,饶嘉璇,刘洋,"飞虎建议后续考虑物料入参
+需咨询下数据增长情况",,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,BOM 链接物料,表,MAST,BOM 链接物料,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,蔡岸榕,,,,,,,,,,,165211
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,BOM 链的销售订单,表,KDST,BOM 链的销售订单,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,饶嘉璇,,,,,,,,,,,1855401
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,BOM 项目,表,STPO,BOM 项目,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,饶嘉璇,是否考虑只取部分字段,,,,,,,,,,17848081
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,STKO【BOM表头】,表,STKO,,,2025-11-19 00:00:00,2025-11-19 00:00:00,已入湖（测试）,陈迎颖,谭程俊,刘洋,,,,ods_sap_erp_stko_df,全量,MANDT='800',,t+1,ods_sap_erp_stko_df,,2019394
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,条件（项目）,表,KONP,条件（项目）,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,饶嘉璇,,,,,,,,,,,463052
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料的计量单位,表,MARM,物料的计量单位,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,蔡岸榕,饶嘉璇,,,,,,,,,,,536922
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,凭证段：物料,表,MSEG,物料凭证明细行表,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,饶嘉璇,该表后续要考虑分区、增量抽取，优化分区分桶存储格式,,,,,,,,,,24595129
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,产品/模组类型,表,ZPP019M,产品 / 模组类型,,2025-11-17 00:00:00,,已入湖（开发复核通过）,陈迎颖,李朝中,赵彦,,,,,,,,,,,61572
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,型号与物料编码对应关系,表,ZMATNR_TYPE,型号与物料编码对应关系,,2025-11-17 00:00:00,,已入湖（开发复核通过）,陈迎颖,李朝中,赵彦,,,,,,,,,,,3305
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售订单新增付款方式使用,表,ZSDFKFS,销售订单新增付款方式使用,,2025-11-17 00:00:00,,已入湖（开发复核通过）,陈迎颖,李朝中,赵彦,,,,,,,,,,,209424
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,物料产品主推类型配置表,表,ZTMM005,物料产品主推类型配置表,,2025-11-17 00:00:00,,已入湖（开发复核通过）,陈迎颖,李朝中,赵彦,,,,,,,,,,,1100
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,推送产品类型分类,表,ZTCPLX,推送产品分类,,2025-11-17 00:00:00,,已入湖（开发复核通过）,陈迎颖,李朝中,赵彦,,,,,,,,,,,388
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,HR 主记录: 信息类型 0002 (人员数据),表,PA0002,HR主记录：信息类型0002（人员数据）,,2025-11-17 00:00:00,,已入湖（开发复核通过）,陈迎颖,李朝中,赵彦,,,,,,,,,,,3921
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售组描述,表,ZTVGRT,销售组描述,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,326
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,深圳洲明显示：雇员部门基础数据,表,ZSDEMP,深圳洲明显示：雇员部门基础数据,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,1263
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,国家名,表,T005T,国家 / 地区配置表,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,951
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,ZPP019 生产任务单 表头,表,ZPP019_H,生产任务单头表,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,61761
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,国际订单存量信息,表,ZSD_CLXX_GJ,国际订单存量信息,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,22925
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,订单抛转信息,表,ZSD068VA,订单抛转信息,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,80510
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,渠道新抛转：销售订单抛转信息,表,ZSD124VA,渠道新抛转：销售订单抛转信息,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,8808
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售凭证 ： 业务数据,表,VBKD,销售凭证：业务数据,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,351501
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,汇率,表,TCURR,汇率表,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,谭程俊,,,,,,,,,,,15523
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,汇率转换因子,表,TCURF,汇率转换因子,,2025-12-03 00:00:00,,已入湖（测试）,邵炜杰,李朝中,,,,,ods_sap_erp_tcurf_df,全量,MANDT='800',,,ods_sap_erp_tcurf_df,,752
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售凭证流,表,VBFA,销售凭证流,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,饶嘉璇,,,,,,,,,,,5071505
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售凭证 ： 项目状态,表,VBUP,销售凭证：项目状态,,2025-11-17 00:00:00,,已入湖（测试）,陈迎颖,李朝中,饶嘉璇,,,,,,,,,,,2088279
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,公司代码,表,T001,公司代码,,2025-11-14 00:00:00,2025-11-12 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_t001_df,全量,MANDT='800',,t+1,ods_sap_erp_t001_df,,115
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售机构,表,TVKO,机构单位：销售机构,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvko_df,全量,MANDT='800',,t+1,ods_sap_erp_tvko_df,,57
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售机构：文本,表,TVKOT,机构单位：销售机构：文本,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvkot_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkot_df,,58
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：分销渠道,表,TVTW,机构单位：分销渠道,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvtw_df,全量,MANDT='800',,t+1,ods_sap_erp_tvtw_df,,11
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：分销渠道：文本,表,TVTWT,机构单位：分销渠道：文本,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvtwt_df,全量,MANDT='800',,t+1,ods_sap_erp_tvtwt_df,,13
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售产品组,表,TSPA,机构单位：销售产品组,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tspa_df,全量,MANDT='800',,t+1,ods_sap_erp_tspa_df,,13
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,组织单位: 销售分部: 文本,表,TSPAT,组织单位: 销售分部: 文本,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tspat_df,全量,MANDT='800',,t+1,ods_sap_erp_tspat_df,,15
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售办公室,表,TVBUR,机构单位：销售办公室,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvbut_df,全量,MANDT='800',,t+1,ods_sap_erp_tvbut_df,,98
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售办公室：文本,表,TVKBT,机构单位：销售办公室：文本,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvkbt_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkbt_df,,100
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售组,表,TVKGR,机构单位：销售组,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvkgr_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkgr_df,,369
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,组织单位: 销售组: 文本,表,TVGRT,组织单位: 销售组: 文本,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvgrt_df,全量,MANDT='800',,t+1,ods_sap_erp_tvgrt_df,,371
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,组织单位：每一销售机构的分销渠道,表,TVKOV,组织单位：每一销售机构的分销渠道,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvkov_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkov_df,,230
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售机构产品组,表,TVKOS,机构单位：销售机构产品组,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（开发复核通过）,邵炜杰,谭程俊,赵彦,,,,ods_sap_erp_tvkos_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkos_df,,324
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售范围,表,TVTA,机构单位：销售范围,,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,谭程俊,蔡岸榕,,,,ods_sap_erp_tvta_df,全量,MANDT='800',,t+1,ods_sap_erp_tvta_df,,605
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售办公室 ： 分配机构单元,表,TVKBZ,机构单位：销售办公室 ： 分配机构单元,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,蔡岸榕,,,,ods_sap_erp_tvkbz_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkbz_df,,4810
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位：销售办公室的销售小组数,表,TVBVK,机构单位：销售办公室的销售小组数,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,蔡岸榕,,,,ods_sap_erp_tvbvk_df,全量,MANDT='800',,t+1,ods_sap_erp_tvbvk_df,,405
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,机构单位： 每个销售机构允许的工厂数,表,TVKWZ,机构单位： 每个销售机构允许的工厂数,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,蔡岸榕,,,,ods_sap_erp_tvkwz_df,全量,MANDT='800',,t+1,ods_sap_erp_tvkwz_df,,430
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,工厂/分支机构,表,T001W,工厂/分支机构,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,蔡岸榕,,,,ods_sap_erp_t001w_df,全量,MANDT='800',,t+1,ods_sap_erp_t001w_df,,86
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,采购组织,表,T024E,采购组织,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,蔡岸榕,,,,ods_sap_erp_t024e_df,全量,MANDT='800',,t+1,ods_sap_erp_t024e_df,,56
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,工厂的有效采购组织,表,T024W,工厂的有效采购组织,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,李朝中,,,,ods_sap_erp_t024w_df,全量,MANDT='800',,t+1,ods_sap_erp_t024w_df,,89
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,评估范围,表,T001K,评估范围,,2025-11-14 00:00:00,2025-11-14 00:00:00,已入湖（测试）,邵炜杰,谭程俊,李朝中,,,,ods_sap_erp_t001k_df,全量,MANDT='800',,t+1,ods_sap_erp_t001k_df,,86
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,"交货单抬头长文本
+销售订单抬头长文本",RFC,"ZHONE_TEXT_GET
+TABNAME：VBBK
+TDID：Y002,0001,0004,Z004,Z008,Z009
+ERDAT_F：20130101
+ERDAT_T：至今
+
+会存在text为空的数据","交货单抬头长文本
+销售订单抬头长文本","VBBK	Y002	收货地址
+VBBK	0001	项目名称
+VBBK	0004	付款方式
+VBBK	Z004	业绩分配说明
+VBBK	Z008	质保期 
+VBBK	Z009	制单员 ",2025-11-17 00:00:00,2025-11-17 00:00:00,已入湖（测试）,陈迎颖,"谭程俊
+饶嘉璇",刘洋,"增量，取10天前
+表名：
+ods_sap_erp_zhone_text_get_vbbk_di
+任务名，加后缀：
+di_full  20130101 当前时间
+di：当前时间-10 当前时间
+（insert_dt数据仓库更新时间）",,,ods_sap_erp_zhone_text_get_vbbk_di,全量,,,t+1,ods_sap_erp_zhone_text_get_vbbk_di,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,获取基本计量单位换算表,RFC,ZHONE_UNIT_CONVERSION_GET,ET_DATA,zhsxs=umrez/umren,2025-11-14 00:00:00,2025-11-13 00:00:00,已入湖（测试）,邵炜杰,饶嘉璇,李朝中,,,,,,,,,,,218
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,组中数据,表,SETLEAF,组中数据,,2025-11-17 00:00:00,2025-11-14 00:00:00,已入湖（测试）,陈迎颖,谭程俊,李朝中,,,,ods_sap_erp_setleaf_df,全量,MANDT='800',,t+1,ods_sap_erp_setleaf_df,,20080
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售副中心转换,表,ZSUBCENTER_TRANS,销售副中心转换,,2025-11-17 00:00:00,2025-11-14 00:00:00,已入湖（测试）,陈迎颖,谭程俊,李朝中,,,,ods_sap_erp_zsubcenter_trans_df,全量,MANDT='800',,t+1,ods_sap_erp_zsubcenter_trans_df,,9
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售订单分类,表,ZPROVINCE_TRANS,销售订单分类,,2025-11-17 00:00:00,2025-11-14 00:00:00,已入湖（测试）,陈迎颖,谭程俊,李朝中,,,,ods_sap_erp_zprovince_trans_df,全量,MANDT='800',,t+1,ods_sap_erp_zprovince_trans_df,,68
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售订单分类,表,ZSDTYPE_TRANS,销售订单分类,,2025-11-17 00:00:00,2025-11-14 00:00:00,已入湖（测试）,陈迎颖,谭程俊,李朝中,,,,ods_sap_erp_zsdtype_trans_df,全量,MANDT='800',,t+1,ods_sap_erp_zsdtype_trans_df,,290
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,销售组织分类,表,ZSALES_COM,销售组织分类,,2025-11-17 00:00:00,2025-11-14 00:00:00,已入湖（测试）,陈迎颖,谭程俊,李朝中,,,,ods_sap_erp_zsales_com_df,全量,MANDT='800',,t+1,ods_sap_erp_zsales_com_df,,13
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,成本中心主数据,表,CSKS,成本中心主数据,,2025-11-21 00:00:00,2025-11-20 00:00:00,已入湖（测试）,陈迎颖,谭程俊,李朝中,,,,ods_sap_erp_csks_df,全量,MANDT='800',,t+1,ods_sap_erp_csks_df,,4821
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,登录数据（核心方使用）,表,USR02,登录数据（核心方使用）,,2025-11-21 00:00:00,2025-11-20 00:00:00,已入湖（测试）,许凯文,谭程俊,李朝中,,,,ods_sap_erp_usr02_df,全量,MANDT='800',,t+1,ods_sap_erp_usr02_df,,421
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,API,,,,,,暂时用不到,吴美琪,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,收入毛利表,表,ZTFI057,收入毛利表,公司代码范围：1000，2000，6000，7000，7200，8200，8300，8400，8500，8600，A100，A400，B000，由SAP开发每日调度更新到SAP表（ZTFI057），中台直接对接表数据，每日更新，更新当月数据,2025-12-09 00:00:00,2025-12-11 00:00:00,已入湖（测试）,吴美琪,蔡岸榕,,,,,,,,,,,,31
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,成本中心文本,表,CSKT,成本中心文本,,2025-12-02 00:00:00,2025-12-02 00:00:00,已入湖（测试）,陈迎颖,谭程俊,,,,,,全量,MANDT='800',,t+1,ods_sap_erp_cskt_df,,4839
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,订单类型文本,表,TVAKT,auart订单类型文本,,2025-12-05 00:00:00,2025-12-03 00:00:00,已入湖（测试）,陈迎颖,蔡岸榕,,,,,,,,,,,,446
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,标准BOM,RFC,ZHONE_GET_MAT_BOM,,详见https://u0vocx8xrmg.feishu.cn/sheets/N6KysSIynhNS0ftZPNrcLU15nDh?sheet=7HEXp0,2025-12-05 00:00:00,,已授权（测试环境）,邵炜杰,饶嘉璇,,不急，有待办事项,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,获取汇联易单号跟生成的凭证号的对应关系,表,ZSAP_OA,资金管理付款凭证与0A单号对应表,,2025-12-05 00:00:00,2025-12-03 00:00:00,已入湖（测试）,陈迎颖,蔡岸榕,,,,,,,,,,,,273398
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,订单BOM,RFC,ZHONE_GET_KND_BOM,,"详见
+https://u0vocx8xrmg.feishu.cn/sheets/N6KysSIynhNS0ftZPNrcLU15nDh?sheet=9CQZ9o",2025-12-05 00:00:00,,已授权（测试环境）,邵炜杰,饶嘉璇,,不急，有待办事项,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,业务范围描述,表,TGSBT,,,2025-12-12 00:00:00,2025-12-11 00:00:00,已入湖（测试）,吴美琪,蔡岸榕,,,,,,,,,,,,126
+"SAP-ERP
+(SAPPRD)
+集团号：800",熊生压,学术头衔（办公地址服务）（账号类型）,表,TSAD2,,,,,已授权（测试&生产环境）,,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,,,,,,,,未开始,吴美琪,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,发票抬头,表,VBRK,,,2025-12-17 00:00:00,,已入湖（测试）,吴美琪,李朝中,,,,,ods_sap_erp_vbrk_df,全量,MANDT='800',,,ods_sap_erp_vbrk_df,,333081
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,发票行项目,表,VBRP,,,2025-12-17 00:00:00,,已入湖（测试）,吴美琪,李朝中,,,,,ods_sap_erp_vbrp_df,全量,MANDT='800',,,ods_sap_erp_vbrp_df,,954278
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,会计核算凭证,表,BSEG,簇表,"筛选条件：
+① SAKNR=''select * from ska1 as a join skat as b on a.saknr=b.saknr where b.ktopl =1000 and a.ktoks='06' and spras='1'
+② ",2025-12-19 00:00:00,,未开始,吴美琪,,,,,,,,,,,,,
+"SAP-ERP
+(SAPPRD)
+集团号：800",刘飞虎,取事业部描述,表,ZTFICO001,,,2025-12-19 00:00:00,,未开始,陈迎颖,,,,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,用户表,视图,USER_ADDR,,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,"缺少状态字段（是否禁用、是否启用）
+表里没有USR02-UFLAG这个字段","USR02-UFLAG
+新增USR02表授权
+禁用标识释义：
+0：未锁定
+32：被管理员全局锁定
+64：被管理员本地锁定
+128：因不正确登录（限制条款）而被锁定",,,,,,,,49
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,角色表,表,AGR_DEFINE,角色定义,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,2156
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,用户角色关联表,表,AGR_USERS,角色用户关联表,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,2155
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,用户角色关联表,表,UJE_TEAM_AGR,角色团体关联表,,2025-10-31 00:00:00,2025-11-06 00:00:00,已入湖（测试）,许凯文,蔡岸榕,李朝中,,,,,,,,,,,366
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,个人（办公地址管理）,表,ADRP,个人（办公地址管理）,,,,暂时用不到,,,,,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,个人/地址分配 (业务地址服务),表,ADCP,个人/地址分配 (业务地址服务),,,,暂时用不到,,,,,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,分配用户名称地址码,表,USR21,分配用户名称地址码,,,,暂时用不到,,,,,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,实际费用query,表,/BIC/AZDWFID012,,"只取left(a.u_account,1) IN ('F','L','V','E','P')的数据",2025-11-28 00:00:00,,已入湖（测试）,陈迎颖,李朝中,饶嘉璇,,,,ods_sap_bpc_bic_azdwfid012_df,全量,,,T+1,ods_sap_bpc_bic_azdwfid012_df,,2564565
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取实际费用手工调整数,表,"B0501→【费用实际数查看表_区分销管研制-按成本中心列式】
+预算编制流程/全融合_汇总/实际数查看流程",费用实际数查看表,"U PROJECT: IDES(项目合计)
+U ACCOUNT:IDES(SAP费用科目合计)
+U CATEGORY:实际数手工调整(股份支付+辞退补偿金调整)、实际数调整后（ACT01+ACT02+ACT04+ACT05）、实际版（SAP）
+U CURRENCY:人民币
+U CUSTOMER: 客户缺省
+U ENTITY:IDES(全融合 汇总)
+U MATERIAL: 物料缺省
+U MISC1:预算编制不区分
+U MISC2:无产品(禁止录入数据)
+U PRODUCT: 产品缺省
+U SPARE1:预算备用维
+U SPARE2:备用维2缺省
+U TIME: BASE(2025.Total)
+MEASURS：Periodic",,,,陈迎颖,,,(ACT05),,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取实际费用手工调整后数,RFC,"ZHONE_GET_MODEL_DATA_02
+入参：从2024年开始取数
+IV_ZID：U_001
+IT_DATA：
+① DIMENSION：U_TIME
+ATTRIBUTE：BAS
+VALUE：入参年.Total
+② DIMENSION：U_CATEGORY
+ATTRIBUTE：ID
+VALUE：ACT03",B0501-费用实际数查看表_区分管销研制-按成本中心列示（实际数调整后）,"配置表信息：
+U_ACCOUNT:HIE(TotalExpenses02)
+U_CURRENCY:ID(CNY)
+U_CUSTOMER:ID(CS_NONE)
+U_ENTITY:HIE(GBG01_Total)
+U_MATERIAL:ID(M_NONE)
+U_MISC1:ID(MISC1_NONE)
+U_MISC2:ID(MISC2_NONE)
+U_PRODUCT:ID(PROD_NONE)
+U_PROJECT:HIE(PJ_ALL)
+U_SPARE1:ID(SP1_NONE)
+U_SPARE2:ID(SP2_NONE)",2025-11-28 00:00:00,,已授权（生产环境）,陈迎颖,饶嘉璇,,,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取实际费用手工调整数,RFC,"ZHONE_GET_MODEL_DATA_02
+入参：从2024年开始取数
+IV_ZID：U_001
+IT_DATA：
+① DIMENSION：U_TIME
+ATTRIBUTE：BAS
+VALUE：入参年.Total
+② DIMENSION：U_CATEGORY
+ATTRIBUTE：ID
+VALUE：ACT05",B0501-费用实际数查看表_区分管销研制-按成本中心列示（实际数手工调整）,"配置表信息：
+U_ACCOUNT:HIE(TotalExpenses02)
+U_CURRENCY:ID(CNY)
+U_CUSTOMER:ID(CS_NONE)
+U_ENTITY:HIE(GBG01_Total)
+U_MATERIAL:ID(M_NONE)
+U_MISC1:ID(MISC1_NONE)
+U_MISC2:ID(MISC2_NONE)
+U_PRODUCT:ID(PROD_NONE)
+U_PROJECT:HIE(PJ_ALL)
+U_SPARE1:ID(SP1_NONE)
+U_SPARE2:ID(SP2_NONE)",2025-11-28 00:00:00,,已授权（生产环境）,陈迎颖,李朝中,,稍等,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,经济补偿金录入,表,经济补偿金录入{B0401},经济补偿金录入,如果B0501不好取，看能否直接取这张表，取B0501主要是获取手工调整数,,,暂时用不到,陈迎颖,,,(ACT05),,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,前海投资公司录入,表,前海投资公司录入{B0404}、,前海投资公司录入,如果B0501不好取，看能否直接取这张表，取B0501主要是获取手工调整数,,,暂时用不到,陈迎颖,,,(ACT05),,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,美国子公司数据录入,表,美国子公司数据录入{FF001},美国子公司数据录入,如果B0501不好取，看能否直接取这张表，取B0501主要是获取手工调整数,,,暂时用不到,陈迎颖,,,ACT02,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取费用待分摊金额,表,"B0101→【报表费用科目预算查看表_区分销管研制-按明细部门列式】
+预算编制流程/全融合_汇总/费用预算查看流程",费用预算查看,"U PROJECT: IDES(项目合计)
+U ACCOUNT:IDES(SAP费用科目合计)
+U CATEGORY:年初目标版
+U CURRENCY:人民币
+U CUSTOMER: 客户缺省
+U ENTITY:IDES(全融合 汇总)
+U MATERIAL: 物料缺省
+U MISC1:预算编制不区分
+U MISC2:无产品(禁止录入数据)
+U PRODUCT: 产品缺省
+U SPARE1:预算备用维
+U SPARE2:备用维2缺省
+U TIME: BASE(2025.Total)
+MEASURS：Periodic",,,,陈迎颖,,,"实际数调整ACT03
+预算参考版待确认",,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取费用待分摊金额,RFC,"ZHONE_GET_MODEL_DATA_02
+入参：从2024年开始取数
+IV_ZID：U_002
+IT_DATA：
+① DIMENSION：U_TIME
+ATTRIBUTE：BAS
+VALUE：入参年.Total
+② DIMENSION：U_CATEGORY
+ATTRIBUTE：ID
+VALUE：B00",B0101-SAP费用科目预算查看表-按明细部门展示（年初目标版）,"配置表信息：
+U_ACCOUNT:HIE(TotalExpenses02)
+U_CATEGORY:ID(B00)
+U_CURRENCY:ID(CNY)
+U_CUSTOMER:ID(CS_NONE)
+U_ENTITY:HIE(GBG01_Total)
+U_MATERIAL:ID(M_NONE)
+U_MISC1:ID(MISC1_NONE)
+U_MISC2:ID(MISC2_NONE)
+U_PRODUCT:ID(PROD_NONE)
+U_PROJECT:HIE(PJ_ALL)
+U_SPARE1:ID(SP1_NONE)
+U_SPARE2:ID(SP2_NONE)",2025-12-16 00:00:00,,已授权（生产环境）,陈迎颖,谭程俊,,稍等,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取部门的毛利，收入预算,表,"B0201→【销售预算查看表】
+预算编制流程/全融合_汇总/销售预算查看表",销售预算查看表,"U PROJECT: IDES(项目合计)
+U ACCOUNT:收入，成本
+U CATEGORY:年初目标版，实际数调整后（ACT01+ACT02+ACT04+ACT05）
+U CURRENCY:人民币
+U CUSTOMER: 客户缺省
+U ENTITY:IDES(全融合 汇总)
+U MATERIAL: 物料缺省
+U MISC1:预算编制不区分
+U MISC2:IDES(产品线合计)
+U PRODUCT: 产品缺省
+U SPARE1:预算备用维
+U SPARE2:备用维2缺省
+U TIME: BASE(YEAR)
+MEASURS：Periodic",,,,陈迎颖,,,"手工录入的，想要什么数据录入什么数据，无实际参考意义。AC01/AC02
+预算系统的数仅到区域粒度，但实际需要到省份区域的数",,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取部门的毛利，收入预算-年初目标版,RFC,"ZHONE_GET_MODEL_DATA_02
+入参：从2024年开始取数
+IV_ZID：U_003
+IT_DATA：
+① DIMENSION：U_TIME
+ATTRIBUTE：BAS
+VALUE：入参年.Total
+② DIMENSION：U_CATEGORY
+ATTRIBUTE：ID
+VALUE：B00",B0201-销售预算查看表（年初目标版）,"配置信息：
+U_ACCOUNT:ID(AC01)
+U_ACCOUNT:ID(AC02)
+U_CURRENCY:ID(CNY)
+U_CUSTOMER:ID(CS_NONE)
+U_ENTITY:HIE(GBG01_Total)
+U_MATERIAL:ID(M_NONE)
+U_MISC1:ID(MISC1_NONE)
+U_MISC2:HIE(PDL_ALL)
+U_PRODUCT:ID(PROD_NONE)
+U_PROJECT:HIE(PJ_ALL)
+U_SPARE1:ID(SP1_NONE)
+U_SPARE2:ID(SP2_NONE)",2025-12-16 00:00:00,,已授权（生产环境）,陈迎颖,谭程俊,,稍等,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取部门的毛利，收入预算-实际数调整后,RFC,"ZHONE_GET_MODEL_DATA_02
+入参：从2024年开始取数
+IV_ZID：U_003
+IT_DATA：
+① DIMENSION：U_TIME
+ATTRIBUTE：BAS
+VALUE：入参年.Total
+② DIMENSION：U_CATEGORY
+ATTRIBUTE：ID
+VALUE：ACT03",B0201-销售预算查看表（实际数调整后）,"配置信息：
+U_ACCOUNT:ID(AC01)
+U_ACCOUNT:ID(AC02)
+U_CURRENCY:ID(CNY)
+U_CUSTOMER:ID(CS_NONE)
+U_ENTITY:HIE(GBG01_Total)
+U_MATERIAL:ID(M_NONE)
+U_MISC1:ID(MISC1_NONE)
+U_MISC2:HIE(PDL_ALL)
+U_PRODUCT:ID(PROD_NONE)
+U_PROJECT:HIE(PJ_ALL)
+U_SPARE1:ID(SP1_NONE)
+U_SPARE2:ID(SP2_NONE)",2025-12-16 00:00:00,,已授权（生产环境）,陈迎颖,谭程俊,,稍等,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,获取国际/国内平台费用-职能平台的实际收入,表,"B0402
+实际数手工调整流程/全融合_汇总/实际数流程/收入&成本实际数录入",销售实际编制表,此为编制表，可在B0201取数,2025-11-28 00:00:00,,暂时用不到,陈迎颖,,,待确认,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,预算费用科目维,RFC,"RFC: ZHONE_GET_DIMENSION_ATTRIBUTE
+I_APPSET  = UNILUMIN_CONS
+I_DIM = U_ACCOUNT
+I_ATTR_LIST = ID,EVDESCRIPTION",,,2025-12-02 00:00:00,,已入湖（测试）,佘伟萍,蔡岸榕,,ZHONE_GET_DIMENSION_ATTRIBUTE,,,,,,,,,,1001
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,预算实体维度,RFC,"RFC: ZHONE_GET_DIMENSION_ATTRIBUTE
+I_APPSET  = UNILUMIN_CONS
+I_DIM = U_ENTITY
+I_ATTR_LIST = ID,EVDESCRIPTION",,,2025-12-02 00:00:00,,已入湖（测试）,佘伟萍,蔡岸榕,,,,,,,,,,,,5708
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,费用预算,,,,"是否B0101、B0201已包含？
+对BPC数据整体需求是：预算科目主数据、BPC科目与SAP科目映射关系、费用预算明细以及合并节点调整数（如有）、收入预算明细以及合并节点调整数（如有）；费用实际数",,,暂时用不到,佘伟萍,,,跟年初预算对比，B00预算版本,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,收入预算,,,,"是否B0101、B0201已包含？
+对BPC数据整体需求是：预算科目主数据、BPC科目与SAP科目映射关系、费用预算明细以及合并节点调整数（如有）、收入预算明细以及合并节点调整数（如有）；费用实际数",,,暂时用不到,佘伟萍,,,B00预算版本，AC01,,,,,,,,,,
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,登录数据（核心方使用）,表,USR02,登录数据（核心方使用）,,2025-11-21 00:00:00,2025-11-24 00:00:00,已入湖（测试）,许凯文,谭程俊,李朝中,,,,ods_sap_bpc_usr02_df,全量,MANDT='700',,t+1,ods_sap_bpc_usr02_df,,49
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",刘飞虎,主数据映射表,表,ZTBPC001,,,2025-12-12 00:00:00,,已入湖（测试）,佘伟萍,李朝中,,,,,ods_sap_bpc_ztbpc001_df,全量,MANDT='700',,,ods_sap_bpc_ztbpc001_df,,1146
+"SAP-BPC
+(SAPHANADB)
+集团号：700
+仅对接生产",熊生压,学术头衔（办公地址服务）（账号类型）,表,TSAD2,用户账号类型代码,,2025-12-10 00:00:00,,已入湖（测试）,许凯文,李朝中,,,,,ods_sap_bpc_tsad2_df,全量,,,,ods_sap_bpc_tsad2_df,,15
+SRM,龚晨,用户表,表,srm_sit.els_subaccount_info,用户表,,2025-10-31 00:00:00,2025-11-05 00:00:00,已入湖（测试）,许凯文,赵彦,谭程俊,,,,ods.ods_srm_els_subaccount_info_df,全量,,,,,,
+SRM,龚晨,角色表,表,srm_sit.els_role,角色表,,2025-10-31 00:00:00,2025-11-05 00:00:00,已入湖（测试）,许凯文,赵彦,谭程俊,,,,ods.ods_srm_els_role_df,全量,,,,,,
+SRM,龚晨,用户角色关联表,表,srm_sit.els_user_role,用户角色关联表,,2025-10-31 00:00:00,2025-11-05 00:00:00,已入湖（测试）,许凯文,赵彦,谭程俊,,,,ods.ods_srm_els_user_role_df,全量,,,,,,
+SRM,龚晨,物料补录价格,,,,,,,,邵炜杰,,,,,,,,,,,,,
+APS,张家港,替代关系表,表,"预计十一月底能够进行数据库直连
+ESCP_INF_O_DATACENTER_SubstitutMaterials
+源系统更改表名
+ESCP_INF_DATACENTER_O_SubstitutMaterials",替代关系表,,2025-11-28 00:00:00,,已入湖（测试）,邵炜杰,蔡岸榕,,11月底配置数据库，但是无替代关系数据,,,,,,,,,,55
+APS,张家港,,,,,,,,未开始,,,,,,,,,,,,,,
+APS,张家港,,,,,,,,未开始,,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,用户表,,销售易暂无系统,,,,,未开始,许凯文,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,角色表,,销售易暂无系统,,,,,未开始,许凯文,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,用户角色关联表,,销售易暂无系统,,,,,未开始,许凯文,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,线索明细、线索转化,,销售易暂无系统,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,商机明细、商机转化,,销售易暂无系统,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,销售合同清单,,销售易暂无系统,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,渠道协议清单,,销售易暂无系统,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,销售订单明细,,销售易暂无系统,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,B2B-【进销存-分销库存明细】,,销售易暂无系统,,,,,未开始,陈迎颖,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,客户主数据（含渠道客户）,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,服务商,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,市场活动,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,UCE认证,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,服务工单,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,客诉工单,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,,,,,,,,未开始,佘伟萍,,,,,,,,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,配置清单&报价单信息,API,https://api.xiaoshouyi.com/rest/data/v2.0/scripts/api/cpq/quotation,报价单接口,接口文档：https://u0vocx8xrmg.feishu.cn/file/LtU5bBpevoaaymxzadxcYfccnug,2025-11-28 00:00:00,,已入湖（测试）,邵炜杰,赵彦,,12.2已提供接口信息，但由于CRM无系统，销售订单字段缺失，中台预留字段开发,,,ods.ods_xsycrm_quotation_di,增量,,,,,,
+"XSYCRM
+（CPQ）
+仅对接生产",林佳鸿,定制虚拟编号和PCI的对应关系,,不在对方一期范围，大概要排到一月底,,,2025-11-28 00:00:00,,未开始,邵炜杰,,,,,,,,,,,,,
+"HLY
+仅对接生产",陈海棠,用户表,API,https://opendocsuat.huilianyi.com/implement/master-data/staff/select-employee-by-employeeId.html,查询员工,,2025-10-31 00:00:00,2025-11-12 00:00:00,已入湖（测试）,许凯文,饶嘉璇,刘洋,,,,,,,,,,,
+"HLY
+仅对接生产",陈海棠,角色表,API,https://opendocsuat.huilianyi.com/implement/master-data/userGroup/query-userGroup-by-tenant.html,查询租户下人员组,,2025-10-31 00:00:00,2025-11-12 00:00:00,已入湖（测试）,许凯文,饶嘉璇,刘洋,,,,,,,,,,,
+"HLY
+仅对接生产",陈海棠,用户角色关联表,API,https://opendocsuat.huilianyi.com/implement/master-data/userGroup/query-userGroup-by-user.html,查询用户所属人员组,,2025-10-31 00:00:00,2025-11-12 00:00:00,已入湖（测试）,许凯文,饶嘉璇,刘洋,,,,,,,,,,,
+"HLY
+仅对接生产",陈海棠,费用项目,,,,,2025-12-01 00:00:00,,暂时用不到,佘伟萍,,,跟sap科目一致,,,,,,,,,,
+"HLY
+仅对接生产",陈海棠,对公支付单明细报表,API,"https://opendocs.huilianyi.com/implement/report-data/CorpExpDetailReport.html
+其中 必填项 setOfBooksCode =DEFAULT_SOB",对公支付单明细报表,,2025-11-25 00:00:00,2025-11-24 00:00:00,已入湖（测试）,陈迎颖,谭程俊,刘洋,,,,"ods_hly_corp_exp_detail_di
+",增量,page=0是第一页开始，startDate从20220601起有数,增量同步最近10天变动明细写入stg表，di表删除stg 表有变动的报销单明细最后合并；每周全量一次兜底,t+1,"ods_hly_corp_exp_detail_di
+ods_hly_corp_exp_detail_di_full(初始化)",,63603
+"HLY
+仅对接生产",陈海棠,费用明细台账,API,https://opendocsuat.huilianyi.com/implement/report-data/ExpenseDetailsReport.html,费用明细报表,,2025-11-25 00:00:00,2025-11-25 00:00:00,已入湖（测试）,佘伟萍,谭程俊,刘洋,,,,"ods_hly_corp_exp_detail_di
+",增量,page=0是第一页开始，startDate从20200701起有数,增量同步最近10天变动明细写入stg表，di表删除stg 表有变动的报销单明细最后合并;每周全量一次兜底,T+1,"ods_hly_corp_exp_detail_di
+",,630209
+"BI
+仅对接生产",蔡岸榕,用户表,视图,finedb.view_fine_user_hone,,,2025-10-31 00:00:00,2025-10-29 00:00:00,已入湖（测试）,许凯文,赵彦,李朝中,,缺少状态字段（是否禁用、是否启用，enable字段是否是状态字段，enable字段0、1分别代表什么含义）,enable：1-有效，0-无效,ods_bi_view_fine_user_hone_df,全量,,,T+1,ods_bi_view_fine_user_hone_df,,549
+"BI
+仅对接生产",蔡岸榕,角色表,视图,finedb.view_fine_custom_role_hone,,,2025-10-31 00:00:00,2025-10-29 00:00:00,已入湖（测试）,许凯文,赵彦,李朝中,,,,ods_bi_view_fine_custom_role_hone_df,全量,,,T+1,ods_bi_view_fine_custom_role_hone_df,,303
+"BI
+仅对接生产",蔡岸榕,用户角色关联表,视图,finedb.view_fine_user_role_middle_hone,,,2025-10-31 00:00:00,2025-10-29 00:00:00,已入湖（测试）,许凯文,赵彦,李朝中,,,,ods_bi_view_fine_user_role_middle_hone_df,全量,,,T+1,ods_bi_view_fine_user_role_middle_hone_df,,"	
+1630"
+"BI
+仅对接生产",蔡岸榕,损耗率填报表,表,hone_import.report_fr_loss_rate,,,2025-12-12 00:00:00,2025-12-11 00:00:00,已入湖（测试）,邵炜杰,谭程俊,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,制费率填报表,表,hone_import.report_fr_manu_fee_rate,,,2025-12-12 00:00:00,2025-12-11 00:00:00,已入湖（测试）,邵炜杰,谭程俊,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,供货比例填报表,表,hone_import.report_fr_supply_ratio,,,2025-12-12 00:00:00,2025-12-11 00:00:00,已入湖（测试）,邵炜杰,谭程俊,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,基准价调整值填报表,表,,,,,,,邵炜杰,,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,定制-损耗率填报表,表,,,,2025-12-12 00:00:00,,未开始,邵炜杰,,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,定制-损耗率填报表,表,,,,2025-12-12 00:00:00,,未开始,邵炜杰,,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,定制-基准价调整值填报表,表,,,,,,,邵炜杰,,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,定制-定制费用填报表,表,,,,,,,,,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,Sparts价格填报表,表,,,,,,,,,,,,,,,,,,,,
+"BI
+仅对接生产",蔡岸榕,各系统账号状态映射表,表,hone_import.report_sys_state_mapping,各系统账号状态映射表,,2025-12-08 00:00:00,,已入湖（测试）,郑日天,李朝中,刘洋,,,,ods_bi_report_sys_state_mapping_df,全量,,,T+1,ods_bi_report_sys_state_mapping_df,,32
+"BI
+仅对接生产",蔡岸榕,账号类型字典表,表,hone_import.report_dic_account_type,账号类型字典表,,2025-12-08 00:00:00,,已入湖（测试）,郑日天,李朝中,刘洋,,,,ods_bi_report_dic_account_type_df,全量,,,T+1,ods_bi_report_dic_account_type_df,,9
+PBI,,产品目录树,,十一月底提供表结构，暂定十二月底数据库能够链接,产品目录树,,2025-12-26 00:00:00,,未开始,邵炜杰,,,,,,,,,,,,,
+PBI,,,,,,,,,未开始,,,,,,,,,,,,,,
+PBI,,,,,,,,,未开始,,,,,,,,,,,,,,
+合同管理系统,,,,,,,,,,,,,,,,,,,,,,,

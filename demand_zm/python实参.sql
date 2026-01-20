@@ -1,0 +1,1 @@
+--project-dir d:\note\code\py    --file document\模型设计清单-技术开发.xlsx    --sheet dim_汇率    --out-dir d:\note\code\py\test01\zm\kb_out

@@ -1,0 +1,22 @@
+﻿源系统,目标系统,目标系统负责人,数据需求,对象类型,表名,"接口地址
+（测试环境）",入参,接口调用文档,计划完成时间,实际完成时间,授权状态,"需求
+提出人","入湖
+负责人",开发复核负责人,模型名称,模型编码
+HONE,PLM,刘培,标准BOM,表,mysql库：plm.plm_bom_item,,PLM根据BOM编码删除并导入最新版本数据,,2025-11-24 00:00:00,2025-11-24 00:00:00,联调中-待目标系统反馈,邵炜杰,刘洋,赵彦,,
+HONE,SRM,,需补录价格的物料信息,,,,,,,,,邵炜杰,,,,
+HONE,XSYCRM,王靖杰,获取token,API,,http://10.2.8.33:8080/oauth/oauth/token?grant_type=client_credentials&client_id={client_id}&client_secret={client_secret},"测试环境
+client_id：CPQ
+client_secret：zmkj@cpq
+
+生产环境：",https://u0vocx8xrmg.feishu.cn/file/Fzcob28blopnZax4kdLcgS4hnmd,2025-12-05 00:00:00,2025-12-05 00:00:00,联调中-待目标系统反馈,邵炜杰,饶嘉璇,刘洋,,
+HONE,XSYCRM,王靖杰,标品基准价,API,,http://10.2.8.33:8080/xsvc/data-service/dm-product-base-price-df-1IP0EWnQ-q,"p_start_date：如2025-12-01
+返回大于开始时间的数据",https://u0vocx8xrmg.feishu.cn/file/Fzcob28blopnZax4kdLcgS4hnmd,2025-12-05 00:00:00,2025-12-05 00:00:00,联调中-待目标系统反馈,邵炜杰,饶嘉璇,刘洋,dm_产品基准价展示表,dm-product-base-price-df
+HONE,XSYCRM,,定制品基准价,API,,,,,2025-12-12 00:00:00,,未开始,邵炜杰,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,
+HONE,,,,,,,,,,,未开始,,,,,

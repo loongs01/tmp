@@ -1,0 +1,327 @@
+[
+  {
+    "database": "ods",
+    "table": "ods_sap_erp_zhone_mat_purchase_price_get_df",
+    "columns": [
+      {
+        "COLUMN_NAME": "matnr",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "物料编码",
+        "ORDINAL_POSITION": 1
+      },
+      {
+        "COLUMN_NAME": "werks",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "工厂编码",
+        "ORDINAL_POSITION": 2
+      },
+      {
+        "COLUMN_NAME": "esokz",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "采购信息记录分类",
+        "ORDINAL_POSITION": 3
+      },
+      {
+        "COLUMN_NAME": "maktx",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(1000)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "物料描述（短文本）",
+        "ORDINAL_POSITION": 4
+      },
+      {
+        "COLUMN_NAME": "meins",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "基本计量单位",
+        "ORDINAL_POSITION": 5
+      },
+      {
+        "COLUMN_NAME": "peinh",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "价格单位",
+        "ORDINAL_POSITION": 6
+      },
+      {
+        "COLUMN_NAME": "mtart",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "物料类型",
+        "ORDINAL_POSITION": 7
+      },
+      {
+        "COLUMN_NAME": "mtbez",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "物料类型描述",
+        "ORDINAL_POSITION": 8
+      },
+      {
+        "COLUMN_NAME": "kbetr_h",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "最高采购价（CNY）",
+        "ORDINAL_POSITION": 9
+      },
+      {
+        "COLUMN_NAME": "kbetr_l",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "最低采购价（CNY）",
+        "ORDINAL_POSITION": 10
+      },
+      {
+        "COLUMN_NAME": "kbetr_j",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "最近采购价（CNY）",
+        "ORDINAL_POSITION": 11
+      },
+      {
+        "COLUMN_NAME": "stprs",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "标准成本价（CNY）",
+        "ORDINAL_POSITION": 12
+      },
+      {
+        "COLUMN_NAME": "zstprs_hs",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "含税标准成本价（CNY）",
+        "ORDINAL_POSITION": 13
+      },
+      {
+        "COLUMN_NAME": "verpr",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "移动加权平均价（CNY）",
+        "ORDINAL_POSITION": 14
+      },
+      {
+        "COLUMN_NAME": "zverpr_hs",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "含税移动加权平均价（CNY）",
+        "ORDINAL_POSITION": 15
+      },
+      {
+        "COLUMN_NAME": "vprsv",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "价格控制指示符",
+        "ORDINAL_POSITION": 16
+      },
+      {
+        "COLUMN_NAME": "werks_t",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "工厂名称",
+        "ORDINAL_POSITION": 17
+      },
+      {
+        "COLUMN_NAME": "beskz",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "物料采购类型",
+        "ORDINAL_POSITION": 18
+      },
+      {
+        "COLUMN_NAME": "sobsl",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "特殊采购类型",
+        "ORDINAL_POSITION": 19
+      },
+      {
+        "COLUMN_NAME": "insert_dt",
+        "DATA_TYPE": "datetime",
+        "COLUMN_TYPE": "datetime",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "数仓数据更新时间",
+        "ORDINAL_POSITION": 20
+      }
+    ],
+    "create_table": "ods_sap_erp_zhone_mat_purchase_price_get_df"
+  },
+  {
+    "database": "dim",
+    "table": "dim_exchange_rate_di",
+    "columns": [
+      {
+        "COLUMN_NAME": "dt",
+        "DATA_TYPE": "int",
+        "COLUMN_TYPE": "int(11)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "日期（YYYYMMDD）",
+        "ORDINAL_POSITION": 1
+      },
+      {
+        "COLUMN_NAME": "rate_type",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(50)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "汇率类型",
+        "ORDINAL_POSITION": 2
+      },
+      {
+        "COLUMN_NAME": "from_ccy",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(50)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "从货币",
+        "ORDINAL_POSITION": 3
+      },
+      {
+        "COLUMN_NAME": "to_ccy",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(50)",
+        "IS_NULLABLE": "NO",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "最终货币",
+        "ORDINAL_POSITION": 4
+      },
+      {
+        "COLUMN_NAME": "start_date",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(50)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "汇率起始日期",
+        "ORDINAL_POSITION": 5
+      },
+      {
+        "COLUMN_NAME": "raw_rate",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "汇率（未转换因子）",
+        "ORDINAL_POSITION": 6
+      },
+      {
+        "COLUMN_NAME": "from_unit_rate",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "来自货币单位的比率",
+        "ORDINAL_POSITION": 7
+      },
+      {
+        "COLUMN_NAME": "to_unit_rate",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "到货币单位汇率",
+        "ORDINAL_POSITION": 8
+      },
+      {
+        "COLUMN_NAME": "final_rate",
+        "DATA_TYPE": "decimal",
+        "COLUMN_TYPE": "decimal(27, 8)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "汇率",
+        "ORDINAL_POSITION": 9
+      },
+      {
+        "COLUMN_NAME": "insert_dt",
+        "DATA_TYPE": "datetime",
+        "COLUMN_TYPE": "datetime",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "数仓数据更新时间",
+        "ORDINAL_POSITION": 10
+      }
+    ],
+    "create_table": "dim_exchange_rate_di"
+  },
+  {
+    "database": "ods",
+    "table": "ods_srm_mat_est_price_df",
+    "columns": [],
+    "create_table": null,
+    "create_table_error": "(1064, 'Getting analyzing error. Detail message: Table ods_srm_mat_est_price_df is not found.')"
+  },
+  {
+    "database": "ods",
+    "table": "ods_hone_manu_factory_mapping_df",
+    "columns": [
+      {
+        "COLUMN_NAME": "purchase_org_code",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "采购组织编码",
+        "ORDINAL_POSITION": 1
+      },
+      {
+        "COLUMN_NAME": "manu_factory_code",
+        "DATA_TYPE": "varchar",
+        "COLUMN_TYPE": "varchar(100)",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "制造工厂",
+        "ORDINAL_POSITION": 2
+      },
+      {
+        "COLUMN_NAME": "insert_dt",
+        "DATA_TYPE": "datetime",
+        "COLUMN_TYPE": "datetime",
+        "IS_NULLABLE": "YES",
+        "COLUMN_DEFAULT": null,
+        "COLUMN_COMMENT": "数仓数据更新时间",
+        "ORDINAL_POSITION": 3
+      }
+    ],
+    "create_table": "ods_hone_manu_factory_mapping_df"
+  }
+]

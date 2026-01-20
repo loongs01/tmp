@@ -1,0 +1,3265 @@
+{
+  "plan": {
+    "sheet": "dws_存量明细模型_业绩分配",
+    "purpose": "table",
+    "business_key": "Unnamed: 2",
+    "bk_candidates": [
+      {
+        "name": "Unnamed: 2",
+        "score": 3,
+        "unique": 73,
+        "missing": 13
+      },
+      {
+        "name": "Unnamed: 3",
+        "score": 3,
+        "unique": 73,
+        "missing": 14
+      },
+      {
+        "name": "Unnamed: 12",
+        "score": 3,
+        "unique": 71,
+        "missing": 18
+      },
+      {
+        "name": "Unnamed: 13",
+        "score": 3,
+        "unique": 57,
+        "missing": 30
+      },
+      {
+        "name": "Unnamed: 15",
+        "score": 1,
+        "unique": 13,
+        "missing": 73
+      }
+    ],
+    "create_table_sql": "CREATE TABLE IF NOT EXISTS `dws_sd_inventory_alloc_detail_di` (\n  `dt` VARCHAR(256) COMMENT '日期(分区字段YYYYMMDD）',\n  `a` VARCHAR(256) COMMENT '）',\n  `order_num` VARCHAR(256) COMMENT '销售公司销售订单号',\n  `contract_num` VARCHAR(256) COMMENT '客户采购订单编号',\n  `order_item_num` VARCHAR(256) COMMENT '订单行项目号',\n  `order_type_code` VARCHAR(256) COMMENT '订单类型编码',\n  `manu_sales_order_num` VARCHAR(256) COMMENT '制造公司销售订单号',\n  `order_num_transfer` VARCHAR(256) COMMENT '销售订单号_含抛转',\n  `create_date` VARCHAR(256) COMMENT '订单创建日期',\n  `approval_date` VARCHAR(256) COMMENT '订单首次审批日期',\n  `newest_date` VARCHAR(256) COMMENT '订单最新日期',\n  `contract_need_days` VARCHAR(256) COMMENT '合同需求天数',\n  `contract_need_date` VARCHAR(256) COMMENT '合同需求日期',\n  `review_del_days` VARCHAR(256) COMMENT '评审交期（天数）',\n  `pmc_review_del_date` VARCHAR(256) COMMENT 'PMC评审交期',\n  `request_del_date` VARCHAR(256) COMMENT '预计出货日期',\n  `pmc_change_date` VARCHAR(256) COMMENT 'PMC变更日期',\n  `last_receipt_date` VARCHAR(256),\n  `a` VARCHAR(256) COMMENT 'latest_warehousing_date 维度',\n  `last_receipt_date` VARCHAR(256),\n  `latest_warehousing_date` VARCHAR(256),\n  `transport_method` VARCHAR(256) COMMENT '运输方式',\n  `payment_method` VARCHAR(256) COMMENT '贸易条款',\n  `sales_org_code` VARCHAR(256) COMMENT '销售组织编码',\n  `sales_org_name` VARCHAR(256) COMMENT '销售组织名称',\n  `factory_code` VARCHAR(256) COMMENT '工厂编码',\n  `factory_name` VARCHAR(256) COMMENT '工厂名称',\n  `employee_dept_code` VARCHAR(256) COMMENT '雇员部门编码',\n  `employee_dept_code` VARCHAR(256) COMMENT 'b 雇员部门编号',\n  `employee_dept_name` VARCHAR(256) COMMENT '雇员部门名称',\n  `employee_dept_name` VARCHAR(256) COMMENT 'b 雇员部门',\n  `sales_person_num` VARCHAR(256) COMMENT '业务员编码',\n  `sales_person_num` VARCHAR(256) COMMENT 'b 人员编码',\n  `sales_person_name` VARCHAR(256) COMMENT '业务员姓名',\n  `sales_person_name` VARCHAR(256) COMMENT '名',\n  `sales_dept_code` VARCHAR(256) COMMENT '销售部门编码',\n  `sales_dept_code` VARCHAR(256) COMMENT 'b 销售部门编码',\n  `sales_dept_name` VARCHAR(256) COMMENT '销售部门名称',\n  `sales_dept_name` VARCHAR(256) COMMENT 'b 销售部门描述',\n  `sales_group_code` VARCHAR(256) COMMENT '销售组编码',\n  `sales_group_code` VARCHAR(256) COMMENT 'b 销售组编码',\n  `sales_group_name` VARCHAR(256) COMMENT '销售组名称',\n  `sales_group_name` VARCHAR(256) COMMENT 'b 销售组',\n  `sales_unit_code` VARCHAR(256) COMMENT '销售战区编码',\n  `sales_unit_code` VARCHAR(256) COMMENT 'b 销售战区编码',\n  `sales_unit_name` VARCHAR(255) COMMENT '销售战区名称',\n  `sales_unit_name` VARCHAR(256) COMMENT 'b 销售战区名称',\n  `sales_area_code` VARCHAR(256) COMMENT '销售大区编码',\n  `sales_area_code` VARCHAR(256) COMMENT 'b 销售大区编码',\n  `sales_area_name` VARCHAR(255) COMMENT '销售大区名称',\n  `sales_area_name` VARCHAR(256) COMMENT 'b 销售大区名称',\n  `sales_region_code` VARCHAR(256) COMMENT '销售区域编码',\n  `sales_region_code` VARCHAR(256) COMMENT 'b 销售区域编码',\n  `sales_region_name` VARCHAR(255) COMMENT '销售区域名称',\n  `sales_region_name` VARCHAR(256) COMMENT 'b 销售区域名称',\n  `customer_code` VARCHAR(256) COMMENT '客户编码',\n  `customer_name` VARCHAR(256) COMMENT '客户名称',\n  `product_type` VARCHAR(256) COMMENT '产品类型',\n  `industry_type` VARCHAR(256) COMMENT '行业类型',\n  `industry_code` VARCHAR(256) COMMENT '产业编码',\n  `industry_name` VARCHAR(256) COMMENT '产业描述',\n  `order_line_inv_flag` VARCHAR(256) COMMENT '订单行库存标识',\n  `industry_code` VARCHAR(256) COMMENT '产业编码',\n  `industry_name` VARCHAR(256) COMMENT '产业描述',\n  `product_line_code` VARCHAR(256) COMMENT '产品线编码',\n  `product_line_name` VARCHAR(256) COMMENT '产品线描述',\n  `product_group_code` VARCHAR(256) COMMENT '产品族编码',\n  `product_group_name` VARCHAR(256) COMMENT '产品族描述',\n  `piz_line_name` VARCHAR(100) COMMENT '业务产品线',\n  `product_area` VARCHAR(256) COMMENT '产品单位面积',\n  `inventory_status` VARCHAR(256) COMMENT '库存状态',\n  `order_exec_status` VARCHAR(256) COMMENT '订单执行状态',\n  `noship_reason` VARCHAR(256) COMMENT '未出货原因',\n  `noship_reason_category` VARCHAR(256) COMMENT '未出货原因类别',\n  `cny_exchange_rate` VARCHAR(256) COMMENT '汇率（to_CNY）',\n  `usd_exchange_rate` VARCHAR(256) COMMENT '汇率（to_USD）',\n  `sales_percent` VARCHAR(256) COMMENT 'new 业绩分配比例',\n  `unshipment_qty` VARCHAR(256) COMMENT '业绩分配-未出货数量',\n  `unshipment_area` VARCHAR(256) COMMENT '业绩分配-未出货面积',\n  `unshipment_tax_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_含税-原币',\n  `unshipment_tax_cny_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_含税-CNY',\n  `unshipment_tax_usd_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_含税-USD',\n  `unshipment_notax_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_不含税-原币',\n  `unshipment_notax_cny_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_不含税-CNY',\n  `unshipment_notax_usd_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_不含税-USD',\n  `source_system` VARCHAR(256) COMMENT '最新更新日期',\n  `insert_dt` VARCHAR(256) COMMENT '来源系统'\n) ENGINE=OLAP\nDUPLICATE KEY(`dt`)\nPARTITION BY RANGE(`dt`) ()\nDISTRIBUTED BY HASH(`dt`) BUCKETS 10;",
+    "insert_sql": "INSERT INTO dws_sd_inventory_alloc_detail_di (`dt`, `a`, `order_num`, `contract_num`, `order_item_num`, `order_type_code`, `manu_sales_order_num`, `order_num_transfer`, `create_date`, `approval_date`, `newest_date`, `contract_need_days`, `contract_need_date`, `review_del_days`, `pmc_review_del_date`, `request_del_date`, `pmc_change_date`, `last_receipt_date`, `a`, `last_receipt_date`, `latest_warehousing_date`, `transport_method`, `payment_method`, `sales_org_code`, `sales_org_name`, `factory_code`, `factory_name`, `employee_dept_code`, `employee_dept_code`, `employee_dept_name`, `employee_dept_name`, `sales_person_num`, `sales_person_num`, `sales_person_name`, `sales_person_name`, `sales_dept_code`, `sales_dept_code`, `sales_dept_name`, `sales_dept_name`, `sales_group_code`, `sales_group_code`, `sales_group_name`, `sales_group_name`, `sales_unit_code`, `sales_unit_code`, `sales_unit_name`, `sales_unit_name`, `sales_area_code`, `sales_area_code`, `sales_area_name`, `sales_area_name`, `sales_region_code`, `sales_region_code`, `sales_region_name`, `sales_region_name`, `customer_code`, `customer_name`, `product_type`, `industry_type`, `industry_code`, `industry_name`, `order_line_inv_flag`, `industry_code`, `industry_name`, `product_line_code`, `product_line_name`, `product_group_code`, `product_group_name`, `piz_line_name`, `product_area`, `inventory_status`, `order_exec_status`, `noship_reason`, `noship_reason_category`, `cny_exchange_rate`, `usd_exchange_rate`, `sales_percent`, `unshipment_qty`, `unshipment_area`, `unshipment_tax_amt`, `unshipment_tax_cny_amt`, `unshipment_tax_usd_amt`, `unshipment_notax_amt`, `unshipment_notax_cny_amt`, `unshipment_notax_usd_amt`, `source_system`, `insert_dt`)\nSELECT CAST(current_date AS VARCHAR) AS dt /* YYYYMMDD formatting may be required */, NULL AS a /* TODO: map source */, NULL AS order_num /* TODO: map source */, NULL AS contract_num /* TODO: map source */, NULL AS order_item_num /* TODO: map source */, NULL AS order_type_code /* TODO: map source */, NULL AS manu_sales_order_num /* TODO: map source */, NULL AS order_num_transfer /* TODO: map source */, NULL AS create_date /* TODO: map source */, NULL AS approval_date /* TODO: map source */, NULL AS newest_date /* TODO: map source */, NULL AS contract_need_days /* TODO: map source */, NULL AS contract_need_date /* TODO: map source */, NULL AS review_del_days /* TODO: map source */, NULL AS pmc_review_del_date /* TODO: map source */, NULL AS request_del_date /* TODO: map source */, NULL AS pmc_change_date /* TODO: map source */, NULL AS last_receipt_date /* TODO: map source */, NULL AS a /* TODO: map source */, NULL AS last_receipt_date /* TODO: map source */, NULL AS latest_warehousing_date /* TODO: map source */, NULL AS transport_method /* TODO: map source */, NULL AS payment_method /* TODO: map source */, NULL AS sales_org_code /* TODO: map source */, NULL AS sales_org_name /* TODO: map source */, NULL AS factory_code /* TODO: map source */, NULL AS factory_name /* TODO: map source */, NULL AS employee_dept_code /* TODO: map source */, NULL AS employee_dept_code /* TODO: map source */, NULL AS employee_dept_name /* TODO: map source */, NULL AS employee_dept_name /* TODO: map source */, NULL AS sales_person_num /* TODO: map source */, NULL AS sales_person_num /* TODO: map source */, NULL AS sales_person_name /* TODO: map source */, NULL AS sales_person_name /* TODO: map source */, NULL AS sales_dept_code /* TODO: map source */, NULL AS sales_dept_code /* TODO: map source */, NULL AS sales_dept_name /* TODO: map source */, NULL AS sales_dept_name /* TODO: map source */, NULL AS sales_group_code /* TODO: map source */, NULL AS sales_group_code /* TODO: map source */, NULL AS sales_group_name /* TODO: map source */, NULL AS sales_group_name /* TODO: map source */, NULL AS sales_unit_code /* TODO: map source */, NULL AS sales_unit_code /* TODO: map source */, NULL AS sales_unit_name /* TODO: map source */, NULL AS sales_unit_name /* TODO: map source */, NULL AS sales_area_code /* TODO: map source */, NULL AS sales_area_code /* TODO: map source */, NULL AS sales_area_name /* TODO: map source */, NULL AS sales_area_name /* TODO: map source */, NULL AS sales_region_code /* TODO: map source */, NULL AS sales_region_code /* TODO: map source */, NULL AS sales_region_name /* TODO: map source */, NULL AS sales_region_name /* TODO: map source */, NULL AS customer_code /* TODO: map source */, NULL AS customer_name /* TODO: map source */, NULL AS product_type /* TODO: map source */, NULL AS industry_type /* TODO: map source */, NULL AS industry_code /* TODO: map source */, NULL AS industry_name /* TODO: map source */, NULL AS order_line_inv_flag /* TODO: map source */, NULL AS industry_code /* TODO: map source */, NULL AS industry_name /* TODO: map source */, NULL AS product_line_code /* TODO: map source */, NULL AS product_line_name /* TODO: map source */, NULL AS product_group_code /* TODO: map source */, NULL AS product_group_name /* TODO: map source */, NULL AS piz_line_name /* TODO: map source */, NULL AS product_area /* TODO: map source */, NULL AS inventory_status /* TODO: map source */, NULL AS order_exec_status /* TODO: map source */, NULL AS noship_reason /* TODO: map source */, NULL AS noship_reason_category /* TODO: map source */, NULL AS cny_exchange_rate /* TODO: map source */, NULL AS usd_exchange_rate /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS unshipment_qty /* TODO: map source */, NULL AS unshipment_area /* TODO: map source */, NULL AS unshipment_tax_amt /* TODO: map source */, NULL AS unshipment_tax_cny_amt /* TODO: map source */, NULL AS unshipment_tax_usd_amt /* TODO: map source */, NULL AS unshipment_notax_amt /* TODO: map source */, NULL AS unshipment_notax_cny_amt /* TODO: map source */, NULL AS unshipment_notax_usd_amt /* TODO: map source */, NULL AS source_system /* TODO: map source */, NULL AS insert_dt /* TODO: map source */\nFROM staging.dws_sd_inventory_alloc_detail_di_staging s;",
+    "etl_script": "generated_etl_dws_存量明细模型_业绩分配.py",
+    "steps": [
+      "解析数据来源表/模型逻辑概述/模型逻辑详情三段内容，锁定目标表与字段。",
+      "校验字段类型、主键、分区列，生成 StarRocks DDL（可选执行）。",
+      "生成 INSERT SELECT 逻辑，按业务逻辑完成关联、去重、计算。",
+      "落地中间结果或目标表，补充数据质量校验与唯一性检查。",
+      "补充自动化脚本与回填验证（行数、键唯一性、NULL 分布）。"
+    ]
+  },
+  "sheet_summary": {
+    "sheet_name": "dws_存量明细模型_业绩分配",
+    "rows": 89,
+    "columns": 19,
+    "columns_detail": [
+      {
+        "name": "数据来源表",
+        "meta": {
+          "dtype": "object",
+          "missing": 77,
+          "unique": 10,
+          "sample_max_len": 15,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 77
+            },
+            {
+              "value": "数仓",
+              "count": 2
+            },
+            {
+              "value": "序号",
+              "count": 2
+            },
+            {
+              "value": "来源系统",
+              "count": 1
+            },
+            {
+              "value": "模型逻辑概述",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "返回",
+        "meta": {
+          "dtype": "object",
+          "missing": 82,
+          "unique": 6,
+          "sample_max_len": 38,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 82
+            },
+            {
+              "value": "英文表名",
+              "count": 2
+            },
+            {
+              "value": "dws_sd_inventory_detail_di",
+              "count": 1
+            },
+            {
+              "value": "dwd_sd_performance_allocation_ratio_df",
+              "count": 1
+            },
+            {
+              "value": "dws_sd_inventory_alloc_detail_di",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 2",
+        "meta": {
+          "dtype": "object",
+          "missing": 13,
+          "unique": 73,
+          "sample_max_len": 23,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 13
+            },
+            {
+              "value": "中文含义",
+              "count": 2
+            },
+            {
+              "value": "产业编码",
+              "count": 2
+            },
+            {
+              "value": "产业描述",
+              "count": 2
+            },
+            {
+              "value": "dws_存量明细模型",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 3",
+        "meta": {
+          "dtype": "object",
+          "missing": 14,
+          "unique": 73,
+          "sample_max_len": 41,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 14
+            },
+            {
+              "value": "industry_name",
+              "count": 2
+            },
+            {
+              "value": "industry_code",
+              "count": 2
+            },
+            {
+              "value": "b",
+              "count": 1
+            },
+            {
+              "value": "a",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 4",
+        "meta": {
+          "dtype": "object",
+          "missing": 80,
+          "unique": 6,
+          "sample_max_len": 13,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 80
+            },
+            {
+              "value": "varchar(255)",
+              "count": 3
+            },
+            {
+              "value": "备注",
+              "count": 2
+            },
+            {
+              "value": "通过销售订单号+合同号关联",
+              "count": 1
+            },
+            {
+              "value": "主表",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 5",
+        "meta": {
+          "dtype": "object",
+          "missing": 41,
+          "unique": 4,
+          "sample_max_len": 5,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 41
+            },
+            {
+              "value": "维度",
+              "count": 38
+            },
+            {
+              "value": "度量",
+              "count": 7
+            },
+            {
+              "value": "审计",
+              "count": 2
+            },
+            {
+              "value": "维度/度量",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 6",
+        "meta": {
+          "dtype": "object",
+          "missing": 86,
+          "unique": 3,
+          "sample_max_len": 9,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 86
+            },
+            {
+              "value": "返回",
+              "count": 1
+            },
+            {
+              "value": "客户提供资料整理 ",
+              "count": 1
+            },
+            {
+              "value": "主键",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 7",
+        "meta": {
+          "dtype": "object",
+          "missing": 88,
+          "unique": 1,
+          "sample_max_len": 2,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 88
+            },
+            {
+              "value": "值域",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 8",
+        "meta": {
+          "dtype": "object",
+          "missing": 88,
+          "unique": 1,
+          "sample_max_len": 2,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 88
+            },
+            {
+              "value": "非空",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 9",
+        "meta": {
+          "dtype": "object",
+          "missing": 61,
+          "unique": 2,
+          "sample_max_len": 4,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 61
+            },
+            {
+              "value": "直接获取",
+              "count": 27
+            },
+            {
+              "value": "获取方式",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 10",
+        "meta": {
+          "dtype": "object",
+          "missing": 17,
+          "unique": 5,
+          "sample_max_len": 16,
+          "top_values": [
+            {
+              "value": "a",
+              "count": 54
+            },
+            {
+              "value": "<NA>",
+              "count": 17
+            },
+            {
+              "value": "a\nb",
+              "count": 14
+            },
+            {
+              "value": "b",
+              "count": 2
+            },
+            {
+              "value": "系统（独立逻辑，可来源于多系统）",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 11",
+        "meta": {
+          "dtype": "object",
+          "missing": 88,
+          "unique": 1,
+          "sample_max_len": 4,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 88
+            },
+            {
+              "value": "来源字段",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 12",
+        "meta": {
+          "dtype": "object",
+          "missing": 18,
+          "unique": 71,
+          "sample_max_len": 18,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 18
+            },
+            {
+              "value": "来源字段说明",
+              "count": 1
+            },
+            {
+              "value": "版本日期",
+              "count": 1
+            },
+            {
+              "value": "工厂（这个单是哪个工厂生产的？）",
+              "count": 1
+            },
+            {
+              "value": "销售公司销售订单号",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 13",
+        "meta": {
+          "dtype": "object",
+          "missing": 30,
+          "unique": 57,
+          "sample_max_len": 41,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 30
+            },
+            {
+              "value": "industry_name",
+              "count": 2
+            },
+            {
+              "value": "industry_code",
+              "count": 2
+            },
+            {
+              "value": "contract_num",
+              "count": 1
+            },
+            {
+              "value": "order_num",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 14",
+        "meta": {
+          "dtype": "object",
+          "missing": 88,
+          "unique": 1,
+          "sample_max_len": 3,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 88
+            },
+            {
+              "value": "值列表",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 15",
+        "meta": {
+          "dtype": "object",
+          "missing": 73,
+          "unique": 13,
+          "sample_max_len": 73,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 73
+            },
+            {
+              "value": "关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dwd_订单明细模型数据不变",
+              "count": 2
+            },
+            {
+              "value": "关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的目标范围销售区域；若关联不上则保持dwd_订单明细模型数据不变",
+              "count": 2
+            },
+            {
+              "value": "关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的省份/国家销售战区；若关联不上则保持dwd_订单明细模型数据不变",
+              "count": 2
+            },
+            {
+              "value": "关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dwd_订单明细模型数据不变",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 16",
+        "meta": {
+          "dtype": "object",
+          "missing": 80,
+          "unique": 9,
+          "sample_max_len": 33,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 80
+            },
+            {
+              "value": "计算逻辑",
+              "count": 1
+            },
+            {
+              "value": "【未出货数量】*【业绩分配比例】/100",
+              "count": 1
+            },
+            {
+              "value": "【未出货面积】*【业绩分配比例】/100",
+              "count": 1
+            },
+            {
+              "value": "【未出货金额（含运费）_含税-原币】*【业绩分配比例】/100",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 17",
+        "meta": {
+          "dtype": "object",
+          "missing": 87,
+          "unique": 2,
+          "sample_max_len": 5,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 87
+            },
+            {
+              "value": "备注1",
+              "count": 1
+            },
+            {
+              "value": "含业绩分配",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 18",
+        "meta": {
+          "dtype": "object",
+          "missing": 88,
+          "unique": 1,
+          "sample_max_len": 3,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 88
+            },
+            {
+              "value": "备注2",
+              "count": 1
+            }
+          ]
+        }
+      }
+    ],
+    "sections": {
+      "data_sources": "",
+      "overview": "序号 英文表名 中文含义 应用场景 备注\n1 dws_sd_inventory_alloc_detail_di dws_存量明细模型_业绩分配 含业绩分配的存量模型\n筛选条件\n表关联条件\na~b:销售订单号+合同号关联",
+      "details": "模型标准 系统（独立逻辑，可来源于多系统）\n序号 字段备注 字段名称 字段编码 字段类型 维度/度量 主键 值域 非空 获取方式 来源表 来源字段 来源字段说明 数据类型 值列表 关联条件 计算逻辑 备注1 备注2\n日期(分区字段YYYYMMDD） dt 维度 a 版本日期\n工厂（这个单是哪个工厂生产的？） a 工厂（这个单是哪个工厂生产的？）\n销售公司销售订单号 order_num 维度 a 销售公司销售订单号 order_num\n客户采购订单编号 contract_num 维度 a 客户采购订单编号（合同号） contract_num\n订单行项目号 order_item_num 维度 a 订单行项目号 order_item_num\n订单类型编码 order_type_code 维度 a 订单类型编码 order_type_code\n制造公司销售订单号 manu_sales_order_num 维度 a 制造公司销售订单号 manu_sales_order_num\n销售订单号_含抛转 order_num_transfer 维度 a 销售订单号_含抛转 order_num_transfer\n订单创建日期 create_date 维度 a 订单创建日期 create_date\n订单首次审批日期 approval_date 维度 a 订单首次审批日期 approval_date\n订单最新日期 newest_date a 订单最新日期 newest_date\n合同需求天数 contract_need_days 维度 a 合同需求天数 contract_need_days\n合同需求日期 contract_need_date 维度 a 合同需求日期 contract_need_date\n评审交期（天数） review_del_days 维度 a 请求交货天数 review_del_days\nPMC评审交期 pmc_review_del_date 维度 a PMC评审交期 pmc_review_del_date\n预计出货日期 request_del_date 维度 a 预计出货日期 request_del_date\nPMC变更日期 pmc_change_date 维度 a PMC变更日期 pmc_change_date\n最后入库日期\n最新入库日期 last_receipt_date\nlatest_warehousing_date 维度 a 最后入库日期\n最新入库日期 last_receipt_date\nlatest_warehousing_date\n运输方式 transport_method a 运输方式 transport_method\n贸易条款 payment_method a 贸易条款 payment_method\n销售组织编码 sales_org_code 维度 直接获取 a 销售组织 sales_org_code\n销售组织名称 sales_org_name 维度 直接获取 a 销售组织名称 sales_org_name\n工厂编码 factory_code a 工厂编码 factory_code\n工厂名称 factory_name a 工厂名称 factory_name\n雇员部门编码 employee_dept_code 维度 直接获取 a\nb 雇员部门编号 employee_dept_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dwd_订单明细模型数据不变\n雇员部门名称 employee_dept_name 维度 直接获取 a\nb 雇员部门 employee_dept_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dwd_订单明细模型数据不变\n业务员编码 sales_person_num 维度 直接获取 a\nb 人员编码 sales_person_num 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dwd_订单明细模型数据不变\n业务员姓名 sales_person_name 维度 直接获取 a\nb 姓+名 sales_person_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员描述；若关联不上则保持dwd_订单明细模型数据不变\n销售部门编码 sales_dept_code a\nb 销售部门编码 sales_dept_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dwd_订单明细模型数据不变\n销售部门名称 sales_dept_name a\nb 销售部门描述 sales_dept_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门描述；若关联不上则保持dwd_订单明细模型数据不变\n销售组编码 sales_group_code a\nb 销售组编码 sales_group_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dwd_订单明细模型数据不变\n销售组名称 sales_group_name a\nb 销售组 sales_group_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组描述；若关联不上则保持dwd_订单明细模型数据不变\n销售战区编码 sales_unit_code 维度 直接获取 a\nb 销售战区编码 sales_unit_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的省份/国家销售战区；若关联不上则保持dwd_订单明细模型数据不变\n销售战区名称 sales_unit_name varchar(255) 维度 直接获取 a\nb 销售战区名称 sales_unit_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的省份/国家销售战区；若关联不上则保持dwd_订单明细模型数据不变\n销售大区编码 sales_area_code 维度 直接获取 a\nb 销售大区编码 sales_area_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dwd_订单明细模型数据不变\n销售大区名称 sales_area_name varchar(255) 维度 直接获取 a\nb 销售大区名称 sales_area_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dwd_订单明细模型数据不变\n销售区域编码 sales_region_code 维度 直接获取 a\nb 销售区域编码 sales_region_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的目标范围销售区域；若关联不上则保持dwd_订单明细模型数据不变\n销售区域名称 sales_region_name varchar(255) 维度 直接获取 a\nb 销售区域名称 sales_region_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的目标范围销售区域；若关联不上则保持dwd_订单明细模型数据不变\n客户编码 customer_code 维度 直接获取 a 客户编码 customer_code\n客户名称 customer_name 维度 直接获取 a 客户名称 customer_name\n产品类型 product_type 维度 直接获取 a 产品类型 product_type\n行业类型 industry_type 维度 直接获取 a 行业类型 industry_type\n产业编码 industry_code 维度 直接获取 a 物料号 industry_code\n产业描述 industry_name 维度 直接获取 a 物料描述 industry_name\n订单行库存标识 order_line_inv_flag 度量 a 订单行库存标识 order_line_inv_flag\n产业编码 industry_code a 产业编码 industry_code\n产业描述 industry_name a 产业描述 industry_name\n产品线编码 product_line_code a 产品线编码 product_line_code\n产品线描述 product_line_name a 产品线描述 product_line_name\n产品族编码 product_group_code a 产品族编码 product_group_code\n产品族描述 product_group_name a 产品族描述 product_group_name\n业务产品线 piz_line_name varchar(100) 维度 直接获取 b 业务产品线 piz_line_name\n产品单位面积 product_area a 产品单位面积 product_area\n库存状态 inventory_status 维度 直接获取 a 库存状态 inventory_status\n订单执行状态 order_exec_status 维度 a 订单执行状态 order_exec_status\n未出货原因 noship_reason 直接获取 a 未出货原因 noship_reason\n未出货原因类别 noship_reason_category 直接获取 a 未出货原因类别 noship_reason_category\n汇率（to_CNY） cny_exchange_rate 度量 直接获取 a 汇率（to_CNY） cny_exchange_rate\n汇率（to_USD） usd_exchange_rate 度量 直接获取 a 汇率（to_USD） usd_exchange_rate\nnew 业绩分配比例 sales_percent 维度 直接获取 b 配额 sales_percent 关联条件：订单号+合同号 含业绩分配\n业绩分配-未出货数量 unshipment_qty 度量 a 未出货数量 【未出货数量】*【业绩分配比例】/100\n业绩分配-未出货面积 unshipment_area 度量 a 未出货面积 【未出货面积】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_含税-原币 unshipment_tax_amt a 未出货金额（含运费）_含税-原币 【未出货金额（含运费）_含税-原币】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_含税-CNY unshipment_tax_cny_amt a 未出货金额（含运费）_含税-CNY 【未出货金额（含运费）_含税-CNY】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_含税-USD unshipment_tax_usd_amt 度量 a 未出货金额（含运费）_含税-USD 【未出货金额（含运费）_含税-USD】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_不含税-原币 unshipment_notax_amt a 未出货金额（含运费）_不含税-原币 【未出货金额（含运费）_不含税-原币】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_不含税-CNY unshipment_notax_cny_amt 度量 a 未出货金额（含运费）_不含税-CNY 【未出货金额（含运费）_不含税-CNY】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_不含税-USD unshipment_notax_usd_amt a 未出货金额（含运费）_不含税-USD 【未出货金额（含运费）_不含税-USD】*【业绩分配比例】/100\n最新更新日期 source_system 审计 直接获取 a 最新更新日期\n来源系统 insert_dt 审计 直接获取 a 来源系统"
+    },
+    "target_table_english": "dws_sd_inventory_alloc_detail_di",
+    "target_table_chinese": "dws_存量明细模型_业绩分配",
+    "business_key_inference": {
+      "suggested_key": "Unnamed: 2",
+      "candidates": [
+        {
+          "name": "Unnamed: 2",
+          "score": 3,
+          "unique": 73,
+          "missing": 13
+        },
+        {
+          "name": "Unnamed: 3",
+          "score": 3,
+          "unique": 73,
+          "missing": 14
+        },
+        {
+          "name": "Unnamed: 12",
+          "score": 3,
+          "unique": 71,
+          "missing": 18
+        },
+        {
+          "name": "Unnamed: 13",
+          "score": 3,
+          "unique": 57,
+          "missing": 30
+        },
+        {
+          "name": "Unnamed: 15",
+          "score": 1,
+          "unique": 13,
+          "missing": 73
+        }
+      ]
+    },
+    "sample_etl_sql": "INSERT INTO dws_sd_inventory_alloc_detail_di (`数据来源表`, `返回`, `Unnamed: 2`, `Unnamed: 3`, `Unnamed: 4`, `Unnamed: 5`, `Unnamed: 6`, `Unnamed: 7`, `Unnamed: 8`, `Unnamed: 9`, `Unnamed: 10`, `Unnamed: 11`, `Unnamed: 12`, `Unnamed: 13`, `Unnamed: 14`, `Unnamed: 15`, `Unnamed: 16`, `Unnamed: 17`, `Unnamed: 18`) SELECT `数据来源表`, `返回`, `Unnamed: 2`, `Unnamed: 3`, `Unnamed: 4`, `Unnamed: 5`, `Unnamed: 6`, `Unnamed: 7`, `Unnamed: 8`, `Unnamed: 9`, `Unnamed: 10`, `Unnamed: 11`, `Unnamed: 12`, `Unnamed: 13`, `Unnamed: 14`, `Unnamed: 15`, `Unnamed: 16`, `Unnamed: 17`, `Unnamed: 18` FROM staging.dws_sd_inventory_alloc_detail_di_staging;",
+    "field_mappings": {
+      "newest_date": "e.a",
+      "pmc_review_del_date": "a.PMC",
+      "pmc_change_date": "a.PMC",
+      "transport_method": "d.a",
+      "payment_method": "d.a",
+      "factory_code": "e.a",
+      "factory_name": "e.a",
+      "sales_dept_code": "e.a",
+      "sales_dept_name": "e.a",
+      "sales_group_code": "e.a",
+      "sales_group_name": "e.a",
+      "sales_unit_name": "e.varchar",
+      "sales_area_name": "e.varchar",
+      "sales_region_name": "e.varchar",
+      "industry_code": "e.a",
+      "industry_name": "e.a",
+      "product_line_code": "e.a",
+      "product_line_name": "e.a",
+      "product_group_code": "e.a",
+      "product_group_name": "e.a",
+      "piz_line_name": "e.varchar",
+      "product_area": "a.a",
+      "unshipment_tax_amt": "t.a",
+      "unshipment_tax_cny_amt": "Y.unshipment_tax_cny_amt",
+      "unshipment_tax_usd_amt": "D.unshipment_tax_usd_amt",
+      "unshipment_notax_amt": "t.a",
+      "unshipment_notax_cny_amt": "Y.unshipment_notax_cny_amt",
+      "unshipment_notax_usd_amt": "D.unshipment_notax_usd_amt"
+    },
+    "generated_insert_sql": "INSERT INTO dws_sd_inventory_alloc_detail_di (`dt`, `a`, `order_num`, `contract_num`, `order_item_num`, `order_type_code`, `manu_sales_order_num`, `order_num_transfer`, `create_date`, `approval_date`, `newest_date`, `contract_need_days`, `contract_need_date`, `review_del_days`, `pmc_review_del_date`, `request_del_date`, `pmc_change_date`, `last_receipt_date`, `a`, `last_receipt_date`, `latest_warehousing_date`, `transport_method`, `payment_method`, `sales_org_code`, `sales_org_name`, `factory_code`, `factory_name`, `employee_dept_code`, `employee_dept_code`, `employee_dept_name`, `employee_dept_name`, `sales_person_num`, `sales_person_num`, `sales_person_name`, `sales_person_name`, `sales_dept_code`, `sales_dept_code`, `sales_dept_name`, `sales_dept_name`, `sales_group_code`, `sales_group_code`, `sales_group_name`, `sales_group_name`, `sales_unit_code`, `sales_unit_code`, `sales_unit_name`, `sales_unit_name`, `sales_area_code`, `sales_area_code`, `sales_area_name`, `sales_area_name`, `sales_region_code`, `sales_region_code`, `sales_region_name`, `sales_region_name`, `customer_code`, `customer_name`, `product_type`, `industry_type`, `industry_code`, `industry_name`, `order_line_inv_flag`, `industry_code`, `industry_name`, `product_line_code`, `product_line_name`, `product_group_code`, `product_group_name`, `piz_line_name`, `product_area`, `inventory_status`, `order_exec_status`, `noship_reason`, `noship_reason_category`, `cny_exchange_rate`, `usd_exchange_rate`, `sales_percent`, `unshipment_qty`, `unshipment_area`, `unshipment_tax_amt`, `unshipment_tax_cny_amt`, `unshipment_tax_usd_amt`, `unshipment_notax_amt`, `unshipment_notax_cny_amt`, `unshipment_notax_usd_amt`, `source_system`, `insert_dt`)\nSELECT CAST(current_date AS VARCHAR) AS dt /* YYYYMMDD formatting may be required */, NULL AS a /* TODO: map source */, NULL AS order_num /* TODO: map source */, NULL AS contract_num /* TODO: map source */, NULL AS order_item_num /* TODO: map source */, NULL AS order_type_code /* TODO: map source */, NULL AS manu_sales_order_num /* TODO: map source */, NULL AS order_num_transfer /* TODO: map source */, NULL AS create_date /* TODO: map source */, NULL AS approval_date /* TODO: map source */, NULL AS newest_date /* TODO: map source */, NULL AS contract_need_days /* TODO: map source */, NULL AS contract_need_date /* TODO: map source */, NULL AS review_del_days /* TODO: map source */, NULL AS pmc_review_del_date /* TODO: map source */, NULL AS request_del_date /* TODO: map source */, NULL AS pmc_change_date /* TODO: map source */, NULL AS last_receipt_date /* TODO: map source */, NULL AS a /* TODO: map source */, NULL AS last_receipt_date /* TODO: map source */, NULL AS latest_warehousing_date /* TODO: map source */, NULL AS transport_method /* TODO: map source */, NULL AS payment_method /* TODO: map source */, NULL AS sales_org_code /* TODO: map source */, NULL AS sales_org_name /* TODO: map source */, NULL AS factory_code /* TODO: map source */, NULL AS factory_name /* TODO: map source */, NULL AS employee_dept_code /* TODO: map source */, NULL AS employee_dept_code /* TODO: map source */, NULL AS employee_dept_name /* TODO: map source */, NULL AS employee_dept_name /* TODO: map source */, NULL AS sales_person_num /* TODO: map source */, NULL AS sales_person_num /* TODO: map source */, NULL AS sales_person_name /* TODO: map source */, NULL AS sales_person_name /* TODO: map source */, NULL AS sales_dept_code /* TODO: map source */, NULL AS sales_dept_code /* TODO: map source */, NULL AS sales_dept_name /* TODO: map source */, NULL AS sales_dept_name /* TODO: map source */, NULL AS sales_group_code /* TODO: map source */, NULL AS sales_group_code /* TODO: map source */, NULL AS sales_group_name /* TODO: map source */, NULL AS sales_group_name /* TODO: map source */, NULL AS sales_unit_code /* TODO: map source */, NULL AS sales_unit_code /* TODO: map source */, NULL AS sales_unit_name /* TODO: map source */, NULL AS sales_unit_name /* TODO: map source */, NULL AS sales_area_code /* TODO: map source */, NULL AS sales_area_code /* TODO: map source */, NULL AS sales_area_name /* TODO: map source */, NULL AS sales_area_name /* TODO: map source */, NULL AS sales_region_code /* TODO: map source */, NULL AS sales_region_code /* TODO: map source */, NULL AS sales_region_name /* TODO: map source */, NULL AS sales_region_name /* TODO: map source */, NULL AS customer_code /* TODO: map source */, NULL AS customer_name /* TODO: map source */, NULL AS product_type /* TODO: map source */, NULL AS industry_type /* TODO: map source */, NULL AS industry_code /* TODO: map source */, NULL AS industry_name /* TODO: map source */, NULL AS order_line_inv_flag /* TODO: map source */, NULL AS industry_code /* TODO: map source */, NULL AS industry_name /* TODO: map source */, NULL AS product_line_code /* TODO: map source */, NULL AS product_line_name /* TODO: map source */, NULL AS product_group_code /* TODO: map source */, NULL AS product_group_name /* TODO: map source */, NULL AS piz_line_name /* TODO: map source */, NULL AS product_area /* TODO: map source */, NULL AS inventory_status /* TODO: map source */, NULL AS order_exec_status /* TODO: map source */, NULL AS noship_reason /* TODO: map source */, NULL AS noship_reason_category /* TODO: map source */, NULL AS cny_exchange_rate /* TODO: map source */, NULL AS usd_exchange_rate /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS unshipment_qty /* TODO: map source */, NULL AS unshipment_area /* TODO: map source */, NULL AS unshipment_tax_amt /* TODO: map source */, NULL AS unshipment_tax_cny_amt /* TODO: map source */, NULL AS unshipment_tax_usd_amt /* TODO: map source */, NULL AS unshipment_notax_amt /* TODO: map source */, NULL AS unshipment_notax_cny_amt /* TODO: map source */, NULL AS unshipment_notax_usd_amt /* TODO: map source */, NULL AS source_system /* TODO: map source */, NULL AS insert_dt /* TODO: map source */\nFROM staging.dws_sd_inventory_alloc_detail_di_staging s;",
+    "detail_fields": [
+      {
+        "code": "dt",
+        "name": "日期(分区字段YYYYMMDD）",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "日期(分区字段YYYYMMDD） dt 维度 a 版本日期"
+      },
+      {
+        "code": "a",
+        "name": "）",
+        "declared_type": "工厂（这个单是哪个工厂生产的？）",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "工厂（这个单是哪个工厂生产的？） a 工厂（这个单是哪个工厂生产的？）"
+      },
+      {
+        "code": "order_num",
+        "name": "销售公司销售订单号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售公司销售订单号 order_num 维度 a 销售公司销售订单号 order_num"
+      },
+      {
+        "code": "contract_num",
+        "name": "客户采购订单编号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "客户采购订单编号 contract_num 维度 a 客户采购订单编号（合同号） contract_num"
+      },
+      {
+        "code": "order_item_num",
+        "name": "订单行项目号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单行项目号 order_item_num 维度 a 订单行项目号 order_item_num"
+      },
+      {
+        "code": "order_type_code",
+        "name": "订单类型编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单类型编码 order_type_code 维度 a 订单类型编码 order_type_code"
+      },
+      {
+        "code": "manu_sales_order_num",
+        "name": "制造公司销售订单号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "制造公司销售订单号 manu_sales_order_num 维度 a 制造公司销售订单号 manu_sales_order_num"
+      },
+      {
+        "code": "order_num_transfer",
+        "name": "销售订单号_含抛转",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售订单号_含抛转 order_num_transfer 维度 a 销售订单号_含抛转 order_num_transfer"
+      },
+      {
+        "code": "create_date",
+        "name": "订单创建日期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单创建日期 create_date 维度 a 订单创建日期 create_date"
+      },
+      {
+        "code": "approval_date",
+        "name": "订单首次审批日期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单首次审批日期 approval_date 维度 a 订单首次审批日期 approval_date"
+      },
+      {
+        "code": "newest_date",
+        "name": "订单最新日期",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单最新日期 newest_date a 订单最新日期 newest_date"
+      },
+      {
+        "code": "contract_need_days",
+        "name": "合同需求天数",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "合同需求天数 contract_need_days 维度 a 合同需求天数 contract_need_days"
+      },
+      {
+        "code": "contract_need_date",
+        "name": "合同需求日期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "合同需求日期 contract_need_date 维度 a 合同需求日期 contract_need_date"
+      },
+      {
+        "code": "review_del_days",
+        "name": "评审交期（天数）",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "评审交期（天数） review_del_days 维度 a 请求交货天数 review_del_days"
+      },
+      {
+        "code": "pmc_review_del_date",
+        "name": "PMC评审交期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "PMC评审交期 pmc_review_del_date 维度 a PMC评审交期 pmc_review_del_date"
+      },
+      {
+        "code": "request_del_date",
+        "name": "预计出货日期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "预计出货日期 request_del_date 维度 a 预计出货日期 request_del_date"
+      },
+      {
+        "code": "pmc_change_date",
+        "name": "PMC变更日期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "PMC变更日期 pmc_change_date 维度 a PMC变更日期 pmc_change_date"
+      },
+      {
+        "code": "last_receipt_date",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "最新入库日期 last_receipt_date"
+      },
+      {
+        "code": "a",
+        "name": "latest_warehousing_date 维度",
+        "declared_type": "最后入库日期",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "latest_warehousing_date 维度 a 最后入库日期"
+      },
+      {
+        "code": "last_receipt_date",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "最新入库日期 last_receipt_date"
+      },
+      {
+        "code": "latest_warehousing_date",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "latest_warehousing_date"
+      },
+      {
+        "code": "transport_method",
+        "name": "运输方式",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "运输方式 transport_method a 运输方式 transport_method"
+      },
+      {
+        "code": "payment_method",
+        "name": "贸易条款",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "贸易条款 payment_method a 贸易条款 payment_method"
+      },
+      {
+        "code": "sales_org_code",
+        "name": "销售组织编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售组织编码 sales_org_code 维度 直接获取 a 销售组织 sales_org_code"
+      },
+      {
+        "code": "sales_org_name",
+        "name": "销售组织名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售组织名称 sales_org_name 维度 直接获取 a 销售组织名称 sales_org_name"
+      },
+      {
+        "code": "factory_code",
+        "name": "工厂编码",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "工厂编码 factory_code a 工厂编码 factory_code"
+      },
+      {
+        "code": "factory_name",
+        "name": "工厂名称",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "工厂名称 factory_name a 工厂名称 factory_name"
+      },
+      {
+        "code": "employee_dept_code",
+        "name": "雇员部门编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "雇员部门编码 employee_dept_code 维度 直接获取 a"
+      },
+      {
+        "code": "employee_dept_code",
+        "name": "b 雇员部门编号",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 雇员部门编号 employee_dept_code 关联条件：订单号+合同号"
+      },
+      {
+        "code": "employee_dept_name",
+        "name": "雇员部门名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "雇员部门名称 employee_dept_name 维度 直接获取 a"
+      },
+      {
+        "code": "employee_dept_name",
+        "name": "b 雇员部门",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 雇员部门 employee_dept_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_person_num",
+        "name": "业务员编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业务员编码 sales_person_num 维度 直接获取 a"
+      },
+      {
+        "code": "sales_person_num",
+        "name": "b 人员编码",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 人员编码 sales_person_num 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_person_name",
+        "name": "业务员姓名",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业务员姓名 sales_person_name 维度 直接获取 a"
+      },
+      {
+        "code": "sales_person_name",
+        "name": "名",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 姓+名 sales_person_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_dept_code",
+        "name": "销售部门编码",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售部门编码 sales_dept_code a"
+      },
+      {
+        "code": "sales_dept_code",
+        "name": "b 销售部门编码",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售部门编码 sales_dept_code 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_dept_name",
+        "name": "销售部门名称",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售部门名称 sales_dept_name a"
+      },
+      {
+        "code": "sales_dept_name",
+        "name": "b 销售部门描述",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售部门描述 sales_dept_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_group_code",
+        "name": "销售组编码",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售组编码 sales_group_code a"
+      },
+      {
+        "code": "sales_group_code",
+        "name": "b 销售组编码",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售组编码 sales_group_code 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_group_name",
+        "name": "销售组名称",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售组名称 sales_group_name a"
+      },
+      {
+        "code": "sales_group_name",
+        "name": "b 销售组",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售组 sales_group_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_unit_code",
+        "name": "销售战区编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售战区编码 sales_unit_code 维度 直接获取 a"
+      },
+      {
+        "code": "sales_unit_code",
+        "name": "b 销售战区编码",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售战区编码 sales_unit_code 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_unit_name",
+        "name": "销售战区名称",
+        "declared_type": "varchar(255)",
+        "sr_type": "VARCHAR(255)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售战区名称 sales_unit_name varchar(255) 维度 直接获取 a"
+      },
+      {
+        "code": "sales_unit_name",
+        "name": "b 销售战区名称",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售战区名称 sales_unit_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_area_code",
+        "name": "销售大区编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售大区编码 sales_area_code 维度 直接获取 a"
+      },
+      {
+        "code": "sales_area_code",
+        "name": "b 销售大区编码",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售大区编码 sales_area_code 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_area_name",
+        "name": "销售大区名称",
+        "declared_type": "varchar(255)",
+        "sr_type": "VARCHAR(255)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售大区名称 sales_area_name varchar(255) 维度 直接获取 a"
+      },
+      {
+        "code": "sales_area_name",
+        "name": "b 销售大区名称",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售大区名称 sales_area_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_region_code",
+        "name": "销售区域编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售区域编码 sales_region_code 维度 直接获取 a"
+      },
+      {
+        "code": "sales_region_code",
+        "name": "b 销售区域编码",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售区域编码 sales_region_code 关联条件：订单号+合同号"
+      },
+      {
+        "code": "sales_region_name",
+        "name": "销售区域名称",
+        "declared_type": "varchar(255)",
+        "sr_type": "VARCHAR(255)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "销售区域名称 sales_region_name varchar(255) 维度 直接获取 a"
+      },
+      {
+        "code": "sales_region_name",
+        "name": "b 销售区域名称",
+        "declared_type": "关联条件：订单号+合同号",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "b 销售区域名称 sales_region_name 关联条件：订单号+合同号"
+      },
+      {
+        "code": "customer_code",
+        "name": "客户编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "客户编码 customer_code 维度 直接获取 a 客户编码 customer_code"
+      },
+      {
+        "code": "customer_name",
+        "name": "客户名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "客户名称 customer_name 维度 直接获取 a 客户名称 customer_name"
+      },
+      {
+        "code": "product_type",
+        "name": "产品类型",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产品类型 product_type 维度 直接获取 a 产品类型 product_type"
+      },
+      {
+        "code": "industry_type",
+        "name": "行业类型",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "行业类型 industry_type 维度 直接获取 a 行业类型 industry_type"
+      },
+      {
+        "code": "industry_code",
+        "name": "产业编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产业编码 industry_code 维度 直接获取 a 物料号 industry_code"
+      },
+      {
+        "code": "industry_name",
+        "name": "产业描述",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产业描述 industry_name 维度 直接获取 a 物料描述 industry_name"
+      },
+      {
+        "code": "order_line_inv_flag",
+        "name": "订单行库存标识",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单行库存标识 order_line_inv_flag 度量 a 订单行库存标识 order_line_inv_flag"
+      },
+      {
+        "code": "industry_code",
+        "name": "产业编码",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产业编码 industry_code a 产业编码 industry_code"
+      },
+      {
+        "code": "industry_name",
+        "name": "产业描述",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产业描述 industry_name a 产业描述 industry_name"
+      },
+      {
+        "code": "product_line_code",
+        "name": "产品线编码",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产品线编码 product_line_code a 产品线编码 product_line_code"
+      },
+      {
+        "code": "product_line_name",
+        "name": "产品线描述",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产品线描述 product_line_name a 产品线描述 product_line_name"
+      },
+      {
+        "code": "product_group_code",
+        "name": "产品族编码",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产品族编码 product_group_code a 产品族编码 product_group_code"
+      },
+      {
+        "code": "product_group_name",
+        "name": "产品族描述",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产品族描述 product_group_name a 产品族描述 product_group_name"
+      },
+      {
+        "code": "piz_line_name",
+        "name": "业务产品线",
+        "declared_type": "varchar(100)",
+        "sr_type": "VARCHAR(100)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业务产品线 piz_line_name varchar(100) 维度 直接获取 b 业务产品线 piz_line_name"
+      },
+      {
+        "code": "product_area",
+        "name": "产品单位面积",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "产品单位面积 product_area a 产品单位面积 product_area"
+      },
+      {
+        "code": "inventory_status",
+        "name": "库存状态",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "库存状态 inventory_status 维度 直接获取 a 库存状态 inventory_status"
+      },
+      {
+        "code": "order_exec_status",
+        "name": "订单执行状态",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "订单执行状态 order_exec_status 维度 a 订单执行状态 order_exec_status"
+      },
+      {
+        "code": "noship_reason",
+        "name": "未出货原因",
+        "declared_type": "直接获取",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "未出货原因 noship_reason 直接获取 a 未出货原因 noship_reason"
+      },
+      {
+        "code": "noship_reason_category",
+        "name": "未出货原因类别",
+        "declared_type": "直接获取",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "未出货原因类别 noship_reason_category 直接获取 a 未出货原因类别 noship_reason_category"
+      },
+      {
+        "code": "cny_exchange_rate",
+        "name": "汇率（to_CNY）",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "汇率（to_CNY） cny_exchange_rate 度量 直接获取 a 汇率（to_CNY） cny_exchange_rate"
+      },
+      {
+        "code": "usd_exchange_rate",
+        "name": "汇率（to_USD）",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "汇率（to_USD） usd_exchange_rate 度量 直接获取 a 汇率（to_USD） usd_exchange_rate"
+      },
+      {
+        "code": "sales_percent",
+        "name": "new 业绩分配比例",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "new 业绩分配比例 sales_percent 维度 直接获取 b 配额 sales_percent 关联条件：订单号+合同号 含业绩分配"
+      },
+      {
+        "code": "unshipment_qty",
+        "name": "业绩分配-未出货数量",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货数量 unshipment_qty 度量 a 未出货数量 【未出货数量】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_area",
+        "name": "业绩分配-未出货面积",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货面积 unshipment_area 度量 a 未出货面积 【未出货面积】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_tax_amt",
+        "name": "业绩分配-未出货金额（含运费）_含税-原币",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货金额（含运费）_含税-原币 unshipment_tax_amt a 未出货金额（含运费）_含税-原币 【未出货金额（含运费）_含税-原币】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_tax_cny_amt",
+        "name": "业绩分配-未出货金额（含运费）_含税-CNY",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货金额（含运费）_含税-CNY unshipment_tax_cny_amt a 未出货金额（含运费）_含税-CNY 【未出货金额（含运费）_含税-CNY】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_tax_usd_amt",
+        "name": "业绩分配-未出货金额（含运费）_含税-USD",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货金额（含运费）_含税-USD unshipment_tax_usd_amt 度量 a 未出货金额（含运费）_含税-USD 【未出货金额（含运费）_含税-USD】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_notax_amt",
+        "name": "业绩分配-未出货金额（含运费）_不含税-原币",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货金额（含运费）_不含税-原币 unshipment_notax_amt a 未出货金额（含运费）_不含税-原币 【未出货金额（含运费）_不含税-原币】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_notax_cny_amt",
+        "name": "业绩分配-未出货金额（含运费）_不含税-CNY",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货金额（含运费）_不含税-CNY unshipment_notax_cny_amt 度量 a 未出货金额（含运费）_不含税-CNY 【未出货金额（含运费）_不含税-CNY】*【业绩分配比例】/100"
+      },
+      {
+        "code": "unshipment_notax_usd_amt",
+        "name": "业绩分配-未出货金额（含运费）_不含税-USD",
+        "declared_type": "a",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配-未出货金额（含运费）_不含税-USD unshipment_notax_usd_amt a 未出货金额（含运费）_不含税-USD 【未出货金额（含运费）_不含税-USD】*【业绩分配比例】/100"
+      },
+      {
+        "code": "source_system",
+        "name": "最新更新日期",
+        "declared_type": "审计",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "最新更新日期 source_system 审计 直接获取 a 最新更新日期"
+      },
+      {
+        "code": "insert_dt",
+        "name": "来源系统",
+        "declared_type": "审计",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "来源系统 insert_dt 审计 直接获取 a 来源系统"
+      }
+    ],
+    "target_table_schema": {
+      "table": "dws_sd_inventory_alloc_detail_di",
+      "columns": [
+        {
+          "column_name": "dt",
+          "data_type": "VARCHAR(256)",
+          "comment": "日期(分区字段YYYYMMDD）",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "日期(分区字段YYYYMMDD） dt 维度 a 版本日期"
+        },
+        {
+          "column_name": "a",
+          "data_type": "VARCHAR(256)",
+          "comment": "）",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "工厂（这个单是哪个工厂生产的？） a 工厂（这个单是哪个工厂生产的？）"
+        },
+        {
+          "column_name": "order_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售公司销售订单号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售公司销售订单号 order_num 维度 a 销售公司销售订单号 order_num"
+        },
+        {
+          "column_name": "contract_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "客户采购订单编号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "客户采购订单编号 contract_num 维度 a 客户采购订单编号（合同号） contract_num"
+        },
+        {
+          "column_name": "order_item_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单行项目号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单行项目号 order_item_num 维度 a 订单行项目号 order_item_num"
+        },
+        {
+          "column_name": "order_type_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单类型编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单类型编码 order_type_code 维度 a 订单类型编码 order_type_code"
+        },
+        {
+          "column_name": "manu_sales_order_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "制造公司销售订单号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "制造公司销售订单号 manu_sales_order_num 维度 a 制造公司销售订单号 manu_sales_order_num"
+        },
+        {
+          "column_name": "order_num_transfer",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售订单号_含抛转",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售订单号_含抛转 order_num_transfer 维度 a 销售订单号_含抛转 order_num_transfer"
+        },
+        {
+          "column_name": "create_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单创建日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单创建日期 create_date 维度 a 订单创建日期 create_date"
+        },
+        {
+          "column_name": "approval_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单首次审批日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单首次审批日期 approval_date 维度 a 订单首次审批日期 approval_date"
+        },
+        {
+          "column_name": "newest_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单最新日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单最新日期 newest_date a 订单最新日期 newest_date"
+        },
+        {
+          "column_name": "contract_need_days",
+          "data_type": "VARCHAR(256)",
+          "comment": "合同需求天数",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "合同需求天数 contract_need_days 维度 a 合同需求天数 contract_need_days"
+        },
+        {
+          "column_name": "contract_need_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "合同需求日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "合同需求日期 contract_need_date 维度 a 合同需求日期 contract_need_date"
+        },
+        {
+          "column_name": "review_del_days",
+          "data_type": "VARCHAR(256)",
+          "comment": "评审交期（天数）",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "评审交期（天数） review_del_days 维度 a 请求交货天数 review_del_days"
+        },
+        {
+          "column_name": "pmc_review_del_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "PMC评审交期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "PMC评审交期 pmc_review_del_date 维度 a PMC评审交期 pmc_review_del_date"
+        },
+        {
+          "column_name": "request_del_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "预计出货日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "预计出货日期 request_del_date 维度 a 预计出货日期 request_del_date"
+        },
+        {
+          "column_name": "pmc_change_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "PMC变更日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "PMC变更日期 pmc_change_date 维度 a PMC变更日期 pmc_change_date"
+        },
+        {
+          "column_name": "last_receipt_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "最新入库日期 last_receipt_date"
+        },
+        {
+          "column_name": "a",
+          "data_type": "VARCHAR(256)",
+          "comment": "latest_warehousing_date 维度",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "latest_warehousing_date 维度 a 最后入库日期"
+        },
+        {
+          "column_name": "last_receipt_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "最新入库日期 last_receipt_date"
+        },
+        {
+          "column_name": "latest_warehousing_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "latest_warehousing_date"
+        },
+        {
+          "column_name": "transport_method",
+          "data_type": "VARCHAR(256)",
+          "comment": "运输方式",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "运输方式 transport_method a 运输方式 transport_method"
+        },
+        {
+          "column_name": "payment_method",
+          "data_type": "VARCHAR(256)",
+          "comment": "贸易条款",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "贸易条款 payment_method a 贸易条款 payment_method"
+        },
+        {
+          "column_name": "sales_org_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组织编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售组织编码 sales_org_code 维度 直接获取 a 销售组织 sales_org_code"
+        },
+        {
+          "column_name": "sales_org_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组织名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售组织名称 sales_org_name 维度 直接获取 a 销售组织名称 sales_org_name"
+        },
+        {
+          "column_name": "factory_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "工厂编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "工厂编码 factory_code a 工厂编码 factory_code"
+        },
+        {
+          "column_name": "factory_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "工厂名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "工厂名称 factory_name a 工厂名称 factory_name"
+        },
+        {
+          "column_name": "employee_dept_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "雇员部门编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "雇员部门编码 employee_dept_code 维度 直接获取 a"
+        },
+        {
+          "column_name": "employee_dept_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 雇员部门编号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 雇员部门编号 employee_dept_code 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "employee_dept_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "雇员部门名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "雇员部门名称 employee_dept_name 维度 直接获取 a"
+        },
+        {
+          "column_name": "employee_dept_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 雇员部门",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 雇员部门 employee_dept_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_person_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "业务员编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业务员编码 sales_person_num 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_person_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 人员编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 人员编码 sales_person_num 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_person_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "业务员姓名",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业务员姓名 sales_person_name 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_person_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "名",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 姓+名 sales_person_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_dept_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售部门编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售部门编码 sales_dept_code a"
+        },
+        {
+          "column_name": "sales_dept_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售部门编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售部门编码 sales_dept_code 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_dept_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售部门名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售部门名称 sales_dept_name a"
+        },
+        {
+          "column_name": "sales_dept_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售部门描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售部门描述 sales_dept_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_group_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售组编码 sales_group_code a"
+        },
+        {
+          "column_name": "sales_group_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售组编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售组编码 sales_group_code 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_group_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售组名称 sales_group_name a"
+        },
+        {
+          "column_name": "sales_group_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售组",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售组 sales_group_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_unit_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售战区编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售战区编码 sales_unit_code 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_unit_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售战区编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售战区编码 sales_unit_code 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_unit_name",
+          "data_type": "VARCHAR(255)",
+          "comment": "销售战区名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售战区名称 sales_unit_name varchar(255) 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_unit_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售战区名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售战区名称 sales_unit_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_area_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售大区编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售大区编码 sales_area_code 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_area_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售大区编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售大区编码 sales_area_code 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_area_name",
+          "data_type": "VARCHAR(255)",
+          "comment": "销售大区名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售大区名称 sales_area_name varchar(255) 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_area_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售大区名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售大区名称 sales_area_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_region_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售区域编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售区域编码 sales_region_code 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_region_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售区域编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售区域编码 sales_region_code 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "sales_region_name",
+          "data_type": "VARCHAR(255)",
+          "comment": "销售区域名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "销售区域名称 sales_region_name varchar(255) 维度 直接获取 a"
+        },
+        {
+          "column_name": "sales_region_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "b 销售区域名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "b 销售区域名称 sales_region_name 关联条件：订单号+合同号"
+        },
+        {
+          "column_name": "customer_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "客户编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "客户编码 customer_code 维度 直接获取 a 客户编码 customer_code"
+        },
+        {
+          "column_name": "customer_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "客户名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "客户名称 customer_name 维度 直接获取 a 客户名称 customer_name"
+        },
+        {
+          "column_name": "product_type",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品类型",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产品类型 product_type 维度 直接获取 a 产品类型 product_type"
+        },
+        {
+          "column_name": "industry_type",
+          "data_type": "VARCHAR(256)",
+          "comment": "行业类型",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "行业类型 industry_type 维度 直接获取 a 行业类型 industry_type"
+        },
+        {
+          "column_name": "industry_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产业编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产业编码 industry_code 维度 直接获取 a 物料号 industry_code"
+        },
+        {
+          "column_name": "industry_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产业描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产业描述 industry_name 维度 直接获取 a 物料描述 industry_name"
+        },
+        {
+          "column_name": "order_line_inv_flag",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单行库存标识",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单行库存标识 order_line_inv_flag 度量 a 订单行库存标识 order_line_inv_flag"
+        },
+        {
+          "column_name": "industry_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产业编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产业编码 industry_code a 产业编码 industry_code"
+        },
+        {
+          "column_name": "industry_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产业描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产业描述 industry_name a 产业描述 industry_name"
+        },
+        {
+          "column_name": "product_line_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品线编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产品线编码 product_line_code a 产品线编码 product_line_code"
+        },
+        {
+          "column_name": "product_line_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品线描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产品线描述 product_line_name a 产品线描述 product_line_name"
+        },
+        {
+          "column_name": "product_group_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品族编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产品族编码 product_group_code a 产品族编码 product_group_code"
+        },
+        {
+          "column_name": "product_group_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品族描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产品族描述 product_group_name a 产品族描述 product_group_name"
+        },
+        {
+          "column_name": "piz_line_name",
+          "data_type": "VARCHAR(100)",
+          "comment": "业务产品线",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业务产品线 piz_line_name varchar(100) 维度 直接获取 b 业务产品线 piz_line_name"
+        },
+        {
+          "column_name": "product_area",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品单位面积",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "产品单位面积 product_area a 产品单位面积 product_area"
+        },
+        {
+          "column_name": "inventory_status",
+          "data_type": "VARCHAR(256)",
+          "comment": "库存状态",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "库存状态 inventory_status 维度 直接获取 a 库存状态 inventory_status"
+        },
+        {
+          "column_name": "order_exec_status",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单执行状态",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "订单执行状态 order_exec_status 维度 a 订单执行状态 order_exec_status"
+        },
+        {
+          "column_name": "noship_reason",
+          "data_type": "VARCHAR(256)",
+          "comment": "未出货原因",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "未出货原因 noship_reason 直接获取 a 未出货原因 noship_reason"
+        },
+        {
+          "column_name": "noship_reason_category",
+          "data_type": "VARCHAR(256)",
+          "comment": "未出货原因类别",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "未出货原因类别 noship_reason_category 直接获取 a 未出货原因类别 noship_reason_category"
+        },
+        {
+          "column_name": "cny_exchange_rate",
+          "data_type": "VARCHAR(256)",
+          "comment": "汇率（to_CNY）",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "汇率（to_CNY） cny_exchange_rate 度量 直接获取 a 汇率（to_CNY） cny_exchange_rate"
+        },
+        {
+          "column_name": "usd_exchange_rate",
+          "data_type": "VARCHAR(256)",
+          "comment": "汇率（to_USD）",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "汇率（to_USD） usd_exchange_rate 度量 直接获取 a 汇率（to_USD） usd_exchange_rate"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "new 业绩分配比例",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "new 业绩分配比例 sales_percent 维度 直接获取 b 配额 sales_percent 关联条件：订单号+合同号 含业绩分配"
+        },
+        {
+          "column_name": "unshipment_qty",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货数量",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货数量 unshipment_qty 度量 a 未出货数量 【未出货数量】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_area",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货面积",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货面积 unshipment_area 度量 a 未出货面积 【未出货面积】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_tax_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货金额（含运费）_含税-原币",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货金额（含运费）_含税-原币 unshipment_tax_amt a 未出货金额（含运费）_含税-原币 【未出货金额（含运费）_含税-原币】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_tax_cny_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货金额（含运费）_含税-CNY",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货金额（含运费）_含税-CNY unshipment_tax_cny_amt a 未出货金额（含运费）_含税-CNY 【未出货金额（含运费）_含税-CNY】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_tax_usd_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货金额（含运费）_含税-USD",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货金额（含运费）_含税-USD unshipment_tax_usd_amt 度量 a 未出货金额（含运费）_含税-USD 【未出货金额（含运费）_含税-USD】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_notax_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货金额（含运费）_不含税-原币",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货金额（含运费）_不含税-原币 unshipment_notax_amt a 未出货金额（含运费）_不含税-原币 【未出货金额（含运费）_不含税-原币】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_notax_cny_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货金额（含运费）_不含税-CNY",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货金额（含运费）_不含税-CNY unshipment_notax_cny_amt 度量 a 未出货金额（含运费）_不含税-CNY 【未出货金额（含运费）_不含税-CNY】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "unshipment_notax_usd_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配-未出货金额（含运费）_不含税-USD",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配-未出货金额（含运费）_不含税-USD unshipment_notax_usd_amt a 未出货金额（含运费）_不含税-USD 【未出货金额（含运费）_不含税-USD】*【业绩分配比例】/100"
+        },
+        {
+          "column_name": "source_system",
+          "data_type": "VARCHAR(256)",
+          "comment": "最新更新日期",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "最新更新日期 source_system 审计 直接获取 a 最新更新日期"
+        },
+        {
+          "column_name": "insert_dt",
+          "data_type": "VARCHAR(256)",
+          "comment": "来源系统",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "来源系统 insert_dt 审计 直接获取 a 来源系统"
+        }
+      ]
+    },
+    "create_table_sql": "CREATE TABLE IF NOT EXISTS `dws_sd_inventory_alloc_detail_di` (\n  `dt` VARCHAR(256) COMMENT '日期(分区字段YYYYMMDD）',\n  `a` VARCHAR(256) COMMENT '）',\n  `order_num` VARCHAR(256) COMMENT '销售公司销售订单号',\n  `contract_num` VARCHAR(256) COMMENT '客户采购订单编号',\n  `order_item_num` VARCHAR(256) COMMENT '订单行项目号',\n  `order_type_code` VARCHAR(256) COMMENT '订单类型编码',\n  `manu_sales_order_num` VARCHAR(256) COMMENT '制造公司销售订单号',\n  `order_num_transfer` VARCHAR(256) COMMENT '销售订单号_含抛转',\n  `create_date` VARCHAR(256) COMMENT '订单创建日期',\n  `approval_date` VARCHAR(256) COMMENT '订单首次审批日期',\n  `newest_date` VARCHAR(256) COMMENT '订单最新日期',\n  `contract_need_days` VARCHAR(256) COMMENT '合同需求天数',\n  `contract_need_date` VARCHAR(256) COMMENT '合同需求日期',\n  `review_del_days` VARCHAR(256) COMMENT '评审交期（天数）',\n  `pmc_review_del_date` VARCHAR(256) COMMENT 'PMC评审交期',\n  `request_del_date` VARCHAR(256) COMMENT '预计出货日期',\n  `pmc_change_date` VARCHAR(256) COMMENT 'PMC变更日期',\n  `last_receipt_date` VARCHAR(256),\n  `a` VARCHAR(256) COMMENT 'latest_warehousing_date 维度',\n  `last_receipt_date` VARCHAR(256),\n  `latest_warehousing_date` VARCHAR(256),\n  `transport_method` VARCHAR(256) COMMENT '运输方式',\n  `payment_method` VARCHAR(256) COMMENT '贸易条款',\n  `sales_org_code` VARCHAR(256) COMMENT '销售组织编码',\n  `sales_org_name` VARCHAR(256) COMMENT '销售组织名称',\n  `factory_code` VARCHAR(256) COMMENT '工厂编码',\n  `factory_name` VARCHAR(256) COMMENT '工厂名称',\n  `employee_dept_code` VARCHAR(256) COMMENT '雇员部门编码',\n  `employee_dept_code` VARCHAR(256) COMMENT 'b 雇员部门编号',\n  `employee_dept_name` VARCHAR(256) COMMENT '雇员部门名称',\n  `employee_dept_name` VARCHAR(256) COMMENT 'b 雇员部门',\n  `sales_person_num` VARCHAR(256) COMMENT '业务员编码',\n  `sales_person_num` VARCHAR(256) COMMENT 'b 人员编码',\n  `sales_person_name` VARCHAR(256) COMMENT '业务员姓名',\n  `sales_person_name` VARCHAR(256) COMMENT '名',\n  `sales_dept_code` VARCHAR(256) COMMENT '销售部门编码',\n  `sales_dept_code` VARCHAR(256) COMMENT 'b 销售部门编码',\n  `sales_dept_name` VARCHAR(256) COMMENT '销售部门名称',\n  `sales_dept_name` VARCHAR(256) COMMENT 'b 销售部门描述',\n  `sales_group_code` VARCHAR(256) COMMENT '销售组编码',\n  `sales_group_code` VARCHAR(256) COMMENT 'b 销售组编码',\n  `sales_group_name` VARCHAR(256) COMMENT '销售组名称',\n  `sales_group_name` VARCHAR(256) COMMENT 'b 销售组',\n  `sales_unit_code` VARCHAR(256) COMMENT '销售战区编码',\n  `sales_unit_code` VARCHAR(256) COMMENT 'b 销售战区编码',\n  `sales_unit_name` VARCHAR(255) COMMENT '销售战区名称',\n  `sales_unit_name` VARCHAR(256) COMMENT 'b 销售战区名称',\n  `sales_area_code` VARCHAR(256) COMMENT '销售大区编码',\n  `sales_area_code` VARCHAR(256) COMMENT 'b 销售大区编码',\n  `sales_area_name` VARCHAR(255) COMMENT '销售大区名称',\n  `sales_area_name` VARCHAR(256) COMMENT 'b 销售大区名称',\n  `sales_region_code` VARCHAR(256) COMMENT '销售区域编码',\n  `sales_region_code` VARCHAR(256) COMMENT 'b 销售区域编码',\n  `sales_region_name` VARCHAR(255) COMMENT '销售区域名称',\n  `sales_region_name` VARCHAR(256) COMMENT 'b 销售区域名称',\n  `customer_code` VARCHAR(256) COMMENT '客户编码',\n  `customer_name` VARCHAR(256) COMMENT '客户名称',\n  `product_type` VARCHAR(256) COMMENT '产品类型',\n  `industry_type` VARCHAR(256) COMMENT '行业类型',\n  `industry_code` VARCHAR(256) COMMENT '产业编码',\n  `industry_name` VARCHAR(256) COMMENT '产业描述',\n  `order_line_inv_flag` VARCHAR(256) COMMENT '订单行库存标识',\n  `industry_code` VARCHAR(256) COMMENT '产业编码',\n  `industry_name` VARCHAR(256) COMMENT '产业描述',\n  `product_line_code` VARCHAR(256) COMMENT '产品线编码',\n  `product_line_name` VARCHAR(256) COMMENT '产品线描述',\n  `product_group_code` VARCHAR(256) COMMENT '产品族编码',\n  `product_group_name` VARCHAR(256) COMMENT '产品族描述',\n  `piz_line_name` VARCHAR(100) COMMENT '业务产品线',\n  `product_area` VARCHAR(256) COMMENT '产品单位面积',\n  `inventory_status` VARCHAR(256) COMMENT '库存状态',\n  `order_exec_status` VARCHAR(256) COMMENT '订单执行状态',\n  `noship_reason` VARCHAR(256) COMMENT '未出货原因',\n  `noship_reason_category` VARCHAR(256) COMMENT '未出货原因类别',\n  `cny_exchange_rate` VARCHAR(256) COMMENT '汇率（to_CNY）',\n  `usd_exchange_rate` VARCHAR(256) COMMENT '汇率（to_USD）',\n  `sales_percent` VARCHAR(256) COMMENT 'new 业绩分配比例',\n  `unshipment_qty` VARCHAR(256) COMMENT '业绩分配-未出货数量',\n  `unshipment_area` VARCHAR(256) COMMENT '业绩分配-未出货面积',\n  `unshipment_tax_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_含税-原币',\n  `unshipment_tax_cny_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_含税-CNY',\n  `unshipment_tax_usd_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_含税-USD',\n  `unshipment_notax_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_不含税-原币',\n  `unshipment_notax_cny_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_不含税-CNY',\n  `unshipment_notax_usd_amt` VARCHAR(256) COMMENT '业绩分配-未出货金额（含运费）_不含税-USD',\n  `source_system` VARCHAR(256) COMMENT '最新更新日期',\n  `insert_dt` VARCHAR(256) COMMENT '来源系统'\n) ENGINE=OLAP\nDUPLICATE KEY(`dt`)\nPARTITION BY RANGE(`dt`) ()\nDISTRIBUTED BY HASH(`dt`) BUCKETS 10;",
+    "source_tables": {}
+  },
+  "target_table": "dws_sd_inventory_alloc_detail_di",
+  "table_comment": "dws_存量明细模型_业绩分配",
+  "sections": {
+    "data_sources": "",
+    "overview": "序号 英文表名 中文含义 应用场景 备注\n1 dws_sd_inventory_alloc_detail_di dws_存量明细模型_业绩分配 含业绩分配的存量模型\n筛选条件\n表关联条件\na~b:销售订单号+合同号关联",
+    "details": "模型标准 系统（独立逻辑，可来源于多系统）\n序号 字段备注 字段名称 字段编码 字段类型 维度/度量 主键 值域 非空 获取方式 来源表 来源字段 来源字段说明 数据类型 值列表 关联条件 计算逻辑 备注1 备注2\n日期(分区字段YYYYMMDD） dt 维度 a 版本日期\n工厂（这个单是哪个工厂生产的？） a 工厂（这个单是哪个工厂生产的？）\n销售公司销售订单号 order_num 维度 a 销售公司销售订单号 order_num\n客户采购订单编号 contract_num 维度 a 客户采购订单编号（合同号） contract_num\n订单行项目号 order_item_num 维度 a 订单行项目号 order_item_num\n订单类型编码 order_type_code 维度 a 订单类型编码 order_type_code\n制造公司销售订单号 manu_sales_order_num 维度 a 制造公司销售订单号 manu_sales_order_num\n销售订单号_含抛转 order_num_transfer 维度 a 销售订单号_含抛转 order_num_transfer\n订单创建日期 create_date 维度 a 订单创建日期 create_date\n订单首次审批日期 approval_date 维度 a 订单首次审批日期 approval_date\n订单最新日期 newest_date a 订单最新日期 newest_date\n合同需求天数 contract_need_days 维度 a 合同需求天数 contract_need_days\n合同需求日期 contract_need_date 维度 a 合同需求日期 contract_need_date\n评审交期（天数） review_del_days 维度 a 请求交货天数 review_del_days\nPMC评审交期 pmc_review_del_date 维度 a PMC评审交期 pmc_review_del_date\n预计出货日期 request_del_date 维度 a 预计出货日期 request_del_date\nPMC变更日期 pmc_change_date 维度 a PMC变更日期 pmc_change_date\n最后入库日期\n最新入库日期 last_receipt_date\nlatest_warehousing_date 维度 a 最后入库日期\n最新入库日期 last_receipt_date\nlatest_warehousing_date\n运输方式 transport_method a 运输方式 transport_method\n贸易条款 payment_method a 贸易条款 payment_method\n销售组织编码 sales_org_code 维度 直接获取 a 销售组织 sales_org_code\n销售组织名称 sales_org_name 维度 直接获取 a 销售组织名称 sales_org_name\n工厂编码 factory_code a 工厂编码 factory_code\n工厂名称 factory_name a 工厂名称 factory_name\n雇员部门编码 employee_dept_code 维度 直接获取 a\nb 雇员部门编号 employee_dept_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dwd_订单明细模型数据不变\n雇员部门名称 employee_dept_name 维度 直接获取 a\nb 雇员部门 employee_dept_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dwd_订单明细模型数据不变\n业务员编码 sales_person_num 维度 直接获取 a\nb 人员编码 sales_person_num 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dwd_订单明细模型数据不变\n业务员姓名 sales_person_name 维度 直接获取 a\nb 姓+名 sales_person_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员描述；若关联不上则保持dwd_订单明细模型数据不变\n销售部门编码 sales_dept_code a\nb 销售部门编码 sales_dept_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dwd_订单明细模型数据不变\n销售部门名称 sales_dept_name a\nb 销售部门描述 sales_dept_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门描述；若关联不上则保持dwd_订单明细模型数据不变\n销售组编码 sales_group_code a\nb 销售组编码 sales_group_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dwd_订单明细模型数据不变\n销售组名称 sales_group_name a\nb 销售组 sales_group_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组描述；若关联不上则保持dwd_订单明细模型数据不变\n销售战区编码 sales_unit_code 维度 直接获取 a\nb 销售战区编码 sales_unit_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的省份/国家销售战区；若关联不上则保持dwd_订单明细模型数据不变\n销售战区名称 sales_unit_name varchar(255) 维度 直接获取 a\nb 销售战区名称 sales_unit_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的省份/国家销售战区；若关联不上则保持dwd_订单明细模型数据不变\n销售大区编码 sales_area_code 维度 直接获取 a\nb 销售大区编码 sales_area_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dwd_订单明细模型数据不变\n销售大区名称 sales_area_name varchar(255) 维度 直接获取 a\nb 销售大区名称 sales_area_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dwd_订单明细模型数据不变\n销售区域编码 sales_region_code 维度 直接获取 a\nb 销售区域编码 sales_region_code 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的目标范围销售区域；若关联不上则保持dwd_订单明细模型数据不变\n销售区域名称 sales_region_name varchar(255) 维度 直接获取 a\nb 销售区域名称 sales_region_name 关联条件：订单号+合同号\n关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的目标范围销售区域；若关联不上则保持dwd_订单明细模型数据不变\n客户编码 customer_code 维度 直接获取 a 客户编码 customer_code\n客户名称 customer_name 维度 直接获取 a 客户名称 customer_name\n产品类型 product_type 维度 直接获取 a 产品类型 product_type\n行业类型 industry_type 维度 直接获取 a 行业类型 industry_type\n产业编码 industry_code 维度 直接获取 a 物料号 industry_code\n产业描述 industry_name 维度 直接获取 a 物料描述 industry_name\n订单行库存标识 order_line_inv_flag 度量 a 订单行库存标识 order_line_inv_flag\n产业编码 industry_code a 产业编码 industry_code\n产业描述 industry_name a 产业描述 industry_name\n产品线编码 product_line_code a 产品线编码 product_line_code\n产品线描述 product_line_name a 产品线描述 product_line_name\n产品族编码 product_group_code a 产品族编码 product_group_code\n产品族描述 product_group_name a 产品族描述 product_group_name\n业务产品线 piz_line_name varchar(100) 维度 直接获取 b 业务产品线 piz_line_name\n产品单位面积 product_area a 产品单位面积 product_area\n库存状态 inventory_status 维度 直接获取 a 库存状态 inventory_status\n订单执行状态 order_exec_status 维度 a 订单执行状态 order_exec_status\n未出货原因 noship_reason 直接获取 a 未出货原因 noship_reason\n未出货原因类别 noship_reason_category 直接获取 a 未出货原因类别 noship_reason_category\n汇率（to_CNY） cny_exchange_rate 度量 直接获取 a 汇率（to_CNY） cny_exchange_rate\n汇率（to_USD） usd_exchange_rate 度量 直接获取 a 汇率（to_USD） usd_exchange_rate\nnew 业绩分配比例 sales_percent 维度 直接获取 b 配额 sales_percent 关联条件：订单号+合同号 含业绩分配\n业绩分配-未出货数量 unshipment_qty 度量 a 未出货数量 【未出货数量】*【业绩分配比例】/100\n业绩分配-未出货面积 unshipment_area 度量 a 未出货面积 【未出货面积】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_含税-原币 unshipment_tax_amt a 未出货金额（含运费）_含税-原币 【未出货金额（含运费）_含税-原币】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_含税-CNY unshipment_tax_cny_amt a 未出货金额（含运费）_含税-CNY 【未出货金额（含运费）_含税-CNY】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_含税-USD unshipment_tax_usd_amt 度量 a 未出货金额（含运费）_含税-USD 【未出货金额（含运费）_含税-USD】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_不含税-原币 unshipment_notax_amt a 未出货金额（含运费）_不含税-原币 【未出货金额（含运费）_不含税-原币】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_不含税-CNY unshipment_notax_cny_amt 度量 a 未出货金额（含运费）_不含税-CNY 【未出货金额（含运费）_不含税-CNY】*【业绩分配比例】/100\n业绩分配-未出货金额（含运费）_不含税-USD unshipment_notax_usd_amt a 未出货金额（含运费）_不含税-USD 【未出货金额（含运费）_不含税-USD】*【业绩分配比例】/100\n最新更新日期 source_system 审计 直接获取 a 最新更新日期\n来源系统 insert_dt 审计 直接获取 a 来源系统"
+  }
+}

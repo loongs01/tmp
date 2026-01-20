@@ -58,6 +58,22 @@ python -m pip -V
 -- 通过运行以下命令，你可以直接查看包的安装路径：
 python -m pip show mysql
 
+# 列出所有已安装包
+pip list
+
+# 显示更多信息（包括包的位置）
+pip list --verbose
+
+# 仅显示过期包（有可用更新）
+pip list --outdated
+
+# 显示最新版本的包
+pip list --uptodate
+
+
+
+
+
 -- 清理 pip 缓存
 python -m pip cache purge
 

@@ -1,0 +1,595 @@
+﻿系统编码,系统名称,数据源编码,数据源名称,负责人,数据中台是否需对接,对接账号/服务器/接口信息,"业务系统地址及业务访问账号
+（提供支持查询业务数据的账号和权限）",【测试系统】数据库恢复版本【是否】近一年,"系统使用情况
+（10.27需与系统领导确认数据对接方式及是否迁移数据库）",数据中台测试结果,数据需求示例,需求示例数据库表名,测试结果
+OA,OA,OA_SQLSERVER,oa_sqlserver,陈海棠,需要,"正式系统
+数据库名：【ecology】
+10.1.1.30 SQLserver 1433
+hone_user
+zmkj#2025
+
+测试系统
+数据库名：【ecology】
+10.1.1.44 SQLserver 1433
+hone_user
+zmkj#2025","业务网址/服务器：
+http://uoa.unilumin.cn:8080/
+账号：
+密码：",否,"测试环境44数据截至22年，68数据截至16年，测试机不支持数据恢复，若需要44/68之外的测试数据源，需重新搭建测试环境。
+需求评估是否允许数据中台测试机直连汇联易正式机，还是新搭建一台测试机。","
+正式连正式：通过
+测试连正式：通过","物流业务流程
+物流出货申请单
+人员组织信息（需要包含oaid的，响应CRM需求）
+用户表
+角色表
+用户角色关联表","数据库名：ecology
+--物流业务流程
+表名：formtable_main_104
+--显示物流业务流程
+表名：formtable_main_397
+--物流国际出货申请
+表名：formtable_main_795
+--物流国内出货申请
+表名：formtable_main_813
+--人员信息
+表名：Hrmresource（说的oaid就是表中的id）
+--部门信息
+表名：HrmDepartment（说的oaid就是表中的id）
+--角色信息
+表名：HrmRole
+--用户角色关联表
+表名：HrmRoleMembers","schema：dbo
+通过"
+电子签,电子签,,,陈海棠,待定,,,,,,,,
+EPROS,EPROS,,,-,待定,,,,,,,,
+知识产权,知识产权,,,聂宗福,待定,,,,,,,,
+PLM,PLM,PLM_SQLSERVER,plm_sqlserver,刘培,需要,"正式系统
+10.2.1.162 SQLserver 1433
+数据库：pdm11
+hone_user
+zmkj#2025
+
+测试系统
+数据库：pdm11
+10.2.8.16 SQLserver 1433
+hone_user
+zmkj#2025
+
+备注:如下是PLM系统,往中台推数的网络策略
+需要开通PLM服务器->中台数据库的策略
+PLM测试服务器
+pdmapp-test: 10.2.8.14
+连接
+中台库:10.2.8.35:23306
+数据库:plm
+用户名:plm_user
+PLM生产服务器
+PLMAPP: 10.2.1.161
+连接
+中台库:10.1.20.173:23306
+数据库:plm
+用户名:plm_user","业务网址/服务器：
+http://plm.unilumin.cn/Windchill/
+账号：
+密码：",否,测试环境数据较老，需评估是否迁移正式机数据库至测试机。,"正式：通过
+测试：通过","标准BOM
+用户表
+角色表
+用户角色关联表","数据库pdm11，模式pdm11
+部件表：WTPart
+部件主数据表：WTPartMaster
+部件使用关系表(BOM):WTPartUsageLink
+用户表：WTUser
+角色：WTRolePrincipal
+用户角色关联表：RolePrincipalMap
+组表：WTGroup
+组用户关联表：MembershipLink",通过
+PLM,PLM,PLM_SQLSERVER,plm_sqlserver,刘培,需要,"正式系统
+10.2.1.162 SQLserver 1433
+数据库：pdm11
+hone_user
+zmkj#2025
+
+测试系统
+数据库：pdm11
+10.2.8.16 SQLserver 1433
+hone_user
+zmkj#2025
+
+备注:如下是PLM系统,往中台推数的网络策略
+需要开通PLM服务器->中台数据库的策略
+PLM测试服务器
+pdmapp-test: 10.2.8.14
+连接
+中台库:10.2.8.35:23306
+数据库:plm
+用户名:plm_user
+PLM生产服务器
+PLMAPP: 10.2.1.161
+连接
+中台库:10.1.20.173:23306
+数据库:plm
+用户名:plm_user","业务网址/服务器：
+账号：
+密码：",否,测试环境数据较老，需评估是否迁移正式机数据库至测试机。,"正式：通过
+测试：通过",研发项目清单,"数据库pdm11，模式pdm11
+项目表：PIProject
+资源表：PIResource",通过
+企业微信,企业微信,,,陈海棠,待定,https://developer.work.weixin.qq.com/document,,,,,,,
+EHR,北森-EHR,EHR_API,ehr_api,张丽婷,需要,"https://openapi.italent.cn/token
+生产环境：
+Key：6E4EF01938A84B1E914DD39551B08182
+Secret：35D0335A61FC4D759634AFF783D73FAE5C34C5FA85B84DBC8B3E4A3837D0DB91
+
+测试环境：
+key：AA3EB5DA0D1145E09C5FCC21DF3754DC
+secret：8B9CCCB03F69495691FC4B776CC4D98DC675017ACBF14958ADEDE00BBA786682",不支持内网访问,,"SaaS系统，测试环境业务数据量较少，内部无法操作数据迁移，需外部供应商处理。
+需求评估是否允许数据中台测试机直连EHR正式机。","【正式连正式】
+通过
+
+【测试连正式】
+通过","组织
+人员
+岗位","组织：
+请求地址：openapi.italent.cn/TenantBaseExternal/api/v5/Organization/GetByTimeWindow
+人员：
+请求地址：openapi.italent.cn/TenantBaseExternal/api/v5/Employee/GetByTimeWindow
+岗位：
+请求地址：openapi.italent.cn/TenantBaseExternal/api/v5/Position/GetByTimeWindow",通过
+TCM,TCM,,,严智轩、张家港,待定,系统未交付，暂无法提供【可以封装API；响应时效很低】,,,,,,,
+MES,MES,MES_XSP_SQLSERVER,mes_xsp_sqlserver,尚恒志,需要,"正式系统
+10.2.1.100 SQLserver 1433
+数据库名：OrBitEFXSP【大亚湾显示屏】
+hone_user
+hone2025@10
+
+测试系统：
+数据库名： OrBitEFXSPTEST
+10.2.8.3 SQLserver 1433
+hone_user
+hone2025@10","业务网址/服务器：
+账号：
+密码：",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","正式：
+测试：通过","成品收发存
+成品库存
+用户表
+角色表
+用户角色关联表","测试环境：
+数据库名： OrBitEFXSPTEST
+
+
+测试环境：
+FPlInInventoryItemLot   ——入库单明细批号
+FPlInventory      ——成品库存
+DeliveryOrderItemLot  ——交货出库明细表",通过
+MES,MES,MES_XSPNC_SQLSERVER,mes_xspnc_sqlserver,尚恒志,需要,"正式系统
+10.2.1.100 SQLserver 1433
+数据库名：OrBitEFXSP_NC【南昌显示屏】
+hone_user
+hone2025@10","业务网址/服务器：
+账号：
+密码：",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","正式：
+测试：通过","成品收发存
+成品库存
+用户表
+角色表
+用户角色关联表","测试环境：
+数据库名： OrBitEFXSPTEST
+
+
+测试环境：
+FPlInInventoryItemLot   ——入库单明细批号
+FPlInventory      ——成品库存
+DeliveryOrderItemLot  ——交货出库明细表",通过
+MES,MES,MES_ZM_SQLSERVER,mes_zm_sqlserver,尚恒志,需要,"正式系统
+10.2.1.100 SQLserver 1433
+数据库名：OrBitEFZM【中山照明】
+hone_user
+hone2025@10","业务网址/服务器：
+账号：
+密码：",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","正式：
+测试：通过","成品收发存
+成品库存
+用户表
+角色表
+用户角色关联表","测试环境：
+数据库名： OrBitEFXSPTEST
+
+
+测试环境：
+FPlInInventoryItemLot   ——入库单明细批号
+FPlInventory      ——成品库存
+DeliveryOrderItemLot  ——交货出库明细表",通过
+MES,MES,MES_MINI_SQLSERVER,mes_mini_sqlserver,郭平,需要,"正式系统
+sqlserver 10.2.1.188 SQLserver 1433
+数据库名：OrBitEFUmini【Mini制造部】
+hone_user
+hone2025@10","业务网址/服务器：
+账号：
+密码：",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","正式：
+测试：通过","成品收发存
+成品库存
+用户表
+角色表
+用户角色关联表","测试环境：
+数据库名： OrBitEFXSPTEST
+
+
+测试环境：
+FPlInInventoryItemLot   ——入库单明细批号
+FPlInventory      ——成品库存
+DeliveryOrderItemLot  ——交货出库明细表",通过
+WMS,WMS,WMS_PGSQL,wms_pgsql,谢思思,需要,"测试机：10.2.8.19    数据库：wms_test            
+正式机：10.2.1.183   数据库：TinOWmsV2
+版本：postgresql 10.9.3
+端口：5432
+用户名：hone_user
+密码：zmkj@2025wms","业务网址/服务器：
+账号：
+密码：",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","正式：通过
+测试：通过","仓库主数据
+库位主数据
+库存数据
+单据数据（入库单、出库单等）
+……
+用户表
+角色表
+用户角色关联表","入库单：wms_inbound_order
+出库单：wms_outbound_order
+库位：wms_wh_location","通过
+
+schema：public
+已可查，可以看到所有表&视图，待数据中台测试抽取数据"
+EAM,EAM,EAM_SQLSERVER,eam_sqlserver,严智轩,需要,"https://www.yideamobile.com/hc/index.html#/open/prerequisite.html
+
+DBLink:
+正式系统
+数据库名：dbAssetCheck
+10.2.1.148 SQLServer2019 1433
+hone_user
+hone2025@10
+
+测试系统
+数据库名：dbAssetCheck
+10.2.8.12 SQLServer2019 1433
+hone_user
+hone2025@10
+","业务网址/服务器：
+账号：
+密码：",否,"测试环境应用无法使用，仅存在测试数据库。
+测试环境数据较老，需评估是否迁移正式机数据库至测试机。","正式连正式：通过
+测试连正式：通过","设备维修数据
+设备点检计划
+用户表
+角色表（若无则可不提供）
+用户角色关联表","测试环境：
+库名：dbAssetCheck
+--维修  系统自带维修 不常用
+AssetRepairAcceptance  维修工单-资产关系表
+xAssetAssetRepair  维修绑定表
+AssetRepair –维修工单
+
+--保养
+Equ_MaintainPlan  保养方案
+Equ_MaintainTask  保养任务
+Equ_MaintainTaskChange  保养任务变更
+Equ_MaintainExecute  保养执行
+
+-- 维修自定义表单  常用（测试机没有该表单，无数据）
+FormData     条件：DictionaryId = '12f8b5dd-4e69-4af4-b22f-7a66fa8933ec'
+Select * From FormData Where DictionaryId = '12f8b5dd-4e69-4af4-b22f-7a66fa8933ec'","schema：dbo
+通过"
+QMS,QMS,QMS_MYSQL5,qms_mysql5,尚恒志、陈雁灿,需要,"DBLink:
+正式系统
+10.2.1.224 3306
+hone_user
+hone2025@10
+
+测试系统
+10.2.8.32 3306
+hone_user
+hone2025@10
+
+数据库名：QMS
+测试机数据库版本：8.0.40
+正式机数据库版本：8.0.43","业务网址/服务器：
+账号：
+密码：",是,"2025年9月底上线，正式机基础数据多但实际业务数据非常少；测试机基础数据少但创建用于测试的业务数据量较多。
+需评估是否迁移正式机数据库至测试机。","正式连正式：通过
+测试连正式：通过","来料检验数据
+用户表
+角色表
+用户角色关联表","数据库：QMS
+来料：iqc_rpt_basic
+用户：View_User
+角色：View_Roles
+用户角色关联：View_User",通过
+SAP-ERP,SAP-ERP,"SAP-ERP_DB2
+SAP-ERP_RFC","sap-erp_db2
+sap-erp_rfc",林佳鸿,需要,"正式系统 3301
+10.1.1.200
+HONESAP
+Hdc123
+R3NAME：PRD
+CLIENT：800
+SYSNR：01
+
+正式机数据库服务器：
+IP:10.1.1.203
+PORT:5912
+数据库名：prd
+账号：db2user/db2user
+
+测试系统 3301
+SAP GUI
+10.1.1.39
+HONESAP
+Hdc123
+ECC版本 数据库类型：DB2 系统标识：QAS
+测试函数名：ZRFC_GET_ZCPLX
+ SAP只能用RFC或WEB  servers （冯辛勤备注） 
+R3NAME：QAS
+CLIENT：800
+SYSNR：01
+
+DB2
+10.1.1.39 5912
+数据库名：prd
+账号：db2user/db2user
+
+20130101开始投入使用","测试系统
+业务网址/服务器：10.2.8.28
+账号：HAND
+密码：123456",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","【生产环境】
+RFC：通过
+DB2：通过
+
+
+【测试环境】
+RFC：通过
+DB2：通过","物料主数据
+销售订单明细
+实际料工费ZCO032
+……
+用户表
+角色表
+用户角色关联表","MES获取物料主数据接口
+ZRFC_GET_WL
+入参：
+WERKS=2010
+其余置空
+
+获取销售订单信息
+ZRFC_SD_GET_SO_INFO
+入参：
+P_VBELN=302450","通过
+
+需要提供下参数名及有数的参数值示例"
+SAP-BPC,SAP-BPC,"SAP-BPC_HANA
+SAP-BPC_RFC","sap-bpc_hana
+sap-bpc_rfc",刘飞虎,需要,"正式系统  3300
+业务服务器：10.1.1.189
+HONESAP
+Hdc123
+数据库类型：HANA 
+R3NAME：BPP
+CLIENT：700
+SYSNR：00
+HANA
+数据库服务器：10.1.1.223     端口：30015
+数据库账号密码：HONE_USER/Init@123456
+
+测试系统  3300
+业务服务器：10.1.1.188
+数据库服务器：10.1.1.226
+HONESAP
+Hdc123
+数据库类型：HANA 
+只能用标准接口，不能用DBLINK（冯辛勤备注）
+R3NAME：BPQ
+CLIENT：700
+SYSNR：00
+
+HANA
+10.1.1.226 30056
+HONE_USER/Init@123456",,,"测试环境无业务数据、无合并相关接口，且无明确技术可支持HANA数据迁移。
+需求确认HANA数据库迁移是否可实现，或评估是否允许数据中台测试机直连BPC正式机。","【正式连正式】
+RFC：调试中
+HANA：待提供
+
+
+【测试连正式】
+RFC：通过
+HANA：待提供","收入预算（分产品线）
+费用预算
+合并报表数据
+关联交易数据
+用户表
+角色表
+用户角色关联表","没有收入预算
+
+费用实际数
+ZRFC_BPC_TO_BI
+费用预算数+占用数+执行数
+ZRFC_BPC_TO_WECOM2","通过
+
+需要提供一个有数的期间，用于测试。
+
+测试环境没有在用，没有数据
+提供了另一个RFC函数
+ZRFC_GET_CSKS_DATA（测试通过）
+
+申请用bpc开发环境 跟 数据平台测试环境对接，或者协调下做数据迁移也可以"
+SRM,SRM,SRM_MYSQL,srm_mysql,龚晨,需要,"正式系统
+10.2.1.145 mysql5 3306
+数据库srm_sit
+hone_user
+zmkj#2025
+
+测试系统
+10.2.8.6 mysql5  3306
+数据库srm_sit
+zhouming
+OroXhxDLup3P&#","业务网址/服务器：
+账号：
+密码：",否,测试环境数据较老，需评估是否迁移正式机数据库至测试机。,"生产：通过
+测试：通过","供应商主数据
+采购订单
+收发退货数据
+用户表
+角色表
+用户角色关联表","数据库名：srm_sit
+供应商主数据：supplier_master_data
+供应商组织信息行：supplier_org_info
+采购订单头：purchase_order_head
+采购订单行：purchase_order_item
+用户表：els_subaccount_info
+角色表：els_role
+用户角色关联表：els_user_role",通过
+APS,APS,APS_SQLSERVER,aps_sqlserver,张家港,需要,"APS一期正式系统数据库
+IP：10.2.1.139 
+SQLserver 1433
+schema：dbo
+数据库名：UNILUMIN_APS
+账户：hone_aps_user
+密码：Hone_aps@2025
+
+APS一期测试系统数据库
+数据库名：UNILUMIN_APS
+IP：10.2.8.8 
+SQLserver 1433
+schema：dbo
+账户：hone_aps_user
+密码：Hone_aps@2025
+
+APS二期测试系统数据库
+数据库名：WEBAPS
+IP：10.2.8.51
+SQLserver 1433
+schema：dbo
+账号：hone_webaps_user
+密码：Hone_aps@2025
+
+
+注：数据基于APS一期项目提供，因APS二期项目正在实施中，后续相关数据可能会发生变化","业务网址/服务器：
+账号：
+密码：",是,"近一年内恢复过数据
+需确认是否满足需求，不做迁移","生产：待提供二期生产
+测试：通过","排产数据
+替代料数据
+物料齐套情况
+物料欠料情况","APS一期正式数据库和测试数据库表信息：
+数据库：UNILUMIN_APS
+排产数据：view_aps_interface_MES_ShiftPlan_hone
+替代料数据 暂无
+物料齐套情况：view_complete_set_hone
+物料欠料情况：view_material_shortage_result_hone
+
+APS二期测试系统数据库数据表信息：
+数据库名：WEBAPS
+数据表:hone_test 用于测试连通性","schema：dbo
+通过
+
+"
+CRM,CRM,,,曹秒秒,不需要,,不支持内网访问,,瑞泰CRM不做对接,,"客户主数据
+代理商、分销商、经销商主数据
+线索数据
+商机数据
+客诉数据
+客户满意度调查数据
+用户表
+角色表
+用户角色关联表
+……",,
+"XSYCRM
+（CPQ）","XSYCRM
+（CPQ）",XSYCRM_API,xsycrm_api,曹秒秒,需要,"https://login.xiaoshouyi.com
+账号：hone@unilumin.com
+正式机
+token：https://login.xiaoshouyi.com/auc/oauth2/token?grant_type=password&client_id=ca513eb82caa2d7bd2f9d1fd1268e3e4&client_secret=72c7f622bd50dc199c8f238aa878846f&username=hone@unilumin.com&password=2025121211111111",不支持内网访问,,销售易包含CRM、CPQ模块。销售易系统是CRM系统。,"【正式连正式】
+
+
+【测试连正式】
+",,,
+HLY,汇联易,HLY_API,hly_api,陈海棠,需要,"https://opendocs.huilianyi.com/
+
+生产
+token：https://console.huilianyi.com/oauth/token?grant_type=client_credentials&scope=write
+header:Authorization=Basic ZmY4NDY5M2EtYWNkNC00YmFjLTk2MzItYzFkZTNmZTY1Njg3Ok1HRmxaREUzTjJFdE1HSmpOaTAwWWpVeExXSXlOekl0WVdNM1pqbGtZek5sTmpNeA==",不支持内网访问,是,"SaaS系统，测试环境业务数据量较少，内部无法操作数据迁移，需外部供应商处理。
+需求评估是否允许数据中台测试机直连汇联易正式机。","【正式连正式】
+通过
+
+【测试连正式】
+通过","费用明细台账
+用户表
+角色表
+用户角色关联表","请求URL
+/report/api/open/report/searchExpenseDetails
+说明文档：
+https://opendocs.huilianyi.com/implement/report-data/ExpenseDetailsReport.html
+
+查询员工：
+https://opendocsuat.huilianyi.com/implement/master-data/staff/select-employee-by-employeeId.html
+查询租户下人员组：
+https://opendocsuat.huilianyi.com/implement/master-data/userGroup/query-userGroup-by-tenant.html
+查询用户所属人员组：
+https://opendocsuat.huilianyi.com/implement/master-data/userGroup/query-userGroup-by-user.html
+",通过
+HAP,HAP,,,刘培,待定,,,,,,,,
+E税云,E税云,,,梁积铭,待定,,,,,,,,
+资金系统,资金系统,,,梁积铭、冯辛勤,待定,,,,,,,,
+BI,BI,"BI_SQLSERVER
+BI_MYSQL5","bi_sqlserver
+bi_mysql5",张家港,需要,"正式系统
+mysql5.7  3306
+数据库：bi_dev
+地址：10.1.1.72
+账户：hone_fine_user
+密码：Hone_Bi@2025
+
+BI正式机数据库：
+sql server:1433
+地址：10.1.1.183
+账户：hone_fr_user
+密码：Hone_Fr@2025
+
+BI测试机数据库：
+mysql5.7  3306
+数据库：bi_dev
+地址：10.2.8.5
+账户：hone_fine_user
+密码：Hone_Bi@2025
+
+BI测试机数据库：
+mysql:3306
+数据库：hone_import
+地址：10.2.8.5
+账户：hone_fine_user
+密码：Hone_Bi@2025
+
+FineReport版本：10.0.19","正式业务网址/服务器：http://bi.unilumin.cn:8050/webroot/decision
+账号：hone01
+密码：Hone@123
+
+
+测试业务网址/服务器：http://10.2.8.4:8050/webroot/decision
+账号：hone01
+密码：Hone@123",否,测试环境数据较少，需评估是否迁移正式机数据库至测试机。,"【正式对接正式】
+mysql5：通过
+sqlserver：通过
+
+【测试对接正式】
+mysql5：通过
+sqlserver：通过","产品目录树
+用户表
+角色表
+用户角色关联表",产品目录树数据源由研发管控，不在BI内，建议更改数据需求。,
+U云服,U云服,,,刘培、程修正,待定,,,,,,,,
+PBI,PBI,,,,需要,,,,未上线,,产品目录树,未上线,
+,,1,,,,,,,,,,,

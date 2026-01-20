@@ -1,0 +1,12 @@
+spacy
+networkx
+faiss-cpu
+sentence-transformers
+numpy
+pandas
+scikit-learn
+pytest
+pypdf
+openpyxl
+python-pptx
+python-docx

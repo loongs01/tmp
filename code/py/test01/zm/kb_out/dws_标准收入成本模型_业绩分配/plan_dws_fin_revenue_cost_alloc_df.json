@@ -1,0 +1,2630 @@
+{
+  "plan": {
+    "sheet": "dws_标准收入成本模型_业绩分配",
+    "purpose": "table",
+    "business_key": "Unnamed: 2",
+    "bk_candidates": [
+      {
+        "name": "Unnamed: 2",
+        "score": 3,
+        "unique": 67,
+        "missing": 13
+      },
+      {
+        "name": "Unnamed: 10",
+        "score": 3,
+        "unique": 63,
+        "missing": 18
+      },
+      {
+        "name": "Unnamed: 11",
+        "score": 3,
+        "unique": 59,
+        "missing": 22
+      },
+      {
+        "name": "模型设计清单",
+        "score": 2,
+        "unique": 69,
+        "missing": 11
+      },
+      {
+        "name": "返回",
+        "score": 2,
+        "unique": 67,
+        "missing": 11
+      }
+    ],
+    "create_table_sql": "CREATE TABLE IF NOT EXISTS `dws_fin_revenue_cost_alloc_df` (\n  `company_code` VARCHAR(256) COMMENT '公司代码',\n  `company_name` VARCHAR(256) COMMENT '公司名称',\n  `sales_invoice_num` VARCHAR(256) COMMENT '销售订单号',\n  `sales_invoice_line` VARCHAR(256) COMMENT '销售订单行号',\n  `fiscal_year` VARCHAR(256) COMMENT '会计年度',\n  `fiscal_period` VARCHAR(256) COMMENT '会计期间',\n  `voucher_post_date` VARCHAR(256) COMMENT '过账日期',\n  `transfer_node` VARCHAR(256) COMMENT '订单抛转节点',\n  `manu_order_num` VARCHAR(256) COMMENT '制造公司销售订单号',\n  `terminal_order_num` VARCHAR(256) COMMENT '终端销售公司销售订单号',\n  `contract_num` VARCHAR(256) COMMENT '采购订单号（合同号）',\n  `contract_m_num` VARCHAR(256) COMMENT '母合同号',\n  `order_type_code` VARCHAR(256) COMMENT '销售订单类型',\n  `order_type_name` VARCHAR(256) COMMENT '销售订单类型描述',\n  `customer_code` VARCHAR(256) COMMENT '客户编码',\n  `customer_name` VARCHAR(256) COMMENT '客户名称',\n  `in_customer_flag` VARCHAR(256) COMMENT '是否内部关联客户',\n  `product_code` VARCHAR(256) COMMENT '产品编码',\n  `product_name` VARCHAR(256) COMMENT '产品描述',\n  `product_series_code` VARCHAR(256) COMMENT '产品所属产品族编码',\n  `product_series_name` VARCHAR(256) COMMENT '产品所属产品族名称',\n  `product_group_code` VARCHAR(256) COMMENT '产品所属产品线编码',\n  `product_group_name` VARCHAR(256) COMMENT '产品所属产品线名称',\n  `industry_code` VARCHAR(256) COMMENT '产品所属产业编码',\n  `industry_name` VARCHAR(256) COMMENT '产品所属产业名称',\n  `sales_person_num` VARCHAR(256) COMMENT '业务员编码',\n  `sales_person_name` VARCHAR(256) COMMENT '业务员姓名',\n  `sales_org_code` VARCHAR(256) COMMENT '销售组织编码',\n  `sales_org_name` VARCHAR(256) COMMENT '销售组织名称',\n  `sales_dept_code` VARCHAR(256) COMMENT '销售部门编码',\n  `sales_dept_name` VARCHAR(256) COMMENT '销售部门名称',\n  `sales_group_code` VARCHAR(256) COMMENT '销售组编码',\n  `sales_group_name` VARCHAR(256) COMMENT '销售组名称',\n  `sales_unit_code` VARCHAR(256) COMMENT '销售战区',\n  `sales_unit_name` VARCHAR(256) COMMENT '销售战区名称',\n  `sales_area_code` VARCHAR(256) COMMENT '销售大区',\n  `sales_area_name` VARCHAR(256) COMMENT '销售大区名称',\n  `sales_region_code` VARCHAR(256) COMMENT '销售区域',\n  `sales_region_name` VARCHAR(256) COMMENT '销售区域名称',\n  `employee_dept_code` VARCHAR(256) COMMENT '雇员部门编码',\n  `employee_dept_name` VARCHAR(256) COMMENT '雇员部门名称',\n  `sales_channel_code` VARCHAR(256) COMMENT '分销渠道编码',\n  `sales_channel_name` VARCHAR(256) COMMENT '分销渠道名称',\n  `industry_type` VARCHAR(256) COMMENT '行业类型',\n  `factory_code` VARCHAR(256) COMMENT '工厂编码',\n  `factory_name` VARCHAR(256) COMMENT '工厂名称',\n  `piz_line_name` VARCHAR(100) COMMENT '业务产品线',\n  `sales_percent` VARCHAR(256) COMMENT '业绩分配比例',\n  `order_qty` VARCHAR(256) COMMENT '销售数量',\n  `sales_percent` VARCHAR(256),\n  `product_area` VARCHAR(256) COMMENT '产品单位面积',\n  `order_area` VARCHAR(256) COMMENT '销售面积',\n  `sales_percent` VARCHAR(256),\n  `post_qty` VARCHAR(256) COMMENT '过账数量',\n  `sales_percent` VARCHAR(256),\n  `dr_cr_tag` VARCHAR(256) COMMENT '借贷项标识',\n  `account_code` VARCHAR(256) COMMENT '科目编码',\n  `account_name` VARCHAR(256) COMMENT '科目名称',\n  `parent_acc_code` VARCHAR(256) COMMENT '父级科目编码',\n  `currency` VARCHAR(256) COMMENT '原币别',\n  `local_currency` VARCHAR(256) COMMENT '本位币别',\n  `ccy_notax_amt` VARCHAR(256) COMMENT '按原币计的金额_不含税',\n  `sales_percent` VARCHAR(256),\n  `lcy_notax_amt` VARCHAR(256) COMMENT '按本位币计的金额_不含税',\n  `sales_percent` VARCHAR(256),\n  `cny_notax_amt` VARCHAR(256) COMMENT '金额_人民币_不含税',\n  `sales_percent` VARCHAR(256),\n  `usd_notax_amt` VARCHAR(256) COMMENT '金额_美元_不含税',\n  `sales_percent` VARCHAR(256)\n) ENGINE=OLAP\nPRIMARY KEY(`company_code`, `sales_invoice_num`, `sales_invoice_line`, `fiscal_year`, `fiscal_period`, `voucher_post_date`, `account_code`)\nDISTRIBUTED BY HASH(`company_code`) BUCKETS 10;",
+    "insert_sql": "INSERT INTO dws_fin_revenue_cost_alloc_df (`company_code`, `company_name`, `sales_invoice_num`, `sales_invoice_line`, `fiscal_year`, `fiscal_period`, `voucher_post_date`, `transfer_node`, `manu_order_num`, `terminal_order_num`, `contract_num`, `contract_m_num`, `order_type_code`, `order_type_name`, `customer_code`, `customer_name`, `in_customer_flag`, `product_code`, `product_name`, `product_series_code`, `product_series_name`, `product_group_code`, `product_group_name`, `industry_code`, `industry_name`, `sales_person_num`, `sales_person_name`, `sales_org_code`, `sales_org_name`, `sales_dept_code`, `sales_dept_name`, `sales_group_code`, `sales_group_name`, `sales_unit_code`, `sales_unit_name`, `sales_area_code`, `sales_area_name`, `sales_region_code`, `sales_region_name`, `employee_dept_code`, `employee_dept_name`, `sales_channel_code`, `sales_channel_name`, `industry_type`, `factory_code`, `factory_name`, `piz_line_name`, `sales_percent`, `order_qty`, `sales_percent`, `product_area`, `order_area`, `sales_percent`, `post_qty`, `sales_percent`, `dr_cr_tag`, `account_code`, `account_name`, `parent_acc_code`, `currency`, `local_currency`, `ccy_notax_amt`, `sales_percent`, `lcy_notax_amt`, `sales_percent`, `cny_notax_amt`, `sales_percent`, `usd_notax_amt`, `sales_percent`)\nSELECT Y.Y AS company_code, NULL AS company_name /* TODO: map source */, NULL AS sales_invoice_num /* TODO: map source */, NULL AS sales_invoice_line /* TODO: map source */, NULL AS fiscal_year /* TODO: map source */, NULL AS fiscal_period /* TODO: map source */, NULL AS voucher_post_date /* TODO: map source */, NULL AS transfer_node /* TODO: map source */, NULL AS manu_order_num /* TODO: map source */, NULL AS terminal_order_num /* TODO: map source */, NULL AS contract_num /* TODO: map source */, NULL AS contract_m_num /* TODO: map source */, NULL AS order_type_code /* TODO: map source */, NULL AS order_type_name /* TODO: map source */, NULL AS customer_code /* TODO: map source */, NULL AS customer_name /* TODO: map source */, NULL AS in_customer_flag /* TODO: map source */, NULL AS product_code /* TODO: map source */, NULL AS product_name /* TODO: map source */, NULL AS product_series_code /* TODO: map source */, NULL AS product_series_name /* TODO: map source */, NULL AS product_group_code /* TODO: map source */, NULL AS product_group_name /* TODO: map source */, NULL AS industry_code /* TODO: map source */, NULL AS industry_name /* TODO: map source */, NULL AS sales_person_num /* TODO: map source */, NULL AS sales_person_name /* TODO: map source */, NULL AS sales_org_code /* TODO: map source */, NULL AS sales_org_name /* TODO: map source */, NULL AS sales_dept_code /* TODO: map source */, NULL AS sales_dept_name /* TODO: map source */, NULL AS sales_group_code /* TODO: map source */, NULL AS sales_group_name /* TODO: map source */, NULL AS sales_unit_code /* TODO: map source */, NULL AS sales_unit_name /* TODO: map source */, NULL AS sales_area_code /* TODO: map source */, NULL AS sales_area_name /* TODO: map source */, NULL AS sales_region_code /* TODO: map source */, NULL AS sales_region_name /* TODO: map source */, NULL AS employee_dept_code /* TODO: map source */, NULL AS employee_dept_name /* TODO: map source */, NULL AS sales_channel_code /* TODO: map source */, NULL AS sales_channel_name /* TODO: map source */, NULL AS industry_type /* TODO: map source */, NULL AS factory_code /* TODO: map source */, NULL AS factory_name /* TODO: map source */, NULL AS piz_line_name /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS order_qty /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS product_area /* TODO: map source */, NULL AS order_area /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS post_qty /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS dr_cr_tag /* TODO: map source */, NULL AS account_code /* TODO: map source */, NULL AS account_name /* TODO: map source */, NULL AS parent_acc_code /* TODO: map source */, NULL AS currency /* TODO: map source */, NULL AS local_currency /* TODO: map source */, NULL AS ccy_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS lcy_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS cny_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS usd_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */\nFROM staging.dws_fin_revenue_cost_alloc_df_staging s;",
+    "etl_script": "generated_etl_dws_标准收入成本模型_业绩分配.py",
+    "steps": [
+      "解析数据来源表/模型逻辑概述/模型逻辑详情三段内容，锁定目标表与字段。",
+      "校验字段类型、主键、分区列，生成 StarRocks DDL（可选执行）。",
+      "生成 INSERT SELECT 逻辑，按业务逻辑完成关联、去重、计算。",
+      "落地中间结果或目标表，补充数据质量校验与唯一性检查。",
+      "补充自动化脚本与回填验证（行数、键唯一性、NULL 分布）。"
+    ]
+  },
+  "sheet_summary": {
+    "sheet_name": "dws_标准收入成本模型_业绩分配",
+    "rows": 81,
+    "columns": 16,
+    "columns_detail": [
+      {
+        "name": "返回",
+        "meta": {
+          "dtype": "object",
+          "missing": 11,
+          "unique": 67,
+          "sample_max_len": 6,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 11
+            },
+            {
+              "value": "数仓",
+              "count": 2
+            },
+            {
+              "value": "1",
+              "count": 2
+            },
+            {
+              "value": "序号",
+              "count": 2
+            },
+            {
+              "value": "数据来源表",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "模型设计清单",
+        "meta": {
+          "dtype": "object",
+          "missing": 11,
+          "unique": 69,
+          "sample_max_len": 38,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 11
+            },
+            {
+              "value": "英文表名",
+              "count": 2
+            },
+            {
+              "value": "dws_fin_revenue_cost_df",
+              "count": 1
+            },
+            {
+              "value": "dwd_sd_performance_allocation_ratio_df",
+              "count": 1
+            },
+            {
+              "value": "dws_fin_revenue_cost_alloc_df",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 2",
+        "meta": {
+          "dtype": "object",
+          "missing": 13,
+          "unique": 67,
+          "sample_max_len": 19,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 13
+            },
+            {
+              "value": "中文含义",
+              "count": 2
+            },
+            {
+              "value": "dws_标准收入成本模型",
+              "count": 1
+            },
+            {
+              "value": "DWD_业绩分配比例",
+              "count": 1
+            },
+            {
+              "value": "dws_标准收入成本模型_业绩分配",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 3",
+        "meta": {
+          "dtype": "object",
+          "missing": 77,
+          "unique": 4,
+          "sample_max_len": 12,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 77
+            },
+            {
+              "value": "表别名",
+              "count": 1
+            },
+            {
+              "value": "应用场景",
+              "count": 1
+            },
+            {
+              "value": "字段类型",
+              "count": 1
+            },
+            {
+              "value": "varchar(100)",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 4",
+        "meta": {
+          "dtype": "object",
+          "missing": 13,
+          "unique": 6,
+          "sample_max_len": 5,
+          "top_values": [
+            {
+              "value": "维度",
+              "count": 52
+            },
+            {
+              "value": "<NA>",
+              "count": 13
+            },
+            {
+              "value": "度量",
+              "count": 10
+            },
+            {
+              "value": "审计",
+              "count": 2
+            },
+            {
+              "value": "备注",
+              "count": 2
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 5",
+        "meta": {
+          "dtype": "object",
+          "missing": 73,
+          "unique": 2,
+          "sample_max_len": 2,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 73
+            },
+            {
+              "value": "Y",
+              "count": 7
+            },
+            {
+              "value": "主键",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 6",
+        "meta": {
+          "dtype": "object",
+          "missing": 79,
+          "unique": 2,
+          "sample_max_len": 19,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 79
+            },
+            {
+              "value": "值域",
+              "count": 1
+            },
+            {
+              "value": "显示通用、照明工程类、照明EMC...",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 7",
+        "meta": {
+          "dtype": "object",
+          "missing": 79,
+          "unique": 2,
+          "sample_max_len": 2,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 79
+            },
+            {
+              "value": "非空",
+              "count": 1
+            },
+            {
+              "value": "Y",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 8",
+        "meta": {
+          "dtype": "object",
+          "missing": 15,
+          "unique": 4,
+          "sample_max_len": 17,
+          "top_values": [
+            {
+              "value": "直接获取",
+              "count": 62
+            },
+            {
+              "value": "<NA>",
+              "count": 15
+            },
+            {
+              "value": "自定义",
+              "count": 2
+            },
+            {
+              "value": "获取方式",
+              "count": 1
+            },
+            {
+              "value": "系统A（独立逻辑，可来源于多系统）",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 9",
+        "meta": {
+          "dtype": "object",
+          "missing": 18,
+          "unique": 4,
+          "sample_max_len": 12,
+          "top_values": [
+            {
+              "value": "dws_标准收入成本模型",
+              "count": 60
+            },
+            {
+              "value": "<NA>",
+              "count": 18
+            },
+            {
+              "value": "来源表",
+              "count": 1
+            },
+            {
+              "value": "dwd_业绩分配比例",
+              "count": 1
+            },
+            {
+              "value": "dim_科目维",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 10",
+        "meta": {
+          "dtype": "object",
+          "missing": 18,
+          "unique": 63,
+          "sample_max_len": 19,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 18
+            },
+            {
+              "value": "来源字段",
+              "count": 1
+            },
+            {
+              "value": "company_code",
+              "count": 1
+            },
+            {
+              "value": "company_name",
+              "count": 1
+            },
+            {
+              "value": "order_num",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 11",
+        "meta": {
+          "dtype": "object",
+          "missing": 22,
+          "unique": 59,
+          "sample_max_len": 18,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 22
+            },
+            {
+              "value": "来源字段名称",
+              "count": 1
+            },
+            {
+              "value": "公司代码",
+              "count": 1
+            },
+            {
+              "value": "sales_invoice_num",
+              "count": 1
+            },
+            {
+              "value": "sales_invoice_line",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 12",
+        "meta": {
+          "dtype": "object",
+          "missing": 80,
+          "unique": 1,
+          "sample_max_len": 6,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 80
+            },
+            {
+              "value": "来源字段类型",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 13",
+        "meta": {
+          "dtype": "object",
+          "missing": 80,
+          "unique": 1,
+          "sample_max_len": 6,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 80
+            },
+            {
+              "value": "来源字段说明",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 14",
+        "meta": {
+          "dtype": "object",
+          "missing": 58,
+          "unique": 22,
+          "sample_max_len": 150,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 58
+            },
+            {
+              "value": "dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变",
+              "count": 2
+            },
+            {
+              "value": "计算逻辑",
+              "count": 1
+            },
+            {
+              "value": "dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员名称；若关联不上则保持dws_接单业绩模型数据不变",
+              "count": 1
+            },
+            {
+              "value": "dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dws_接单业绩模型数据不变",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "name": "Unnamed: 15",
+        "meta": {
+          "dtype": "object",
+          "missing": 80,
+          "unique": 1,
+          "sample_max_len": 2,
+          "top_values": [
+            {
+              "value": "<NA>",
+              "count": 80
+            },
+            {
+              "value": "备注",
+              "count": 1
+            }
+          ]
+        }
+      }
+    ],
+    "sections": {
+      "data_sources": "来源系统 英文表名 中文含义 表别名 备注\n数仓 dws_fin_revenue_cost_df dws_标准收入成本模型 主表\n数仓 dwd_sd_performance_allocation_ratio_df DWD_业绩分配比例",
+      "overview": "序号 英文表名 中文含义 应用场景 备注\n1 dws_fin_revenue_cost_alloc_df dws_标准收入成本模型_业绩分配\n关联条件",
+      "details": "模型标准 系统A（独立逻辑，可来源于多系统）\n序号 字段说明 字段编码 字段类型 维度/度量 主键 值域 非空 获取方式 来源表 来源字段 来源字段名称 来源字段类型 来源字段说明 计算逻辑 备注\n1 公司代码 company_code 维度 Y Y 直接获取 dws_标准收入成本模型 company_code 公司代码\n公司名称 company_name 维度 直接获取 dws_标准收入成本模型 company_name\n2 销售订单号 sales_invoice_num 维度 Y 直接获取 dws_标准收入成本模型 order_num sales_invoice_num\n3 销售订单行号 sales_invoice_line 维度 Y 直接获取 dws_标准收入成本模型 order_item_num sales_invoice_line\n4 会计年度 fiscal_year 维度 Y 直接获取 dws_标准收入成本模型 iscal_year fiscal_year\n5 会计期间 fiscal_period 维度 Y 直接获取 dws_标准收入成本模型 account_period fiscal_period\n过账日期 voucher_post_date 维度 Y 直接获取 dws_标准收入成本模型 voucher_post_date\n6 订单抛转节点 transfer_node 维度 直接获取 dws_标准收入成本模型 transfer_node 订单抛转节点\n7 制造公司销售订单号 manu_order_num 维度 直接获取 dws_标准收入成本模型 manu_order_num 制造公司销售订单号\n8 终端销售公司销售订单号 terminal_order_num 维度 直接获取 dws_标准收入成本模型 terminal_order_num 终端销售公司销售订单号\n9 采购订单号（合同号） contract_num 维度 直接获取 dws_标准收入成本模型 contract_num 采购订单号（合同号）\n10 母合同号 contract_m_num 维度 直接获取 dws_标准收入成本模型 contract_m_num 母合同号\n11 销售订单类型 order_type_code 维度 直接获取 dws_标准收入成本模型 order_type_code 销售订单类型\n12 销售订单类型描述 order_type_name 维度 直接获取 dws_标准收入成本模型 order_type_name 销售订单类型描述\n13 客户编码 customer_code 维度 直接获取 dws_标准收入成本模型 customer_code 客户编码\n14 客户名称 customer_name 维度 直接获取 dws_标准收入成本模型 customer_name 客户名称\n15 是否内部关联客户 in_customer_flag 维度 直接获取 dws_标准收入成本模型 in_customer_flag 是否内部关联客户\n16 产品编码 product_code 维度 直接获取 dws_标准收入成本模型 product_code 产品编码\n17 产品描述 product_name 维度 直接获取 dws_标准收入成本模型 product_name 产品描述\n18 产品所属产品族编码 product_series_code 维度 直接获取 dws_标准收入成本模型 product_series_code 产品所属产品族编码\n19 产品所属产品族名称 product_series_name 维度 直接获取 dws_标准收入成本模型 product_series_name 产品所属产品族名称\n20 产品所属产品线编码 product_group_code 维度 直接获取 dws_标准收入成本模型 product_group_code 产品所属产品线编码\n21 产品所属产品线名称 product_group_name 维度 直接获取 dws_标准收入成本模型 product_group_name 产品所属产品线名称\n22 产品所属产业编码 industry_code 维度 直接获取 dws_标准收入成本模型 industry_code 产品所属产业编码\n23 产品所属产业名称 industry_name 维度 直接获取 dws_标准收入成本模型 industry_name 产品所属产业名称\n24 业务员编码 sales_person_num 维度 直接获取 dws_标准收入成本模型 sales_person_num 业务员编码 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dws_接单业绩模型数据不变\n25 业务员姓名 sales_person_name 维度 直接获取 dws_标准收入成本模型 sales_person_name 业务员姓名 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员名称；若关联不上则保持dws_接单业绩模型数据不变\n26 销售组织编码 sales_org_code 维度 直接获取 dws_标准收入成本模型 sales_org_code 销售组织编码\n27 销售组织名称 sales_org_name 维度 直接获取 dws_标准收入成本模型 sales_org_name 销售组织名称\n28 销售部门编码 sales_dept_code 维度 直接获取 dws_标准收入成本模型 sales_dept_code 销售部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dws_接单业绩模型数据不变\n29 销售部门名称 sales_dept_name 维度 直接获取 dws_标准收入成本模型 sales_dept_name 销售部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门名称；若关联不上则保持dws_接单业绩模型数据不变\n30 销售组编码 sales_group_code 维度 直接获取 dws_标准收入成本模型 sales_group_code 销售组编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dws_接单业绩模型数据不变\n31 销售组名称 sales_group_name 维度 直接获取 dws_标准收入成本模型 sales_group_name 销售组名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组名称；若关联不上则保持dws_接单业绩模型数据不变\n32 销售战区 sales_unit_code 维度 直接获取 dws_标准收入成本模型 sales_unit_code 销售战区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域；若关联不上则保持dws_接单业绩模型数据不变\n33 销售战区名称 sales_unit_name 维度 直接获取 dws_标准收入成本模型 sales_unit_name 销售战区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售战区名称；若关联不上则保持dws_接单业绩模型数据不变\n34 销售大区 sales_area_code 维度 直接获取 dws_标准收入成本模型 sales_area_code 销售大区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变\n35 销售大区名称 sales_area_name 维度 直接获取 dws_标准收入成本模型 sales_area_name 销售大区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变\n36 销售区域 sales_region_code 维度 直接获取 dws_标准收入成本模型 sales_region_code 销售区域 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域编码；若关联不上则保持dws_接单业绩模型数据不变\n37 销售区域名称 sales_region_name 维度 直接获取 dws_标准收入成本模型 sales_region_name 销售区域名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域名称；若关联不上则保持dws_接单业绩模型数据不变\n38 雇员部门编码 employee_dept_code 维度 直接获取 dws_标准收入成本模型 employee_dept_code 雇员部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dws_接单业绩模型数据不变\n39 雇员部门名称 employee_dept_name 维度 直接获取 dws_标准收入成本模型 employee_dept_name 雇员部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dws_接单业绩模型数据不变\n40 分销渠道编码 sales_channel_code 维度 直接获取 dws_标准收入成本模型 sales_channel_code 分销渠道编码\n41 分销渠道名称 sales_channel_name 维度 显示通用、照明工程类、照明EMC... 直接获取 dws_标准收入成本模型 sales_channel_name 分销渠道名称\n42 行业类型 industry_type 维度 直接获取 dws_标准收入成本模型 industry_type 行业类型\n43 工厂编码 factory_code 维度 直接获取 dws_标准收入成本模型 factory_code 工厂编码\n44 工厂名称 factory_name 维度 直接获取 dws_标准收入成本模型 factory_name 工厂名称\n业务产品线 piz_line_name varchar(100) 维度 直接获取 dws_标准收入成本模型 piz_line_name\n业绩分配比例 sales_percent 度量 直接获取 dwd_业绩分配比例 sales_percent 业绩分配比例 以order_num~DWD业绩分配比例表order_num，contract_num~DWD业绩分配比例表contract_num，根据前置拆分出的业务员编码和销售组、雇员部门编码获取sales_percent,匹配不上默认为100%\n45 销售数量 order_qty 度量 直接获取 dws_标准收入成本模型 order_qty 销售数量 dws_标准收入成本模型【order_qty】*dwd_业绩分配比例\n【sales_percent】\n46 产品单位面积 product_area 度量 直接获取 dws_标准收入成本模型 product_area 产品单位面积\n47 销售面积 order_area 度量 直接获取 dws_标准收入成本模型 order_area 销售面积 dws_标准收入成本模型【order_area】*dwd_业绩分配比例\n【sales_percent】\n48 过账数量 post_qty 度量 直接获取 dws_标准收入成本模型 post_qty 过账数量 dws_标准收入成本模型【unit_number】*dwd_业绩分配比例\n【sales_percent】\n49 借贷项标识 dr_cr_tag 度量 直接获取 dws_标准收入成本模型 dr_cr_tag 借贷项标识\n50 科目编码 account_code 维度 Y 直接获取 dws_标准收入成本模型 account_code 科目编码\n51 科目名称 account_name 维度 直接获取 dws_标准收入成本模型 account_name 科目名称\n父级科目编码 parent_acc_code 维度 直接获取 dim_科目维 parent_acc_code\n52 原币别 currency 维度 直接获取 dws_标准收入成本模型 currency 原币别\n53 本位币别 local_currency 维度 直接获取 dws_标准收入成本模型 local_currency 本位币别\n54 按原币计的金额_不含税 ccy_notax_amt 度量 直接获取 dws_标准收入成本模型 ccy_notax_amt 按原币计的金额_不含税 dws_标准收入成本模型【currency_no_tax_amt】*dwd_业绩分配比例\n【sales_percent】\n55 按本位币计的金额_不含税 lcy_notax_amt 度量 直接获取 dws_标准收入成本模型 lcy_notax_amt 按本位币计的金额_不含税 dws_标准收入成本模型【local_currency_no_tax_amt】*dwd_业绩分配比例\n【sales_percent】\n56 金额_人民币_不含税 cny_notax_amt 度量 直接获取 dws_标准收入成本模型 cny_notax_amt 金额_人民币_不含税 dws_标准收入成本模型【currency_no_tax_rmb_amt】*dwd_业绩分配比例\n【sales_percent】\n57 金额_美元_不含税 usd_notax_amt 度量 直接获取 dws_标准收入成本模型 usd_notax_amt 金额_美元_不含税 dws_标准收入成本模型【currency_no_tax_usd_amt】*dwd_业绩分配比例\n【sales_percent】\n58 数据插入日期 审计 自定义\n59 数据更新日期 审计 自定义"
+    },
+    "target_table_english": "dws_fin_revenue_cost_alloc_df",
+    "target_table_chinese": "dws_标准收入成本模型_业绩分配",
+    "business_key_inference": {
+      "suggested_key": "Unnamed: 2",
+      "candidates": [
+        {
+          "name": "Unnamed: 2",
+          "score": 3,
+          "unique": 67,
+          "missing": 13
+        },
+        {
+          "name": "Unnamed: 10",
+          "score": 3,
+          "unique": 63,
+          "missing": 18
+        },
+        {
+          "name": "Unnamed: 11",
+          "score": 3,
+          "unique": 59,
+          "missing": 22
+        },
+        {
+          "name": "模型设计清单",
+          "score": 2,
+          "unique": 69,
+          "missing": 11
+        },
+        {
+          "name": "返回",
+          "score": 2,
+          "unique": 67,
+          "missing": 11
+        }
+      ]
+    },
+    "sample_etl_sql": "INSERT INTO dws_fin_revenue_cost_alloc_df (`返回`, `模型设计清单`, `Unnamed: 2`, `Unnamed: 3`, `Unnamed: 4`, `Unnamed: 5`, `Unnamed: 6`, `Unnamed: 7`, `Unnamed: 8`, `Unnamed: 9`, `Unnamed: 10`, `Unnamed: 11`, `Unnamed: 12`, `Unnamed: 13`, `Unnamed: 14`, `Unnamed: 15`) SELECT `返回`, `模型设计清单`, `Unnamed: 2`, `Unnamed: 3`, `Unnamed: 4`, `Unnamed: 5`, `Unnamed: 6`, `Unnamed: 7`, `Unnamed: 8`, `Unnamed: 9`, `Unnamed: 10`, `Unnamed: 11`, `Unnamed: 12`, `Unnamed: 13`, `Unnamed: 14`, `Unnamed: 15` FROM staging.dws_fin_revenue_cost_alloc_df_staging;",
+    "field_mappings": {
+      "company_code": "Y.Y",
+      "sales_invoice_num": "m.sales_invoice_num",
+      "sales_invoice_line": "m.sales_invoice_line",
+      "fiscal_year": "r.fiscal_year",
+      "fiscal_period": "d.fiscal_period",
+      "piz_line_name": "e.varchar"
+    },
+    "generated_insert_sql": "INSERT INTO dws_fin_revenue_cost_alloc_df (`company_code`, `company_name`, `sales_invoice_num`, `sales_invoice_line`, `fiscal_year`, `fiscal_period`, `voucher_post_date`, `transfer_node`, `manu_order_num`, `terminal_order_num`, `contract_num`, `contract_m_num`, `order_type_code`, `order_type_name`, `customer_code`, `customer_name`, `in_customer_flag`, `product_code`, `product_name`, `product_series_code`, `product_series_name`, `product_group_code`, `product_group_name`, `industry_code`, `industry_name`, `sales_person_num`, `sales_person_name`, `sales_org_code`, `sales_org_name`, `sales_dept_code`, `sales_dept_name`, `sales_group_code`, `sales_group_name`, `sales_unit_code`, `sales_unit_name`, `sales_area_code`, `sales_area_name`, `sales_region_code`, `sales_region_name`, `employee_dept_code`, `employee_dept_name`, `sales_channel_code`, `sales_channel_name`, `industry_type`, `factory_code`, `factory_name`, `piz_line_name`, `sales_percent`, `order_qty`, `sales_percent`, `product_area`, `order_area`, `sales_percent`, `post_qty`, `sales_percent`, `dr_cr_tag`, `account_code`, `account_name`, `parent_acc_code`, `currency`, `local_currency`, `ccy_notax_amt`, `sales_percent`, `lcy_notax_amt`, `sales_percent`, `cny_notax_amt`, `sales_percent`, `usd_notax_amt`, `sales_percent`)\nSELECT Y.Y AS company_code, NULL AS company_name /* TODO: map source */, NULL AS sales_invoice_num /* TODO: map source */, NULL AS sales_invoice_line /* TODO: map source */, NULL AS fiscal_year /* TODO: map source */, NULL AS fiscal_period /* TODO: map source */, NULL AS voucher_post_date /* TODO: map source */, NULL AS transfer_node /* TODO: map source */, NULL AS manu_order_num /* TODO: map source */, NULL AS terminal_order_num /* TODO: map source */, NULL AS contract_num /* TODO: map source */, NULL AS contract_m_num /* TODO: map source */, NULL AS order_type_code /* TODO: map source */, NULL AS order_type_name /* TODO: map source */, NULL AS customer_code /* TODO: map source */, NULL AS customer_name /* TODO: map source */, NULL AS in_customer_flag /* TODO: map source */, NULL AS product_code /* TODO: map source */, NULL AS product_name /* TODO: map source */, NULL AS product_series_code /* TODO: map source */, NULL AS product_series_name /* TODO: map source */, NULL AS product_group_code /* TODO: map source */, NULL AS product_group_name /* TODO: map source */, NULL AS industry_code /* TODO: map source */, NULL AS industry_name /* TODO: map source */, NULL AS sales_person_num /* TODO: map source */, NULL AS sales_person_name /* TODO: map source */, NULL AS sales_org_code /* TODO: map source */, NULL AS sales_org_name /* TODO: map source */, NULL AS sales_dept_code /* TODO: map source */, NULL AS sales_dept_name /* TODO: map source */, NULL AS sales_group_code /* TODO: map source */, NULL AS sales_group_name /* TODO: map source */, NULL AS sales_unit_code /* TODO: map source */, NULL AS sales_unit_name /* TODO: map source */, NULL AS sales_area_code /* TODO: map source */, NULL AS sales_area_name /* TODO: map source */, NULL AS sales_region_code /* TODO: map source */, NULL AS sales_region_name /* TODO: map source */, NULL AS employee_dept_code /* TODO: map source */, NULL AS employee_dept_name /* TODO: map source */, NULL AS sales_channel_code /* TODO: map source */, NULL AS sales_channel_name /* TODO: map source */, NULL AS industry_type /* TODO: map source */, NULL AS factory_code /* TODO: map source */, NULL AS factory_name /* TODO: map source */, NULL AS piz_line_name /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS order_qty /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS product_area /* TODO: map source */, NULL AS order_area /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS post_qty /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS dr_cr_tag /* TODO: map source */, NULL AS account_code /* TODO: map source */, NULL AS account_name /* TODO: map source */, NULL AS parent_acc_code /* TODO: map source */, NULL AS currency /* TODO: map source */, NULL AS local_currency /* TODO: map source */, NULL AS ccy_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS lcy_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS cny_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */, NULL AS usd_notax_amt /* TODO: map source */, NULL AS sales_percent /* TODO: map source */\nFROM staging.dws_fin_revenue_cost_alloc_df_staging s;",
+    "detail_fields": [
+      {
+        "code": "company_code",
+        "name": "公司代码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": "Y",
+        "source_field": "Y",
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "1 公司代码 company_code 维度 Y Y 直接获取 dws_标准收入成本模型 company_code 公司代码"
+      },
+      {
+        "code": "company_name",
+        "name": "公司名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "公司名称 company_name 维度 直接获取 dws_标准收入成本模型 company_name"
+      },
+      {
+        "code": "sales_invoice_num",
+        "name": "销售订单号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "2 销售订单号 sales_invoice_num 维度 Y 直接获取 dws_标准收入成本模型 order_num sales_invoice_num"
+      },
+      {
+        "code": "sales_invoice_line",
+        "name": "销售订单行号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "3 销售订单行号 sales_invoice_line 维度 Y 直接获取 dws_标准收入成本模型 order_item_num sales_invoice_line"
+      },
+      {
+        "code": "fiscal_year",
+        "name": "会计年度",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "4 会计年度 fiscal_year 维度 Y 直接获取 dws_标准收入成本模型 iscal_year fiscal_year"
+      },
+      {
+        "code": "fiscal_period",
+        "name": "会计期间",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "5 会计期间 fiscal_period 维度 Y 直接获取 dws_标准收入成本模型 account_period fiscal_period"
+      },
+      {
+        "code": "voucher_post_date",
+        "name": "过账日期",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "过账日期 voucher_post_date 维度 Y 直接获取 dws_标准收入成本模型 voucher_post_date"
+      },
+      {
+        "code": "transfer_node",
+        "name": "订单抛转节点",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "6 订单抛转节点 transfer_node 维度 直接获取 dws_标准收入成本模型 transfer_node 订单抛转节点"
+      },
+      {
+        "code": "manu_order_num",
+        "name": "制造公司销售订单号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "7 制造公司销售订单号 manu_order_num 维度 直接获取 dws_标准收入成本模型 manu_order_num 制造公司销售订单号"
+      },
+      {
+        "code": "terminal_order_num",
+        "name": "终端销售公司销售订单号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "8 终端销售公司销售订单号 terminal_order_num 维度 直接获取 dws_标准收入成本模型 terminal_order_num 终端销售公司销售订单号"
+      },
+      {
+        "code": "contract_num",
+        "name": "采购订单号（合同号）",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "9 采购订单号（合同号） contract_num 维度 直接获取 dws_标准收入成本模型 contract_num 采购订单号（合同号）"
+      },
+      {
+        "code": "contract_m_num",
+        "name": "母合同号",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "10 母合同号 contract_m_num 维度 直接获取 dws_标准收入成本模型 contract_m_num 母合同号"
+      },
+      {
+        "code": "order_type_code",
+        "name": "销售订单类型",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "11 销售订单类型 order_type_code 维度 直接获取 dws_标准收入成本模型 order_type_code 销售订单类型"
+      },
+      {
+        "code": "order_type_name",
+        "name": "销售订单类型描述",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "12 销售订单类型描述 order_type_name 维度 直接获取 dws_标准收入成本模型 order_type_name 销售订单类型描述"
+      },
+      {
+        "code": "customer_code",
+        "name": "客户编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "13 客户编码 customer_code 维度 直接获取 dws_标准收入成本模型 customer_code 客户编码"
+      },
+      {
+        "code": "customer_name",
+        "name": "客户名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "14 客户名称 customer_name 维度 直接获取 dws_标准收入成本模型 customer_name 客户名称"
+      },
+      {
+        "code": "in_customer_flag",
+        "name": "是否内部关联客户",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "15 是否内部关联客户 in_customer_flag 维度 直接获取 dws_标准收入成本模型 in_customer_flag 是否内部关联客户"
+      },
+      {
+        "code": "product_code",
+        "name": "产品编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "16 产品编码 product_code 维度 直接获取 dws_标准收入成本模型 product_code 产品编码"
+      },
+      {
+        "code": "product_name",
+        "name": "产品描述",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "17 产品描述 product_name 维度 直接获取 dws_标准收入成本模型 product_name 产品描述"
+      },
+      {
+        "code": "product_series_code",
+        "name": "产品所属产品族编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "18 产品所属产品族编码 product_series_code 维度 直接获取 dws_标准收入成本模型 product_series_code 产品所属产品族编码"
+      },
+      {
+        "code": "product_series_name",
+        "name": "产品所属产品族名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "19 产品所属产品族名称 product_series_name 维度 直接获取 dws_标准收入成本模型 product_series_name 产品所属产品族名称"
+      },
+      {
+        "code": "product_group_code",
+        "name": "产品所属产品线编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "20 产品所属产品线编码 product_group_code 维度 直接获取 dws_标准收入成本模型 product_group_code 产品所属产品线编码"
+      },
+      {
+        "code": "product_group_name",
+        "name": "产品所属产品线名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "21 产品所属产品线名称 product_group_name 维度 直接获取 dws_标准收入成本模型 product_group_name 产品所属产品线名称"
+      },
+      {
+        "code": "industry_code",
+        "name": "产品所属产业编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "22 产品所属产业编码 industry_code 维度 直接获取 dws_标准收入成本模型 industry_code 产品所属产业编码"
+      },
+      {
+        "code": "industry_name",
+        "name": "产品所属产业名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "23 产品所属产业名称 industry_name 维度 直接获取 dws_标准收入成本模型 industry_name 产品所属产业名称"
+      },
+      {
+        "code": "sales_person_num",
+        "name": "业务员编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "24 业务员编码 sales_person_num 维度 直接获取 dws_标准收入成本模型 sales_person_num 业务员编码 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_person_name",
+        "name": "业务员姓名",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "25 业务员姓名 sales_person_name 维度 直接获取 dws_标准收入成本模型 sales_person_name 业务员姓名 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员名称；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_org_code",
+        "name": "销售组织编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "26 销售组织编码 sales_org_code 维度 直接获取 dws_标准收入成本模型 sales_org_code 销售组织编码"
+      },
+      {
+        "code": "sales_org_name",
+        "name": "销售组织名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "27 销售组织名称 sales_org_name 维度 直接获取 dws_标准收入成本模型 sales_org_name 销售组织名称"
+      },
+      {
+        "code": "sales_dept_code",
+        "name": "销售部门编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "28 销售部门编码 sales_dept_code 维度 直接获取 dws_标准收入成本模型 sales_dept_code 销售部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_dept_name",
+        "name": "销售部门名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "29 销售部门名称 sales_dept_name 维度 直接获取 dws_标准收入成本模型 sales_dept_name 销售部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门名称；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_group_code",
+        "name": "销售组编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "30 销售组编码 sales_group_code 维度 直接获取 dws_标准收入成本模型 sales_group_code 销售组编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_group_name",
+        "name": "销售组名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "31 销售组名称 sales_group_name 维度 直接获取 dws_标准收入成本模型 sales_group_name 销售组名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组名称；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_unit_code",
+        "name": "销售战区",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "32 销售战区 sales_unit_code 维度 直接获取 dws_标准收入成本模型 sales_unit_code 销售战区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_unit_name",
+        "name": "销售战区名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "33 销售战区名称 sales_unit_name 维度 直接获取 dws_标准收入成本模型 sales_unit_name 销售战区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售战区名称；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_area_code",
+        "name": "销售大区",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "34 销售大区 sales_area_code 维度 直接获取 dws_标准收入成本模型 sales_area_code 销售大区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_area_name",
+        "name": "销售大区名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "35 销售大区名称 sales_area_name 维度 直接获取 dws_标准收入成本模型 sales_area_name 销售大区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_region_code",
+        "name": "销售区域",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "36 销售区域 sales_region_code 维度 直接获取 dws_标准收入成本模型 sales_region_code 销售区域 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域编码；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_region_name",
+        "name": "销售区域名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "37 销售区域名称 sales_region_name 维度 直接获取 dws_标准收入成本模型 sales_region_name 销售区域名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域名称；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "employee_dept_code",
+        "name": "雇员部门编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "38 雇员部门编码 employee_dept_code 维度 直接获取 dws_标准收入成本模型 employee_dept_code 雇员部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "employee_dept_name",
+        "name": "雇员部门名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "39 雇员部门名称 employee_dept_name 维度 直接获取 dws_标准收入成本模型 employee_dept_name 雇员部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dws_接单业绩模型数据不变"
+      },
+      {
+        "code": "sales_channel_code",
+        "name": "分销渠道编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "40 分销渠道编码 sales_channel_code 维度 直接获取 dws_标准收入成本模型 sales_channel_code 分销渠道编码"
+      },
+      {
+        "code": "sales_channel_name",
+        "name": "分销渠道名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "41 分销渠道名称 sales_channel_name 维度 显示通用、照明工程类、照明EMC... 直接获取 dws_标准收入成本模型 sales_channel_name 分销渠道名称"
+      },
+      {
+        "code": "industry_type",
+        "name": "行业类型",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "42 行业类型 industry_type 维度 直接获取 dws_标准收入成本模型 industry_type 行业类型"
+      },
+      {
+        "code": "factory_code",
+        "name": "工厂编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "43 工厂编码 factory_code 维度 直接获取 dws_标准收入成本模型 factory_code 工厂编码"
+      },
+      {
+        "code": "factory_name",
+        "name": "工厂名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "44 工厂名称 factory_name 维度 直接获取 dws_标准收入成本模型 factory_name 工厂名称"
+      },
+      {
+        "code": "piz_line_name",
+        "name": "业务产品线",
+        "declared_type": "varchar(100)",
+        "sr_type": "VARCHAR(100)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业务产品线 piz_line_name varchar(100) 维度 直接获取 dws_标准收入成本模型 piz_line_name"
+      },
+      {
+        "code": "sales_percent",
+        "name": "业绩分配比例",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "业绩分配比例 sales_percent 度量 直接获取 dwd_业绩分配比例 sales_percent 业绩分配比例 以order_num~DWD业绩分配比例表order_num，contract_num~DWD业绩分配比例表contract_num，根据前置拆分出的业务员编码和销售组、雇员部门编码获取sales_percent,匹配不上默认为100%"
+      },
+      {
+        "code": "order_qty",
+        "name": "销售数量",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "45 销售数量 order_qty 度量 直接获取 dws_标准收入成本模型 order_qty 销售数量 dws_标准收入成本模型【order_qty】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      },
+      {
+        "code": "product_area",
+        "name": "产品单位面积",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "46 产品单位面积 product_area 度量 直接获取 dws_标准收入成本模型 product_area 产品单位面积"
+      },
+      {
+        "code": "order_area",
+        "name": "销售面积",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "47 销售面积 order_area 度量 直接获取 dws_标准收入成本模型 order_area 销售面积 dws_标准收入成本模型【order_area】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      },
+      {
+        "code": "post_qty",
+        "name": "过账数量",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "48 过账数量 post_qty 度量 直接获取 dws_标准收入成本模型 post_qty 过账数量 dws_标准收入成本模型【unit_number】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      },
+      {
+        "code": "dr_cr_tag",
+        "name": "借贷项标识",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "49 借贷项标识 dr_cr_tag 度量 直接获取 dws_标准收入成本模型 dr_cr_tag 借贷项标识"
+      },
+      {
+        "code": "account_code",
+        "name": "科目编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": true,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "50 科目编码 account_code 维度 Y 直接获取 dws_标准收入成本模型 account_code 科目编码"
+      },
+      {
+        "code": "account_name",
+        "name": "科目名称",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "51 科目名称 account_name 维度 直接获取 dws_标准收入成本模型 account_name 科目名称"
+      },
+      {
+        "code": "parent_acc_code",
+        "name": "父级科目编码",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "父级科目编码 parent_acc_code 维度 直接获取 dim_科目维 parent_acc_code"
+      },
+      {
+        "code": "currency",
+        "name": "原币别",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "52 原币别 currency 维度 直接获取 dws_标准收入成本模型 currency 原币别"
+      },
+      {
+        "code": "local_currency",
+        "name": "本位币别",
+        "declared_type": "维度",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "53 本位币别 local_currency 维度 直接获取 dws_标准收入成本模型 local_currency 本位币别"
+      },
+      {
+        "code": "ccy_notax_amt",
+        "name": "按原币计的金额_不含税",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "54 按原币计的金额_不含税 ccy_notax_amt 度量 直接获取 dws_标准收入成本模型 ccy_notax_amt 按原币计的金额_不含税 dws_标准收入成本模型【currency_no_tax_amt】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      },
+      {
+        "code": "lcy_notax_amt",
+        "name": "按本位币计的金额_不含税",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "55 按本位币计的金额_不含税 lcy_notax_amt 度量 直接获取 dws_标准收入成本模型 lcy_notax_amt 按本位币计的金额_不含税 dws_标准收入成本模型【local_currency_no_tax_amt】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      },
+      {
+        "code": "cny_notax_amt",
+        "name": "金额_人民币_不含税",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "56 金额_人民币_不含税 cny_notax_amt 度量 直接获取 dws_标准收入成本模型 cny_notax_amt 金额_人民币_不含税 dws_标准收入成本模型【currency_no_tax_rmb_amt】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      },
+      {
+        "code": "usd_notax_amt",
+        "name": "金额_美元_不含税",
+        "declared_type": "度量",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "57 金额_美元_不含税 usd_notax_amt 度量 直接获取 dws_标准收入成本模型 usd_notax_amt 金额_美元_不含税 dws_标准收入成本模型【currency_no_tax_usd_amt】*dwd_业绩分配比例"
+      },
+      {
+        "code": "sales_percent",
+        "name": "",
+        "declared_type": "varchar(256)",
+        "sr_type": "VARCHAR(256)",
+        "is_pk": false,
+        "is_nullable": true,
+        "source_alias": null,
+        "source_field": null,
+        "compute": null,
+        "expr_template": null,
+        "dedup_rule": null,
+        "join_keys": null,
+        "raw_line": "【sales_percent】"
+      }
+    ],
+    "target_table_schema": {
+      "table": "dws_fin_revenue_cost_alloc_df",
+      "columns": [
+        {
+          "column_name": "company_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "公司代码",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": "Y",
+          "source_table": null,
+          "source_column": "Y",
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "1 公司代码 company_code 维度 Y Y 直接获取 dws_标准收入成本模型 company_code 公司代码"
+        },
+        {
+          "column_name": "company_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "公司名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "公司名称 company_name 维度 直接获取 dws_标准收入成本模型 company_name"
+        },
+        {
+          "column_name": "sales_invoice_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售订单号",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "2 销售订单号 sales_invoice_num 维度 Y 直接获取 dws_标准收入成本模型 order_num sales_invoice_num"
+        },
+        {
+          "column_name": "sales_invoice_line",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售订单行号",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "3 销售订单行号 sales_invoice_line 维度 Y 直接获取 dws_标准收入成本模型 order_item_num sales_invoice_line"
+        },
+        {
+          "column_name": "fiscal_year",
+          "data_type": "VARCHAR(256)",
+          "comment": "会计年度",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "4 会计年度 fiscal_year 维度 Y 直接获取 dws_标准收入成本模型 iscal_year fiscal_year"
+        },
+        {
+          "column_name": "fiscal_period",
+          "data_type": "VARCHAR(256)",
+          "comment": "会计期间",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "5 会计期间 fiscal_period 维度 Y 直接获取 dws_标准收入成本模型 account_period fiscal_period"
+        },
+        {
+          "column_name": "voucher_post_date",
+          "data_type": "VARCHAR(256)",
+          "comment": "过账日期",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "过账日期 voucher_post_date 维度 Y 直接获取 dws_标准收入成本模型 voucher_post_date"
+        },
+        {
+          "column_name": "transfer_node",
+          "data_type": "VARCHAR(256)",
+          "comment": "订单抛转节点",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "6 订单抛转节点 transfer_node 维度 直接获取 dws_标准收入成本模型 transfer_node 订单抛转节点"
+        },
+        {
+          "column_name": "manu_order_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "制造公司销售订单号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "7 制造公司销售订单号 manu_order_num 维度 直接获取 dws_标准收入成本模型 manu_order_num 制造公司销售订单号"
+        },
+        {
+          "column_name": "terminal_order_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "终端销售公司销售订单号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "8 终端销售公司销售订单号 terminal_order_num 维度 直接获取 dws_标准收入成本模型 terminal_order_num 终端销售公司销售订单号"
+        },
+        {
+          "column_name": "contract_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "采购订单号（合同号）",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "9 采购订单号（合同号） contract_num 维度 直接获取 dws_标准收入成本模型 contract_num 采购订单号（合同号）"
+        },
+        {
+          "column_name": "contract_m_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "母合同号",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "10 母合同号 contract_m_num 维度 直接获取 dws_标准收入成本模型 contract_m_num 母合同号"
+        },
+        {
+          "column_name": "order_type_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售订单类型",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "11 销售订单类型 order_type_code 维度 直接获取 dws_标准收入成本模型 order_type_code 销售订单类型"
+        },
+        {
+          "column_name": "order_type_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售订单类型描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "12 销售订单类型描述 order_type_name 维度 直接获取 dws_标准收入成本模型 order_type_name 销售订单类型描述"
+        },
+        {
+          "column_name": "customer_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "客户编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "13 客户编码 customer_code 维度 直接获取 dws_标准收入成本模型 customer_code 客户编码"
+        },
+        {
+          "column_name": "customer_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "客户名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "14 客户名称 customer_name 维度 直接获取 dws_标准收入成本模型 customer_name 客户名称"
+        },
+        {
+          "column_name": "in_customer_flag",
+          "data_type": "VARCHAR(256)",
+          "comment": "是否内部关联客户",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "15 是否内部关联客户 in_customer_flag 维度 直接获取 dws_标准收入成本模型 in_customer_flag 是否内部关联客户"
+        },
+        {
+          "column_name": "product_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "16 产品编码 product_code 维度 直接获取 dws_标准收入成本模型 product_code 产品编码"
+        },
+        {
+          "column_name": "product_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品描述",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "17 产品描述 product_name 维度 直接获取 dws_标准收入成本模型 product_name 产品描述"
+        },
+        {
+          "column_name": "product_series_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品所属产品族编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "18 产品所属产品族编码 product_series_code 维度 直接获取 dws_标准收入成本模型 product_series_code 产品所属产品族编码"
+        },
+        {
+          "column_name": "product_series_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品所属产品族名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "19 产品所属产品族名称 product_series_name 维度 直接获取 dws_标准收入成本模型 product_series_name 产品所属产品族名称"
+        },
+        {
+          "column_name": "product_group_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品所属产品线编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "20 产品所属产品线编码 product_group_code 维度 直接获取 dws_标准收入成本模型 product_group_code 产品所属产品线编码"
+        },
+        {
+          "column_name": "product_group_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品所属产品线名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "21 产品所属产品线名称 product_group_name 维度 直接获取 dws_标准收入成本模型 product_group_name 产品所属产品线名称"
+        },
+        {
+          "column_name": "industry_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品所属产业编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "22 产品所属产业编码 industry_code 维度 直接获取 dws_标准收入成本模型 industry_code 产品所属产业编码"
+        },
+        {
+          "column_name": "industry_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品所属产业名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "23 产品所属产业名称 industry_name 维度 直接获取 dws_标准收入成本模型 industry_name 产品所属产业名称"
+        },
+        {
+          "column_name": "sales_person_num",
+          "data_type": "VARCHAR(256)",
+          "comment": "业务员编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "24 业务员编码 sales_person_num 维度 直接获取 dws_标准收入成本模型 sales_person_num 业务员编码 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_person_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "业务员姓名",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "25 业务员姓名 sales_person_name 维度 直接获取 dws_标准收入成本模型 sales_person_name 业务员姓名 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员名称；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_org_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组织编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "26 销售组织编码 sales_org_code 维度 直接获取 dws_标准收入成本模型 sales_org_code 销售组织编码"
+        },
+        {
+          "column_name": "sales_org_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组织名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "27 销售组织名称 sales_org_name 维度 直接获取 dws_标准收入成本模型 sales_org_name 销售组织名称"
+        },
+        {
+          "column_name": "sales_dept_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售部门编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "28 销售部门编码 sales_dept_code 维度 直接获取 dws_标准收入成本模型 sales_dept_code 销售部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_dept_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售部门名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "29 销售部门名称 sales_dept_name 维度 直接获取 dws_标准收入成本模型 sales_dept_name 销售部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门名称；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_group_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "30 销售组编码 sales_group_code 维度 直接获取 dws_标准收入成本模型 sales_group_code 销售组编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_group_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售组名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "31 销售组名称 sales_group_name 维度 直接获取 dws_标准收入成本模型 sales_group_name 销售组名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组名称；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_unit_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售战区",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "32 销售战区 sales_unit_code 维度 直接获取 dws_标准收入成本模型 sales_unit_code 销售战区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_unit_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售战区名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "33 销售战区名称 sales_unit_name 维度 直接获取 dws_标准收入成本模型 sales_unit_name 销售战区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售战区名称；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_area_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售大区",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "34 销售大区 sales_area_code 维度 直接获取 dws_标准收入成本模型 sales_area_code 销售大区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_area_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售大区名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "35 销售大区名称 sales_area_name 维度 直接获取 dws_标准收入成本模型 sales_area_name 销售大区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_region_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售区域",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "36 销售区域 sales_region_code 维度 直接获取 dws_标准收入成本模型 sales_region_code 销售区域 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域编码；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_region_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售区域名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "37 销售区域名称 sales_region_name 维度 直接获取 dws_标准收入成本模型 sales_region_name 销售区域名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域名称；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "employee_dept_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "雇员部门编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "38 雇员部门编码 employee_dept_code 维度 直接获取 dws_标准收入成本模型 employee_dept_code 雇员部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "employee_dept_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "雇员部门名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "39 雇员部门名称 employee_dept_name 维度 直接获取 dws_标准收入成本模型 employee_dept_name 雇员部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dws_接单业绩模型数据不变"
+        },
+        {
+          "column_name": "sales_channel_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "分销渠道编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "40 分销渠道编码 sales_channel_code 维度 直接获取 dws_标准收入成本模型 sales_channel_code 分销渠道编码"
+        },
+        {
+          "column_name": "sales_channel_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "分销渠道名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "41 分销渠道名称 sales_channel_name 维度 显示通用、照明工程类、照明EMC... 直接获取 dws_标准收入成本模型 sales_channel_name 分销渠道名称"
+        },
+        {
+          "column_name": "industry_type",
+          "data_type": "VARCHAR(256)",
+          "comment": "行业类型",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "42 行业类型 industry_type 维度 直接获取 dws_标准收入成本模型 industry_type 行业类型"
+        },
+        {
+          "column_name": "factory_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "工厂编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "43 工厂编码 factory_code 维度 直接获取 dws_标准收入成本模型 factory_code 工厂编码"
+        },
+        {
+          "column_name": "factory_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "工厂名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "44 工厂名称 factory_name 维度 直接获取 dws_标准收入成本模型 factory_name 工厂名称"
+        },
+        {
+          "column_name": "piz_line_name",
+          "data_type": "VARCHAR(100)",
+          "comment": "业务产品线",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业务产品线 piz_line_name varchar(100) 维度 直接获取 dws_标准收入成本模型 piz_line_name"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "业绩分配比例",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "业绩分配比例 sales_percent 度量 直接获取 dwd_业绩分配比例 sales_percent 业绩分配比例 以order_num~DWD业绩分配比例表order_num，contract_num~DWD业绩分配比例表contract_num，根据前置拆分出的业务员编码和销售组、雇员部门编码获取sales_percent,匹配不上默认为100%"
+        },
+        {
+          "column_name": "order_qty",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售数量",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "45 销售数量 order_qty 度量 直接获取 dws_标准收入成本模型 order_qty 销售数量 dws_标准收入成本模型【order_qty】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        },
+        {
+          "column_name": "product_area",
+          "data_type": "VARCHAR(256)",
+          "comment": "产品单位面积",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "46 产品单位面积 product_area 度量 直接获取 dws_标准收入成本模型 product_area 产品单位面积"
+        },
+        {
+          "column_name": "order_area",
+          "data_type": "VARCHAR(256)",
+          "comment": "销售面积",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "47 销售面积 order_area 度量 直接获取 dws_标准收入成本模型 order_area 销售面积 dws_标准收入成本模型【order_area】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        },
+        {
+          "column_name": "post_qty",
+          "data_type": "VARCHAR(256)",
+          "comment": "过账数量",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "48 过账数量 post_qty 度量 直接获取 dws_标准收入成本模型 post_qty 过账数量 dws_标准收入成本模型【unit_number】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        },
+        {
+          "column_name": "dr_cr_tag",
+          "data_type": "VARCHAR(256)",
+          "comment": "借贷项标识",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "49 借贷项标识 dr_cr_tag 度量 直接获取 dws_标准收入成本模型 dr_cr_tag 借贷项标识"
+        },
+        {
+          "column_name": "account_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "科目编码",
+          "is_primary_key": true,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "50 科目编码 account_code 维度 Y 直接获取 dws_标准收入成本模型 account_code 科目编码"
+        },
+        {
+          "column_name": "account_name",
+          "data_type": "VARCHAR(256)",
+          "comment": "科目名称",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "51 科目名称 account_name 维度 直接获取 dws_标准收入成本模型 account_name 科目名称"
+        },
+        {
+          "column_name": "parent_acc_code",
+          "data_type": "VARCHAR(256)",
+          "comment": "父级科目编码",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "父级科目编码 parent_acc_code 维度 直接获取 dim_科目维 parent_acc_code"
+        },
+        {
+          "column_name": "currency",
+          "data_type": "VARCHAR(256)",
+          "comment": "原币别",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "52 原币别 currency 维度 直接获取 dws_标准收入成本模型 currency 原币别"
+        },
+        {
+          "column_name": "local_currency",
+          "data_type": "VARCHAR(256)",
+          "comment": "本位币别",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "53 本位币别 local_currency 维度 直接获取 dws_标准收入成本模型 local_currency 本位币别"
+        },
+        {
+          "column_name": "ccy_notax_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "按原币计的金额_不含税",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "54 按原币计的金额_不含税 ccy_notax_amt 度量 直接获取 dws_标准收入成本模型 ccy_notax_amt 按原币计的金额_不含税 dws_标准收入成本模型【currency_no_tax_amt】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        },
+        {
+          "column_name": "lcy_notax_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "按本位币计的金额_不含税",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "55 按本位币计的金额_不含税 lcy_notax_amt 度量 直接获取 dws_标准收入成本模型 lcy_notax_amt 按本位币计的金额_不含税 dws_标准收入成本模型【local_currency_no_tax_amt】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        },
+        {
+          "column_name": "cny_notax_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "金额_人民币_不含税",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "56 金额_人民币_不含税 cny_notax_amt 度量 直接获取 dws_标准收入成本模型 cny_notax_amt 金额_人民币_不含税 dws_标准收入成本模型【currency_no_tax_rmb_amt】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        },
+        {
+          "column_name": "usd_notax_amt",
+          "data_type": "VARCHAR(256)",
+          "comment": "金额_美元_不含税",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "57 金额_美元_不含税 usd_notax_amt 度量 直接获取 dws_标准收入成本模型 usd_notax_amt 金额_美元_不含税 dws_标准收入成本模型【currency_no_tax_usd_amt】*dwd_业绩分配比例"
+        },
+        {
+          "column_name": "sales_percent",
+          "data_type": "VARCHAR(256)",
+          "comment": "",
+          "is_primary_key": false,
+          "is_nullable": true,
+          "source_table_alias": null,
+          "source_table": null,
+          "source_column": null,
+          "compute_logic": null,
+          "expr_template": null,
+          "dedup_rule": null,
+          "join_keys": null,
+          "raw_line": "【sales_percent】"
+        }
+      ]
+    },
+    "create_table_sql": "CREATE TABLE IF NOT EXISTS `dws_fin_revenue_cost_alloc_df` (\n  `company_code` VARCHAR(256) COMMENT '公司代码',\n  `company_name` VARCHAR(256) COMMENT '公司名称',\n  `sales_invoice_num` VARCHAR(256) COMMENT '销售订单号',\n  `sales_invoice_line` VARCHAR(256) COMMENT '销售订单行号',\n  `fiscal_year` VARCHAR(256) COMMENT '会计年度',\n  `fiscal_period` VARCHAR(256) COMMENT '会计期间',\n  `voucher_post_date` VARCHAR(256) COMMENT '过账日期',\n  `transfer_node` VARCHAR(256) COMMENT '订单抛转节点',\n  `manu_order_num` VARCHAR(256) COMMENT '制造公司销售订单号',\n  `terminal_order_num` VARCHAR(256) COMMENT '终端销售公司销售订单号',\n  `contract_num` VARCHAR(256) COMMENT '采购订单号（合同号）',\n  `contract_m_num` VARCHAR(256) COMMENT '母合同号',\n  `order_type_code` VARCHAR(256) COMMENT '销售订单类型',\n  `order_type_name` VARCHAR(256) COMMENT '销售订单类型描述',\n  `customer_code` VARCHAR(256) COMMENT '客户编码',\n  `customer_name` VARCHAR(256) COMMENT '客户名称',\n  `in_customer_flag` VARCHAR(256) COMMENT '是否内部关联客户',\n  `product_code` VARCHAR(256) COMMENT '产品编码',\n  `product_name` VARCHAR(256) COMMENT '产品描述',\n  `product_series_code` VARCHAR(256) COMMENT '产品所属产品族编码',\n  `product_series_name` VARCHAR(256) COMMENT '产品所属产品族名称',\n  `product_group_code` VARCHAR(256) COMMENT '产品所属产品线编码',\n  `product_group_name` VARCHAR(256) COMMENT '产品所属产品线名称',\n  `industry_code` VARCHAR(256) COMMENT '产品所属产业编码',\n  `industry_name` VARCHAR(256) COMMENT '产品所属产业名称',\n  `sales_person_num` VARCHAR(256) COMMENT '业务员编码',\n  `sales_person_name` VARCHAR(256) COMMENT '业务员姓名',\n  `sales_org_code` VARCHAR(256) COMMENT '销售组织编码',\n  `sales_org_name` VARCHAR(256) COMMENT '销售组织名称',\n  `sales_dept_code` VARCHAR(256) COMMENT '销售部门编码',\n  `sales_dept_name` VARCHAR(256) COMMENT '销售部门名称',\n  `sales_group_code` VARCHAR(256) COMMENT '销售组编码',\n  `sales_group_name` VARCHAR(256) COMMENT '销售组名称',\n  `sales_unit_code` VARCHAR(256) COMMENT '销售战区',\n  `sales_unit_name` VARCHAR(256) COMMENT '销售战区名称',\n  `sales_area_code` VARCHAR(256) COMMENT '销售大区',\n  `sales_area_name` VARCHAR(256) COMMENT '销售大区名称',\n  `sales_region_code` VARCHAR(256) COMMENT '销售区域',\n  `sales_region_name` VARCHAR(256) COMMENT '销售区域名称',\n  `employee_dept_code` VARCHAR(256) COMMENT '雇员部门编码',\n  `employee_dept_name` VARCHAR(256) COMMENT '雇员部门名称',\n  `sales_channel_code` VARCHAR(256) COMMENT '分销渠道编码',\n  `sales_channel_name` VARCHAR(256) COMMENT '分销渠道名称',\n  `industry_type` VARCHAR(256) COMMENT '行业类型',\n  `factory_code` VARCHAR(256) COMMENT '工厂编码',\n  `factory_name` VARCHAR(256) COMMENT '工厂名称',\n  `piz_line_name` VARCHAR(100) COMMENT '业务产品线',\n  `sales_percent` VARCHAR(256) COMMENT '业绩分配比例',\n  `order_qty` VARCHAR(256) COMMENT '销售数量',\n  `sales_percent` VARCHAR(256),\n  `product_area` VARCHAR(256) COMMENT '产品单位面积',\n  `order_area` VARCHAR(256) COMMENT '销售面积',\n  `sales_percent` VARCHAR(256),\n  `post_qty` VARCHAR(256) COMMENT '过账数量',\n  `sales_percent` VARCHAR(256),\n  `dr_cr_tag` VARCHAR(256) COMMENT '借贷项标识',\n  `account_code` VARCHAR(256) COMMENT '科目编码',\n  `account_name` VARCHAR(256) COMMENT '科目名称',\n  `parent_acc_code` VARCHAR(256) COMMENT '父级科目编码',\n  `currency` VARCHAR(256) COMMENT '原币别',\n  `local_currency` VARCHAR(256) COMMENT '本位币别',\n  `ccy_notax_amt` VARCHAR(256) COMMENT '按原币计的金额_不含税',\n  `sales_percent` VARCHAR(256),\n  `lcy_notax_amt` VARCHAR(256) COMMENT '按本位币计的金额_不含税',\n  `sales_percent` VARCHAR(256),\n  `cny_notax_amt` VARCHAR(256) COMMENT '金额_人民币_不含税',\n  `sales_percent` VARCHAR(256),\n  `usd_notax_amt` VARCHAR(256) COMMENT '金额_美元_不含税',\n  `sales_percent` VARCHAR(256)\n) ENGINE=OLAP\nPRIMARY KEY(`company_code`, `sales_invoice_num`, `sales_invoice_line`, `fiscal_year`, `fiscal_period`, `voucher_post_date`, `account_code`)\nDISTRIBUTED BY HASH(`company_code`) BUCKETS 10;",
+    "source_tables": {}
+  },
+  "target_table": "dws_fin_revenue_cost_alloc_df",
+  "table_comment": "dws_标准收入成本模型_业绩分配",
+  "sections": {
+    "data_sources": "来源系统 英文表名 中文含义 表别名 备注\n数仓 dws_fin_revenue_cost_df dws_标准收入成本模型 主表\n数仓 dwd_sd_performance_allocation_ratio_df DWD_业绩分配比例",
+    "overview": "序号 英文表名 中文含义 应用场景 备注\n1 dws_fin_revenue_cost_alloc_df dws_标准收入成本模型_业绩分配\n关联条件",
+    "details": "模型标准 系统A（独立逻辑，可来源于多系统）\n序号 字段说明 字段编码 字段类型 维度/度量 主键 值域 非空 获取方式 来源表 来源字段 来源字段名称 来源字段类型 来源字段说明 计算逻辑 备注\n1 公司代码 company_code 维度 Y Y 直接获取 dws_标准收入成本模型 company_code 公司代码\n公司名称 company_name 维度 直接获取 dws_标准收入成本模型 company_name\n2 销售订单号 sales_invoice_num 维度 Y 直接获取 dws_标准收入成本模型 order_num sales_invoice_num\n3 销售订单行号 sales_invoice_line 维度 Y 直接获取 dws_标准收入成本模型 order_item_num sales_invoice_line\n4 会计年度 fiscal_year 维度 Y 直接获取 dws_标准收入成本模型 iscal_year fiscal_year\n5 会计期间 fiscal_period 维度 Y 直接获取 dws_标准收入成本模型 account_period fiscal_period\n过账日期 voucher_post_date 维度 Y 直接获取 dws_标准收入成本模型 voucher_post_date\n6 订单抛转节点 transfer_node 维度 直接获取 dws_标准收入成本模型 transfer_node 订单抛转节点\n7 制造公司销售订单号 manu_order_num 维度 直接获取 dws_标准收入成本模型 manu_order_num 制造公司销售订单号\n8 终端销售公司销售订单号 terminal_order_num 维度 直接获取 dws_标准收入成本模型 terminal_order_num 终端销售公司销售订单号\n9 采购订单号（合同号） contract_num 维度 直接获取 dws_标准收入成本模型 contract_num 采购订单号（合同号）\n10 母合同号 contract_m_num 维度 直接获取 dws_标准收入成本模型 contract_m_num 母合同号\n11 销售订单类型 order_type_code 维度 直接获取 dws_标准收入成本模型 order_type_code 销售订单类型\n12 销售订单类型描述 order_type_name 维度 直接获取 dws_标准收入成本模型 order_type_name 销售订单类型描述\n13 客户编码 customer_code 维度 直接获取 dws_标准收入成本模型 customer_code 客户编码\n14 客户名称 customer_name 维度 直接获取 dws_标准收入成本模型 customer_name 客户名称\n15 是否内部关联客户 in_customer_flag 维度 直接获取 dws_标准收入成本模型 in_customer_flag 是否内部关联客户\n16 产品编码 product_code 维度 直接获取 dws_标准收入成本模型 product_code 产品编码\n17 产品描述 product_name 维度 直接获取 dws_标准收入成本模型 product_name 产品描述\n18 产品所属产品族编码 product_series_code 维度 直接获取 dws_标准收入成本模型 product_series_code 产品所属产品族编码\n19 产品所属产品族名称 product_series_name 维度 直接获取 dws_标准收入成本模型 product_series_name 产品所属产品族名称\n20 产品所属产品线编码 product_group_code 维度 直接获取 dws_标准收入成本模型 product_group_code 产品所属产品线编码\n21 产品所属产品线名称 product_group_name 维度 直接获取 dws_标准收入成本模型 product_group_name 产品所属产品线名称\n22 产品所属产业编码 industry_code 维度 直接获取 dws_标准收入成本模型 industry_code 产品所属产业编码\n23 产品所属产业名称 industry_name 维度 直接获取 dws_标准收入成本模型 industry_name 产品所属产业名称\n24 业务员编码 sales_person_num 维度 直接获取 dws_标准收入成本模型 sales_person_num 业务员编码 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员编码；若关联不上则保持dws_接单业绩模型数据不变\n25 业务员姓名 sales_person_name 维度 直接获取 dws_标准收入成本模型 sales_person_name 业务员姓名 dws_标准收入成本模型-order_num~dwd_业绩分配比例-order_num，dws_标准收入成本模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的业务员名称；若关联不上则保持dws_接单业绩模型数据不变\n26 销售组织编码 sales_org_code 维度 直接获取 dws_标准收入成本模型 sales_org_code 销售组织编码\n27 销售组织名称 sales_org_name 维度 直接获取 dws_标准收入成本模型 sales_org_name 销售组织名称\n28 销售部门编码 sales_dept_code 维度 直接获取 dws_标准收入成本模型 sales_dept_code 销售部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门编码；若关联不上则保持dws_接单业绩模型数据不变\n29 销售部门名称 sales_dept_name 维度 直接获取 dws_标准收入成本模型 sales_dept_name 销售部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售部门名称；若关联不上则保持dws_接单业绩模型数据不变\n30 销售组编码 sales_group_code 维度 直接获取 dws_标准收入成本模型 sales_group_code 销售组编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组编码；若关联不上则保持dws_接单业绩模型数据不变\n31 销售组名称 sales_group_name 维度 直接获取 dws_标准收入成本模型 sales_group_name 销售组名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售组名称；若关联不上则保持dws_接单业绩模型数据不变\n32 销售战区 sales_unit_code 维度 直接获取 dws_标准收入成本模型 sales_unit_code 销售战区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域；若关联不上则保持dws_接单业绩模型数据不变\n33 销售战区名称 sales_unit_name 维度 直接获取 dws_标准收入成本模型 sales_unit_name 销售战区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售战区名称；若关联不上则保持dws_接单业绩模型数据不变\n34 销售大区 sales_area_code 维度 直接获取 dws_标准收入成本模型 sales_area_code 销售大区 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变\n35 销售大区名称 sales_area_name 维度 直接获取 dws_标准收入成本模型 sales_area_name 销售大区名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售大区；若关联不上则保持dws_接单业绩模型数据不变\n36 销售区域 sales_region_code 维度 直接获取 dws_标准收入成本模型 sales_region_code 销售区域 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域编码；若关联不上则保持dws_接单业绩模型数据不变\n37 销售区域名称 sales_region_name 维度 直接获取 dws_标准收入成本模型 sales_region_name 销售区域名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的销售区域名称；若关联不上则保持dws_接单业绩模型数据不变\n38 雇员部门编码 employee_dept_code 维度 直接获取 dws_标准收入成本模型 employee_dept_code 雇员部门编码 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门编码；若关联不上则保持dws_接单业绩模型数据不变\n39 雇员部门名称 employee_dept_name 维度 直接获取 dws_标准收入成本模型 employee_dept_name 雇员部门名称 dws_接单业绩模型-order_num~dwd_业绩分配比例-order_num，dws_接单业绩模型-contract_num~dwd_业绩分配比例-contract_num，关联到多条数据则需要将数据拆分为多条，取业绩分配比例表的雇员部门描述；若关联不上则保持dws_接单业绩模型数据不变\n40 分销渠道编码 sales_channel_code 维度 直接获取 dws_标准收入成本模型 sales_channel_code 分销渠道编码\n41 分销渠道名称 sales_channel_name 维度 显示通用、照明工程类、照明EMC... 直接获取 dws_标准收入成本模型 sales_channel_name 分销渠道名称\n42 行业类型 industry_type 维度 直接获取 dws_标准收入成本模型 industry_type 行业类型\n43 工厂编码 factory_code 维度 直接获取 dws_标准收入成本模型 factory_code 工厂编码\n44 工厂名称 factory_name 维度 直接获取 dws_标准收入成本模型 factory_name 工厂名称\n业务产品线 piz_line_name varchar(100) 维度 直接获取 dws_标准收入成本模型 piz_line_name\n业绩分配比例 sales_percent 度量 直接获取 dwd_业绩分配比例 sales_percent 业绩分配比例 以order_num~DWD业绩分配比例表order_num，contract_num~DWD业绩分配比例表contract_num，根据前置拆分出的业务员编码和销售组、雇员部门编码获取sales_percent,匹配不上默认为100%\n45 销售数量 order_qty 度量 直接获取 dws_标准收入成本模型 order_qty 销售数量 dws_标准收入成本模型【order_qty】*dwd_业绩分配比例\n【sales_percent】\n46 产品单位面积 product_area 度量 直接获取 dws_标准收入成本模型 product_area 产品单位面积\n47 销售面积 order_area 度量 直接获取 dws_标准收入成本模型 order_area 销售面积 dws_标准收入成本模型【order_area】*dwd_业绩分配比例\n【sales_percent】\n48 过账数量 post_qty 度量 直接获取 dws_标准收入成本模型 post_qty 过账数量 dws_标准收入成本模型【unit_number】*dwd_业绩分配比例\n【sales_percent】\n49 借贷项标识 dr_cr_tag 度量 直接获取 dws_标准收入成本模型 dr_cr_tag 借贷项标识\n50 科目编码 account_code 维度 Y 直接获取 dws_标准收入成本模型 account_code 科目编码\n51 科目名称 account_name 维度 直接获取 dws_标准收入成本模型 account_name 科目名称\n父级科目编码 parent_acc_code 维度 直接获取 dim_科目维 parent_acc_code\n52 原币别 currency 维度 直接获取 dws_标准收入成本模型 currency 原币别\n53 本位币别 local_currency 维度 直接获取 dws_标准收入成本模型 local_currency 本位币别\n54 按原币计的金额_不含税 ccy_notax_amt 度量 直接获取 dws_标准收入成本模型 ccy_notax_amt 按原币计的金额_不含税 dws_标准收入成本模型【currency_no_tax_amt】*dwd_业绩分配比例\n【sales_percent】\n55 按本位币计的金额_不含税 lcy_notax_amt 度量 直接获取 dws_标准收入成本模型 lcy_notax_amt 按本位币计的金额_不含税 dws_标准收入成本模型【local_currency_no_tax_amt】*dwd_业绩分配比例\n【sales_percent】\n56 金额_人民币_不含税 cny_notax_amt 度量 直接获取 dws_标准收入成本模型 cny_notax_amt 金额_人民币_不含税 dws_标准收入成本模型【currency_no_tax_rmb_amt】*dwd_业绩分配比例\n【sales_percent】\n57 金额_美元_不含税 usd_notax_amt 度量 直接获取 dws_标准收入成本模型 usd_notax_amt 金额_美元_不含税 dws_标准收入成本模型【currency_no_tax_usd_amt】*dwd_业绩分配比例\n【sales_percent】\n58 数据插入日期 审计 自定义\n59 数据更新日期 审计 自定义"
+  }
+}
